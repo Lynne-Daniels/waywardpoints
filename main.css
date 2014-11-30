@@ -3,22 +3,7 @@ body {
 		font-size : 100%;
 	}
 	
-.flex-container{
-	display: flex;
-	flex-direction: row;
-	flex-flow: row wrap;
-	padding: 10%
-}
-	
-.flex-item{
-	width: 100px;
-	height: 100px;
-	background-color: green;
-	border:#FFFF00 solid 2px;
-	margin: 10px auto 10px;
-	
-}	
-	
+
 h1{
 	font-size: 200%;
 }
