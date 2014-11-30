@@ -1,0 +1,87 @@
+body {
+		font-family:Arial, helvetica, sans-serif;
+		font-size : 100%;
+	}
+	
+.flex-container{
+	display: flex;
+	flex-direction: row;
+	flex-flow: row wrap;
+	padding: 10%
+}
+	
+.flex-item{
+	width: 100px;
+	height: 100px;
+	background-color: green;
+	border:#FFFF00 solid 2px;
+	margin: 10px auto 10px;
+	
+}	
+	
+h1{
+	font-size: 200%;
+}
+header{
+	margin: 15px 0 0 15px;
+	border: 4px solid green;
+	padding: 20px 0 0 20px; 
+}		
+/* Formats clickable Buttons in column on right side of screen*/
+
+nav {
+	display: block;
+	clear: right;
+	float: left;
+}
+
+#nav_list ul{
+	list-style: none;
+	margin-left: 15px;
+	margin-bottom: 1.5em;
+	padding: 0;
+}
+#nav_list li{
+	width: 170px;
+	margin-bottom: .5em;
+	border: 5px solid green;
+}
+#nav_list li a{
+	display: block;
+	padding: .5em;
+	text-decoration: none;
+	font-weight: bold;
+	color: black;
+}
+#nav_list a.current{
+	background-color: silver;
+}
+
+/*Formats navigation items in a horizontal bar*/
+
+#nav_bar ul {
+	margin-left: 15px;
+	list-style: none;
+	padding: .5em 0;
+	background-color: green;
+	min-width: 1200px;
+}
+#nav_bar li{
+	display: inline;
+	padding: 0;
+	margin: 0;
+}
+#nav_bar a{
+	padding: 1em 2em;
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+	border-right: 2px solid white;
+}
+#nav_bar a.current {
+	color:yellow;
+}	
+
+footer{font-size: 60%;
+		color: gray;
+	}
