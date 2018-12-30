@@ -1,0 +1,114 @@
+.game{
+	width: 310px;
+}
+
+.scoreboard{
+	width: 310px;
+	height: 175px;
+}
+.scoreboard-section{
+	height: 40px;
+	width: 100%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.square{
+	height: 78px;
+	width: 78px;
+	display: inline-block;
+	vertical-align: middle;
+	padding: 10px;
+	font-size: 50px;
+}
+
+.game-info-container{
+	width: 50%;
+	min-width: 500px;
+	font-size: 20px;
+	text-align: center;
+	position: relative;
+	
+}
+.left-side-spacer {
+	width: 25%;
+}
+.right-side-spacer{
+	width: 25%;
+}
+.flexcontainer {
+   display: flex;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+   font-family: 'Rock Salt', cursive;
+   
+}
+button{
+	width: 48px;
+	height: 48px;
+	font-family: 'Rock Salt', cursive;
+}
+.lines {
+	border-top: 6px solid black;
+	border-bottom: 6px solid black;
+	width: 370px;
+	height: 120px;
+}
+.horizontal{
+	-webkit-transform: skewY(-2deg);
+	-moz-transform: skewY(-2deg);
+	-ms-transform: skewY(-2deg);
+	-o-transform: skewY(-2deg);
+	transform: skewY(-2deg);
+	position: absolute; 
+	top: 315px; 
+	left: 75px; 
+}
+.vertical{
+	-webkit-transform: skewY(2deg);
+	-moz-transform: skewY(2deg);
+	-ms-transform: skewY(2deg);
+	-o-transform: skewY(2deg);
+	transform: skewY(2deg);
+	position: absolute; 
+	top: 320px; 
+	left: 75px; 
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Safari */
+    transform: rotate(90deg); /* Standard syntax */
+}
+.row{
+	height: width;
+	width: 370px;
+	height: 120px;
+}
+
+.top{
+	-webkit-transform: skewY(-2deg);
+	-moz-transform: skewY(-2deg);
+	-ms-transform: skewY(-2deg);
+	-o-transform: skewY(-2deg);
+	transform: skewY(-2deg);
+	position: absolute; 
+	top: 190px; 
+	left: 75px; 
+}
+.middle{
+	-webkit-transform: skewY(-2deg);
+	-moz-transform: skewY(-2deg);
+	-ms-transform: skewY(-2deg);
+	-o-transform: skewY(-2deg);
+	transform: skewY(-2deg);
+	position: absolute; 
+	top: 320px; 
+	left: 75px; 
+}
+.bottom{
+	-webkit-transform: skewY(-2deg);
+	-moz-transform: skewY(-2deg);
+	-ms-transform: skewY(-2deg);
+	-o-transform: skewY(-2deg);
+	transform: skewY(-2deg);
+	position: absolute; 
+	top: 440px; 
+	left: 75px; 
+}

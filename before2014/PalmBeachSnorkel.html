@@ -1,0 +1,184 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+
+<head>
+<title>Palm Beach Inlet Snorkel - Waywardpoints</title>
+<base target="_top">
+<meta name="keywords" content="palm beach, inlet, snorkel, swim, florida, fl, gps, waypoints, track, bicycle">
+</head>
+
+<body bgcolor = "e0eeee" onload="GV_Map()" onunload="GUnload()" >
+
+<!-- Header table here: -->
+<table width=100% height = 50 border=0 cellpadding=0 cellspacing=0>
+ <tr><td bgcolor=e0eeee>
+ <center><H2><font size="+5">.......</font size>Snorkeling by Palm Beach Inlet<font size="+9">.......</font size></H2></center>
+ </td></tr>
+</table>
+
+<!-- table that contains photo, title bar, spacer, and text here: -->
+<table border=0 cellpadding=0 cellspacing=0>
+ <tr valign=top>
+ <td>	<!-- Map or photo placed in this squareish td -->
+ 
+		<!--
+			If you want to transplant this map into another Web page, there are a number of pieces
+			you need to copy, and it is important that some things are placed in a particular order:
+			   1. The DOCTYPE declaration and the extra attributes in the "html" tag (xmlns:v=...)
+			     that allow Internet Explorer for Windows to render polylines
+			   2. The "onload" attribute in the "body" tag
+			   3. The "div" tags that contain the map and its widgets
+			   4. JavaScript stuff:
+			      a. The GPS Visualizer global variables
+			      b. The "script" tag that points to maps.google.com (you must insert your own API key!)
+			      c. The "script" tag that points to gpsvisualizer.com
+			      d. The JavaScript commands that actually build the map
+		-->
+		
+		<!-- If you want to place the map in a page, you can set its margins here: -->
+		<div style="margin-left:0px; margin-right:0px; margin-top:0px; margin-bottom:0px;">
+			<div align="center" style="height:615px; overflow:hidden;">
+				<div id="gmap_div" style="width:300px; height:600px"></div>
+				<div id="gv_credit" style="height:15px; font:10px Verdana,sans-serif;">Map created by <a target="_top" href="http://www.gpsvisualizer.com/">GPSVisualizer.com</a></div>
+				<div id="gv_crosshair_container" align="left" style="height:15px; width:300px;">
+					<div id="gv_crosshair" style="z-index:99999; width:15px; height:15px; position:relative; top:-322px; left:292px; display:block;"><img src="http://www.gpsvisualizer.com/misc/google_maps/crosshair.gif" alt="" width="15" height="15" class="gmnoprint"></div>
+				</div>
+				<div id="gv_center_container" align="right" style="height:15px; width:300px;">
+					<table id="gv_center" cellspacing="0" cellpadding="0" border="0" style="z-index:9999; position:relative; left:-3px; top:-63px; cursor:crosshair; filter:alpha(opacity=80); -moz-opacity:0.8;"><tr><td>
+						<div id="gv_center_coordinates" style="font-family:Arial; font-size:10px; line-height:11px; padding:1px; border:solid #666666 1px; background:white; position:relative;" onClick="GV_Toggle('gv_crosshair');" title="Click here to turn center crosshair on or off"></div>
+					</td></tr></table>
+				</div>
+
+				<div id="gv_legend_container" align="right" style="width:300px;">
+					<table id="gv_legend" cellspacing="0" cellpadding="0" border="0" style="z-index:9999; position:relative; left:-7px; top:-613px; cursor:move; filter:alpha(opacity=90); -moz-opacity:0.9;"><tr><td>
+						<div id="gv_legend_contents" align="left" style="font-family:Arial; font-size:11px; font-weight:bold; border:solid #000000 1px; background:white; padding:4px; position:relative;">
+							<span style="color:#000000;">Tracks:</span>
+							<br><span id="trk1_label" style="color:#C800CC; cursor:pointer;" onclick="GV_Toggle_Track_And_Label(gmap,'trk1','#C800CC');" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'" title="">- Bike to Snorkel</span>
+						</div>
+					</td></tr></table>
+				</div>
+
+			</div>
+		</div>
+
+		
+		<script type="text/javascript">
+			// Global variables used by the GPS Visualizer functions (1154277304):
+			var gv_api_version = 2;
+			var gv_maptypecontrol_style = 'menu';
+			var gv_filter_map_types = 1;
+			var gv_marker_link_target = '_blank';
+			var gv_marker_icon = 'diamond';  var gv_marker_color = 'red';
+		</script>
+		<script src="http://maps.google.com/maps?v=2&file=api&key=ABQIAAAAI8FnZYYe-t_wWD1ftv1IWhSL2klI9iZdYmnkk8CatZUuNbeXWRRwgEJhK7bgfO6HOqQOyqoskEAnmQ" type="text/javascript"></script>
+		<script src="http://www.gpsvisualizer.com/misc/google_maps/functions.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		function GV_Map() {
+			if (GBrowserIsCompatible()) { 
+				gmap = new GMap2(document.getElementById("gmap_div")); // create map
+				var initial_zoom_level = 13; // higher number means closer view; at 600px wide, 7 = width of New Mexico, 12 = San Francisco
+				gmap.setCenter(new GLatLng(26.7417492,-80.04325), initial_zoom_level, G_HYBRID_MAP);
+				gmap.addControl(new GV_MapTypeControl()); // add custom map type switcher
+				gmap.addControl(new GLargeMapControl());
+				gmap.addControl(new GScaleControl());
+				_mSvgEnabled = true; _mSvgForced = true;
+				Drag.init(document.getElementById("gv_legend"));
+				GV_Show_Center_Coordinates(gmap,'gv_center_coordinates');
+				GEvent.addListener(gmap, "moveend", function() { GV_Show_Center_Coordinates(gmap,'gv_center_coordinates'); });
+				
+				// Draw track #1
+				trk1 = new Array();
+				// track 1 segment 1:
+				var pts1_1 = [
+					new GLatLng(26.72213333,-80.042),
+					new GLatLng(26.72218333,-80.0422),
+					new GLatLng(26.76065,-80.04103333),
+					new GLatLng(26.76156667,-80.04043333),
+					new GLatLng(26.76555,-80.04068333),
+					new GLatLng(26.76971667,-80.04071667),
+					new GLatLng(26.76981667,-80.03961667),
+					new GLatLng(26.76981722,-80.03923905),
+					new GLatLng(26.77031389,-80.03919057),
+					new GLatLng(26.77015,-80.03743333),
+					new GLatLng(26.77008333,-80.03678333),
+					new GLatLng(26.77133173,-80.03652101),
+					new GLatLng(26.77132458,-80.03579925),
+					new GLatLng(26.7713,-80.03481667),
+					new GLatLng(26.77132458,-80.03579925),
+					new GLatLng(26.77133173,-80.03652101),
+					new GLatLng(26.77008333,-80.03678333),
+					new GLatLng(26.77015,-80.03743333),
+					new GLatLng(26.77023846,-80.03766781),
+					new GLatLng(26.77091729,-80.03751544),
+					new GLatLng(26.77092443,-80.03822117),
+					new GLatLng(26.77096731,-80.03919956),
+					new GLatLng(26.77113165,-80.03919956),
+					new GLatLng(26.77088333,-80.03923333),
+					new GLatLng(26.77031389,-80.03919057),
+					new GLatLng(26.76981722,-80.03923905),
+					new GLatLng(26.76981667,-80.03961667),
+					new GLatLng(26.76971667,-80.04071667),
+					new GLatLng(26.76555,-80.04068333),
+					new GLatLng(26.76156667,-80.04043333),
+					new GLatLng(26.76156667,-80.04043333),
+					new GLatLng(26.76065,-80.04103333),
+					new GLatLng(26.72218333,-80.0422),
+					new GLatLng(26.72213333,-80.042),
+					new GLatLng(26.72191667,-80.04145),
+					new GLatLng(26.7186,-80.04113333),
+					new GLatLng(26.71848333,-80.05168333),
+					new GLatLng(26.71888333,-80.05026667),
+					new GLatLng(26.71636667,-80.05071667),
+					new GLatLng(26.71336667,-80.04891667),
+					new GLatLng(26.71216667,-80.04935),
+					new GLatLng(26.71231667,-80.05096667),
+					new GLatLng(26.71218333,-80.05121667),
+					new GLatLng(26.71223112,-80.05039408),
+					new GLatLng(26.71227081,-80.04941391)
+				];
+				trk1.push (new GPolyline(pts1_1,"#C800CC",3,0.8));
+				gmap.addOverlay(trk1[trk1.length-1]);
+				
+				wpt1 = GV_Marker(gmap,{lat:26.7194,lon:-80.04076667,name:'PUBLIX',desc:'',color:''});
+				wpt2 = GV_Marker(gmap,{lat:26.7713,lon:-80.03481667,name:'SNORKEL',desc:'',color:''});
+				wpt3 = GV_Marker(gmap,{lat:26.77096667,lon:-80.03911667,name:'WATER',desc:'',color:''});
+				wpt4 = GV_Marker(gmap,{lat:26.71223333,lon:-80.04991667,name:'BRADLEYS',desc:'',color:''});
+				wpt5 = GV_Marker(gmap,{lat:26.70080000,lon:-80.03425,name:'RESTROOM',desc:'',color:''});
+				wpt5 = GV_Marker(gmap,{lat:26.72213333,lon:-80.042,name:'PARKING',desc:'',color:''});
+				
+			} else {
+				document.getElementById('gmap_div').style.backgroundColor = '#DDDDDD';
+				document.getElementById('gmap_div').innerHTML = 'Sorry, your Google Map cannot be displayed.';
+			}
+		}
+		</script>
+		
+</td><td>
+	<!-- Nested table containing 4 tds here.  1st column is a width=15 spacer for formatting, 2nd column contains 
+	caption or title bar in the first row, and text in the 2nd row.-->
+  <table border=0 cellpadding=10 cellspacing=0>
+	<tr>
+	<td width = 15 ></td><td>Contrary to certain urban legends, Palm Beach is not closed to the public.  One does not need a pass to enter, the drawbridge does not go up at sunset anymore, banishing commoners to the mainland.  The island's aura of exclusivity has only one last bastion of defense -- the parking meter maid.  There is no parking within 3 or 4 miles of the inlet.  The closest reliable free parking is on Seminole.  There is a pretty little bike path along the western shore of the island.  Follow this route to the beach.  There is an almost hidden alley from the road to the beach.  Bikes can be chained up there.<br><br></td></tr>
+  <td width = 15 bgcolor="ffff99"></td><td align= "center" bgcolor="ffff99"><bold>26.7713 -80.03481667</bold></td></tr>
+  <tr><td width = 15></td><td><br><br>
+	<!-- Nested table containing 4 tds here.-->
+	<table border=0 cellpadding=10 cellspacing=0>
+	<tr><td>The snorkeling here is spectacular.  There is not much coral, but there are tens of thousands of fishes.  Stay to the south of the breakwater.  Be careful, as one approaches the end of the barrier, the current is increasingly strong, and will pull you around into the inlet.  The inlet is a busy shipping channel.  Don't swim there.<br></td>
+	<td><img src="images/Breakwater.jpg" alt="Rough Sea Photo"><br></td></tr>
+	<tr><td><br>Snorkeling is best in still, clear water.  If the sea looks like this, leave the snorkel at home and bring a surfboard instead.<br>
+	<br>Check ocean conditions here: <br>
+<a href="http://www.geocities.com/palmbeachboating/">geocities.com/palmbeachboating/</a><br>
+<a href="http://www.surfline.com/surfline/livecams/report.cfm?alias=palmbeach">Surfline.com</a><br>
+<a href="http://www.mydelraybeach.com/Delray/Departments/Parks+and+Recreation/Beach+Conditions.htm">Lifeguards Report Delray Beach Conditions</a><br></td>
+	<td><img src="images/RoughSea.jpg" alt="Rough Sea Photo"></td></tr>
+	<table>
+	</td></tr>
+  </table>
+
+</td></tr>
+</table>
+<!-- Spacer bar here -->
+<table width=100% height=10 border=0 cellpadding=0 cellspacing=0><tr><td bgcolor=e0eeee></td></tr></table>
+</body>
+</html>
+

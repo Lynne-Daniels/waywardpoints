@@ -1,0 +1,16 @@
+.weather-info{
+	
+	text-align: center;
+	margin: 5px;
+}
+.weather-item{
+	padding: 5px 0px 5px 0px;
+	
+}
+.waswell{
+	margin: 10px 0px 10px 0px;
+	background-color: #FFF7D3;
+}
+body{
+	background-color: #090310;
+}

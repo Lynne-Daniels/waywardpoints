@@ -1,0 +1,28 @@
+{
+    "waypoints": [
+        {
+            "title": "Grocery - Jupiter Farms",
+            "lat": 26.94151,
+            "lng": -80.19283,
+            "z": 1
+        },
+        {
+            "title": "Grocery - Acreage",
+            "lat": 26.78158,
+            "lng": -80.29298,
+            "z": 2
+        },
+        {
+            "title": "Entrance Fee - Corbett WMA North",
+            "lat": 26.94388,
+            "lng": -80.35478,
+            "z": 3
+        },
+        {
+            "title": "Entrance Fee - Corbett WMA South",
+            "lat": 26.85385,
+            "lng": -80.29225,
+            "z": 4
+        }
+    ]
+}

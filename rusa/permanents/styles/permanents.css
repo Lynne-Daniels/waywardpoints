@@ -1,0 +1,74 @@
+body {
+		/*font-family:Arial, helvetica, sans-serif;*/
+		font-size : 100%;
+		margin-left: 2%;
+		margin-right: 25px;
+	}
+	
+h1{
+	font-size: 200%;
+
+}
+article {
+	
+	width: 800px;
+	
+}
+
+div img{
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+
+/*Formats navigation items in a horizontal bar*/
+
+#nav_bar ul {
+	
+	margin-left: 0px;
+	list-style: none;
+	padding: .5em .5em;
+	background-color: #00006B;
+  	min-width: 320px;
+  	
+}
+#nav_bar li{
+	display: inline-block;
+	text-align: center; /* center align the text within the block (TY Harry at Stackoverflow) */
+    width: 320; /* set each block a width */
+   	height: 90%;
+    vertical-align: middle; /* align the contents to middle vertically */
+	padding: 6px 4px;
+	margin: 0;
+	
+}
+#nav_bar a{
+	padding: 2px 4px;
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+	border-right: 2px solid white;
+	border-bottom: 2px solid white;
+	border-left: 2px solid white;
+	border-top: 2px solid white;
+}
+
+#perm_files img{
+	float: left;
+	margin: 30px;
+	
+}
+
+#perm_files ul{
+	padding: 3em;
+	border: 10px solid black;
+		
+}
+#perm_files li{
+	
+	padding:  2px;
+	font-size: large;
+	font-weight: bold;
+	
+}
+

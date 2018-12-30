@@ -1,0 +1,524 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+	<head>
+		<title>Map created by GPS Visualizer</title>
+		<base target="_top"></base>
+		<meta name="geo.position" content="29.048541; -82.2354435" />
+		<meta name="ICBM" content="29.048541, -82.2354435" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+
+	<body onunload="GUnload();" style="margin:0px;">
+		
+		
+		<!--
+			If you want to transplant this map into another Web page, by far the best method is to
+			simply include it in a IFRAME tag (see http://www.gpsvisualizer.com/faq.html#google_html).
+			But, if you must paste the code into another page, be sure to include all of these parts:
+			   1. The DOCTYPE declaration and the extra attributes in the "html" tag (xmlns:v=...)
+			     that allow Internet Explorer for Windows to render polylines (tracks)
+			   2. The "div" tags that contain the map and its widgets
+			   3. Three sections of JavaScript code:
+			      a. Your Google Maps API key and the maps.google.com code
+			      b. "gv_options" and the code that calls "functions.js" on maps.gpsvisualizer.com
+			      c. The "GV_Map" function, which contains all the geographic info for the map
+		-->
+		<div style="margin-left:0px; margin-right:0px; margin-top:0px; margin-bottom:0px;">
+			<div id="gmap_div" style="width:1000px; height:521px; margin:0px; margin-right:12px; background-color:#F0F0F0; float:left; overflow:hidden;">
+				<p align="center" style="font:10px Arial;">This map was created using <a target="_blank" href="http://www.gpsvisualizer.com/">GPS Visualizer</a>'s do-it-yourself geographic utilities.<br><br>Please wait while the map data loads...</p>
+			</div>
+				
+			<div id="gv_legend_container" style="display:none;"><table id="gv_legend_table" style="position:relative; filter:alpha(opacity=95); -moz-opacity:0.95; background:#ffffff;" cellpadding="0" cellspacing="0" border="0"><tr><td><div id="gv_legend_handle" align="center" style="height:6px; max-height:6px; background:#CCCCCC; border-left:1px solid #999999; border-top:1px solid #EEEEEE; border-right:1px solid #999999; padding:0px; cursor:move;"><!-- --></div>
+
+				<div id="gv_legend" align="left" style="line-height:13px; border:solid #000000 1px; background:#FFFFFF; padding:4px;max-width:700px; font:11px Arial; ">
+					<!-- Although GPS Visualizer didn't create a legend with your map, you can use this box for something else if you'd like; enable it by setting legend:true in the 'gv_options' -->
+				</div>
+			</td></tr></table></div>
+
+
+			<div id="gv_tracklist_container" style="display:none;"><table id="gv_tracklist_table" style="position:relative; filter:alpha(opacity=95); -moz-opacity:0.95;" cellpadding="0" cellspacing="0" border="0"><tr><td><div id="gv_tracklist_handle" align="center" style="height:6px; max-height:6px; background:#CCCCCC; border-left:1px solid #999999; border-top:1px solid #EEEEEE; border-right:1px solid #999999; padding:0px; cursor:move; min-width:40px;"><!-- --></div>
+				<div id="gv_tracklist" align="left" style="font:11px Arial; line-height:11px; border:solid #666666 1px; background:#FFFFFF; padding:4px; overflow:auto;">
+					<div id="gv_tracklist_header" style="padding-bottom:2px; color:#000000;"><b>Tracks:</b></div>
+
+					<div id="gv_tracklist_links" style="color:#000000;"></div>
+				</div>
+			</td></tr></table></div>
+			<div id="gv_tracklist_tooltip" class="gv_tracklist_tooltip" style="background-color:#FFFFFF; border:1px solid #CCCCCC; padding:2px; font:11px Arial; display:none;"></div>
+
+			<div id="gv_clear_margins" style="height:0px; clear:both;"><!-- clear the "float" --></div>
+		</div>
+
+		
+		<script type="text/javascript">
+			// If you put this map on another Web site, you must include your API key or nothing will work!
+			var google_api_key = 'ABQIAAAAI8FnZYYe-t_wWD1ftv1IWhSL2klI9iZdYmnkk8CatZUuNbeXWRRwgEJhK7bgfO6HOqQOyqoskEAnmQ';
+			if (document.location.toString().indexOf('http://www.gpsvisualizer.com') > -1) { eval(unescape("%67%6F%6F%67%6C%65%5F%61%70%69%5F%6B%65%79")+" = '"+unescape("%41%42%51%49%41%41%41%41%61%47%39%4A%44%62%43%65%36%52%61%31%4F%67%30%68%4B%43%6E%32%4C%52%52%6F%6B%57%5F%49%74%45%49%6D%42%6F%37%65%77%62%56%45%4A%41%7A%73%74%53%73%52%57%68%52%4A%33%52%4D%44%41%57%70%4C%35%35%51%61%63%47%5A%32%7A%51%46%32%6B%4C%43%5F%65%41")+"'"); }
+			document.writeln('<script src="http://maps.google.com/maps?file=api&v=2&sensor=false&key='+google_api_key+'" type="text/javascript"><'+'/'+'script>');
+		</script>
+
+		<!-- end Google Maps script; begin GPS Visualizer setup script (they must be separate) -->
+		<script type="text/javascript">
+			/* Global variables used by the GPS Visualizer functions (1270612895): */
+			gv_options = [];
+				// important variable names:
+				gv_options.map_div = 'gmap_div';  // the name of the HTML "div" tag containing the map itself; usually 'gmap_div'
+				
+				// basic map parameters:
+				gv_options.width = 1000;  // width of the map, in pixels
+				gv_options.height = 521;  // height of the map, in pixels
+				gv_options.full_screen = false;  // true|false: should the map fill the entire page (or frame)?
+				gv_options.center = [29.048541,-82.2354435];  // [latitude,longitude] - be sure to keep the square brackets
+				gv_options.zoom = 12;  // higher number means closer view; can also be 'auto'
+				gv_options.map_opacity = 1;  // number from 0 to 1
+				gv_options.map_type = 'G_HYBRID_MAP';  // popular map_type choices are 'G_NORMAL_MAP', 'G_SATELLITE_MAP', 'G_HYBRID_MAP', 'G_PHYSICAL_MAP', 'MYTOPO_TILES'
+				gv_options.doubleclick_zoom = true;  // true|false: zoom in when mouse is double-clicked?
+				gv_options.mousewheel_zoom = false; // true|false; or 'reverse' for down=in and up=out
+				gv_options.centering_options = { 'open_info_window':true, 'partial_match':true, 'center_key':'center', 'default_zoom':null } // URL-based centering (e.g., ?center=name_of_marker&zoom=14)
+				
+				// widgets on the map:
+				gv_options.zoom_control = 'large'; // 'large'|'small'|'3d'
+				gv_options.scale_control = true; // true|false
+				gv_options.center_coordinates = true;  // true|false: show a "center coordinates" box and crosshair?
+				gv_options.crosshair_hidden = true;  // true|false: hide the crosshair initially?
+				gv_options.map_opacity_control = true;  // true|false
+				gv_options.map_type_control = [];  // widget to change the background map
+				  gv_options.map_type_control.style = 'menu';  // 'menu'|'list'|'none'|'google'
+				  gv_options.map_type_control.filter = true;  // true|false: when map loads, are irrelevant maps ignored?
+				  gv_options.map_type_control.excluded = ['G_SATELLITE_3D_MAP'];  // comma-separated list of map types that will never show in the list ('included' also works)
+				gv_options.legend_options = []; // options for a floating legend box (id="gv_legend"), which can contain anything
+				  gv_options.legend_options.legend = true;  // true|false: enable or disable the legend altogether
+				  gv_options.legend_options.position = ['G_ANCHOR_TOP_LEFT',70,6];  // [Google anchor name, relative x, relative y]
+				  gv_options.legend_options.draggable = true;  // true|false: can it be moved around the screen?
+				  gv_options.legend_options.collapsible = true;  // true|false: can it be collapsed by double-clicking its top bar?
+
+				// track-related options:
+				gv_options.tracklist_options = []; // options for a floating list of the tracks visible on the map
+				  gv_options.tracklist_options.tracklist = true;  // true|false: enable or disable the search box altogether
+				  gv_options.tracklist_options.position = ['G_ANCHOR_TOP_RIGHT',6,32];  // [Google anchor name, relative x, relative y]
+				  gv_options.tracklist_options.max_width = 180; // maximum width of the tracklist, in pixels
+				  gv_options.tracklist_options.max_height = 431; // maximum height of the tracklist, in pixels; if the list is longer, scrollbars will appear
+				  gv_options.tracklist_options.desc = true;  // true|false: should tracks' descriptions be shown in the list
+				  gv_options.tracklist_options.zoom_links = true;  // true|false: should each item include a small icon that will zoom to that track?
+				  gv_options.tracklist_options.tooltips = true;  // true|false: should the name of the track appear on the map when you mouse over the name in the list?
+				  gv_options.tracklist_options.draggable = true;  // true|false: can it be moved around the screen?
+				  gv_options.tracklist_options.collapsible = true;  // true|false: can it be collapsed by double-clicking its top bar?
+
+				// marker-related options:
+				gv_options.default_marker = { color:'red',icon:'googlemini' }; // icon can be a URL, but be sure to also include size:[w,h] and optionally anchor:[x,y]
+				gv_options.shadows = true; // true|false: do the standard markers have "shadows" behind them?
+				gv_options.marker_link_target = '_blank'; // the name of the window or frame into which markers' URLs will load
+				gv_options.info_window_width = 0;  // in pixels, the width of the markers' pop-up info "bubbles" (can be overridden by 'window_width' in individual markers)
+				gv_options.thumbnail_width = 0;  // in pixels, the width of the markers' thumbnails (can be overridden by 'thumbnail_width' in individual markers)
+				gv_options.photo_size = [0,0];  // in pixels, the size of the photos in info windows (can be overridden by 'photo_width' or 'photo_size' in individual markers)
+				gv_options.hide_labels = false;  // true|false: hide labels when map first loads?
+				gv_options.label_offset = [0,0];  // [x,y]: shift all markers' labels (positive numbers are right and down)
+				gv_options.label_centered = false;  // true|false: center labels with respect to their markers?  (label_left is also a valid option.)
+				gv_options.driving_directions = false;  // put a small "driving directions" form in each marker's pop-up window? (override with dd:true or dd:false in a marker's options)
+				
+			
+			// Load GPS Visualizer's Google Maps functions (this must be loaded AFTER gv_options are set):
+			document.writeln('<script src="http://maps.gpsvisualizer.com/google_maps/functions.js?1270612895" type="text/javascript"><'+'/'+'script>');
+		</script>
+		
+		<style type="text/css">
+			/* Put any custom style definitions here (e.g., .gv_marker_info_window, .gv_marker_list_item, .gv_tooltip, .gv_label, etc.) */
+			.gv_label {
+				filter:alpha(opacity=90); -moz-opacity:0.9;
+				background:#333333; border:1px solid black; padding:1px;
+				font:9px Verdana,sans-serif; color:white; font-weight:normal;
+			}
+			
+		</style>
+		
+		<!-- end GPSV setup script and styles; begin map-drawing script (they must be separate) -->
+		<script type="text/javascript">
+			function GV_Map() {
+				if (GBrowserIsCompatible()) { 
+					if (gv_options.full_screen) { GV_Fill_Window_With_Map(gv_options.map_div); }
+					gmap = new GMap2(document.getElementById(gv_options.map_div)); // create map
+					GV_Setup_Map(gv_options);
+					
+					// Track #1 ("official one way route for DD100 1")
+					trk_info[1] = [];
+					trk_info[1]['name'] = 'official one way route for DD100 1'; trk_info[1]['desc'] = ''; trk_info[1]['clickable'] = true;
+					trk_info[1]['color'] = '#E600E6'; trk_info[1]['width'] = 3; trk_info[1]['opacity'] = 0.8;
+					trk_info[1]['outline_color'] = '#000000'; trk_info[1]['outline_width'] = 0; trk_info[1]['fill_color'] = '#E600E6'; trk_info[1]['fill_opacity'] = 0;
+					trk_segments[1] = [];
+					trk_segments[1].push({ points:[ [29.107486,-82.093336],[29.107486,-82.093336] ] }); // track 1 segment 1
+					GV_Draw_Track(1);
+					
+					// Track #2 ("official one way route for DD100 2")
+					trk_info[2] = [];
+					trk_info[2]['name'] = 'official one way route for DD100 2'; trk_info[2]['desc'] = ''; trk_info[2]['clickable'] = true;
+					trk_info[2]['color'] = '#E600E6'; trk_info[2]['width'] = 3; trk_info[2]['opacity'] = 0.8;
+					trk_info[2]['outline_color'] = '#000000'; trk_info[2]['outline_width'] = 0; trk_info[2]['fill_color'] = '#E600E6'; trk_info[2]['fill_opacity'] = 0;
+					trk_segments[2] = [];
+					trk_segments[2].push({ points:[ [28.990059,-82.348901],[28.989769,-82.348957],[28.989823,-82.348906],[28.989769,-82.349021],[28.989596,-82.348749],[28.991299,-82.346931],[28.991536,-82.346865],[28.992648,-82.351747],[28.993263,-82.353153],[28.994869,-82.355849],[28.995284,-82.356944],[28.995996,-82.358187],[28.9983,-82.359887],[28.999042,-82.360743],[29.002067,-82.362145],[29.003679,-82.363901],[29.004005,-82.365333],[29.003805,-82.366979],[29.00383,-82.367539],[29.003516,-82.368238],[29.003469,-82.368642],[29.003606,-82.368685],[29.004352,-82.368405],[29.005678,-82.368198],[29.006343,-82.368389],[29.008757,-82.368572],[29.009606,-82.368136],[29.010557,-82.367068],[29.011318,-82.366769],[29.011532,-82.366488],[29.011773,-82.36648],[29.011968,-82.367045],[29.012573,-82.367413],[29.013172,-82.367301],[29.016995,-82.363149],[29.018498,-82.360975],[29.020292,-82.359834],[29.021594,-82.359258],[29.022658,-82.359152],[29.02349,-82.358537],[29.024456,-82.358401],[29.025977,-82.359433],[29.026591,-82.360269],[29.026983,-82.362559],[29.027611,-82.36351],[29.028541,-82.364244],[29.029728,-82.364499],[29.03181,-82.363895],[29.033081,-82.363823],[29.033741,-82.363625],[29.03407,-82.363811],[29.034806,-82.364962],[29.036958,-82.365641],[29.037212,-82.365931],[29.038603,-82.368942],[29.039194,-82.369775],[29.039759,-82.370869],[29.040374,-82.371617],[29.041453,-82.372361],[29.041809,-82.373234],[29.042436,-82.375852],[29.043296,-82.376712],[29.044657,-82.377551],[29.04496,-82.377418],[29.044957,-82.376857],[29.044392,-82.375555],[29.044361,-82.375055],[29.044911,-82.374046],[29.045369,-82.37371],[29.04561,-82.373326],[29.045858,-82.371973],[29.045808,-82.369101],[29.04635,-82.368605],[29.046503,-82.368283],[29.046365,-82.368094],[29.046465,-82.367543],[29.045901,-82.365341],[29.045767,-82.365264],[29.045388,-82.364304],[29.04536,-82.363916],[29.045559,-82.363652],[29.04581,-82.363589],[29.046005,-82.363304],[29.046248,-82.362511],[29.0462,-82.362221],[29.045476,-82.360889],[29.04538,-82.359908],[29.045476,-82.354709],[29.04542,-82.352507],[29.04551,-82.351865],[29.04623,-82.351087],[29.047563,-82.350046],[29.047813,-82.349108],[29.047994,-82.347457],[29.047849,-82.346751],[29.046609,-82.34376],[29.046665,-82.341863],[29.046487,-82.340431],[29.046228,-82.339815],[29.046374,-82.339131],[29.046354,-82.335609],[29.046144,-82.33548],[29.043216,-82.335531],[29.041575,-82.335112],[29.041013,-82.33358],[29.041301,-82.332073],[29.041231,-82.330929],[29.040718,-82.329993],[29.04057,-82.329167],[29.041483,-82.327888],[29.041664,-82.327371],[29.042011,-82.326863],[29.042343,-82.325963],[29.042403,-82.325426],[29.041894,-82.320899],[29.04102,-82.319936],[29.040861,-82.319198],[29.041225,-82.317558],[29.041426,-82.317279],[29.041344,-82.316493],[29.041787,-82.315676],[29.042412,-82.315126],[29.04314,-82.314827],[29.043402,-82.314864],[29.043789,-82.314475],[29.04395,-82.313886],[29.044453,-82.313439],[29.044812,-82.312081],[29.044866,-82.310023],[29.04472,-82.308157],[29.044797,-82.307612],[29.045388,-82.306629],[29.045398,-82.305334],[29.04522,-82.30449],[29.045203,-82.3006],[29.045337,-82.300081],[29.045201,-82.299062],[29.045122,-82.293626],[29.045202,-82.293423],[29.045045,-82.29284],[29.045124,-82.292256],[29.045038,-82.292178],[29.045181,-82.291887],[29.048183,-82.288849],[29.048048,-82.287865],[29.048216,-82.288268],[29.04811,-82.288464],[29.048197,-82.28835],[29.048075,-82.287757],[29.047715,-82.287278],[29.047638,-82.286984],[29.047367,-82.286822],[29.046884,-82.285741],[29.046754,-82.285644],[29.04669,-82.28573],[29.04648,-82.285659],[29.046065,-82.284677],[29.046124,-82.284457],[29.046546,-82.284107],[29.046554,-82.283728],[29.046253,-82.283234],[29.046471,-82.282561],[29.046316,-82.281888],[29.046428,-82.281524],[29.04643,-82.280824],[29.046597,-82.280421],[29.046873,-82.280176],[29.046966,-82.2799],[29.046792,-82.279394],[29.046525,-82.279152],[29.046491,-82.278459],[29.046268,-82.277549],[29.046285,-82.276454],[29.046032,-82.276081],[29.046282,-82.275113],[29.04623,-82.274566],[29.046954,-82.273586],[29.046944,-82.272673],[29.047308,-82.271777],[29.047578,-82.271611],[29.047178,-82.271117],[29.047147,-82.270479],[29.04728,-82.270139],[29.046982,-82.269152],[29.047035,-82.268805],[29.047255,-82.268452],[29.047445,-82.268353],[29.047698,-82.267974],[29.047605,-82.267313],[29.047455,-82.267078],[29.047402,-82.266648],[29.046871,-82.26657],[29.046754,-82.266404],[29.047483,-82.265797],[29.047273,-82.265314],[29.047466,-82.264792],[29.047391,-82.264284],[29.047458,-82.263763],[29.047358,-82.263307],[29.047496,-82.262887],[29.047257,-82.261819] ] }); // track 2 segment 1
+					trk_segments[2].push({ points:[ [29.047257,-82.261819],[29.047513,-82.261324],[29.047131,-82.261245],[29.047017,-82.260699],[29.047265,-82.260356],[29.047298,-82.259346],[29.046905,-82.259029],[29.046723,-82.258671],[29.046695,-82.258333],[29.046527,-82.258059],[29.046355,-82.256429],[29.046443,-82.256022],[29.046219,-82.255602],[29.046249,-82.255194],[29.046393,-82.254948],[29.046307,-82.254827],[29.046369,-82.254629],[29.046808,-82.25441],[29.046349,-82.254035],[29.046244,-82.253223],[29.046084,-82.253216],[29.046028,-82.253587],[29.045823,-82.253391],[29.045513,-82.252286],[29.045942,-82.25189],[29.046493,-82.250749],[29.04655,-82.250333],[29.046869,-82.249667],[29.047114,-82.249417],[29.046812,-82.248417],[29.046404,-82.247529],[29.046164,-82.247337],[29.045903,-82.247311],[29.04584,-82.247037],[29.045939,-82.246354],[29.045712,-82.245898],[29.045701,-82.244993],[29.045797,-82.244561],[29.045503,-82.243818],[29.045306,-82.243581],[29.045189,-82.243095],[29.045382,-82.242069],[29.045243,-82.240455],[29.04505,-82.240193],[29.045059,-82.239705],[29.045265,-82.239324],[29.045328,-82.2383],[29.045459,-82.238032],[29.045259,-82.236318],[29.045335,-82.236049],[29.045244,-82.2358],[29.045304,-82.235544],[29.044869,-82.235005],[29.044708,-82.234096],[29.044892,-82.233289],[29.04484,-82.232651],[29.044942,-82.231789],[29.044764,-82.231173],[29.045003,-82.230066],[29.045326,-82.229889],[29.045173,-82.229522],[29.045228,-82.229345],[29.045008,-82.2286],[29.044864,-82.226678],[29.044628,-82.226195],[29.044582,-82.224108],[29.044785,-82.222992],[29.044775,-82.221712],[29.044629,-82.220888],[29.044974,-82.219671],[29.044995,-82.218716],[29.045122,-82.218526],[29.045134,-82.217263],[29.044984,-82.216793],[29.044635,-82.216472],[29.044622,-82.216227],[29.044804,-82.215915],[29.045014,-82.215798],[29.045097,-82.215473],[29.04503,-82.215109],[29.045466,-82.21384],[29.045503,-82.213315],[29.045146,-82.212777],[29.045122,-82.21168],[29.044768,-82.2112],[29.0448,-82.21056],[29.044998,-82.210393],[29.045414,-82.210434],[29.045522,-82.21032],[29.045415,-82.20993],[29.045472,-82.208619],[29.045614,-82.208055],[29.045437,-82.20779],[29.045265,-82.206836],[29.045318,-82.20652],[29.045066,-82.206067],[29.044901,-82.20506],[29.045092,-82.204794],[29.044986,-82.204587],[29.044773,-82.204584],[29.044248,-82.204158],[29.043768,-82.204083],[29.043294,-82.203667],[29.04328,-82.202692],[29.043098,-82.202568],[29.04323,-82.201882],[29.043043,-82.201519],[29.042976,-82.200947],[29.043572,-82.200419],[29.044886,-82.200252],[29.045151,-82.200679],[29.04512,-82.201387],[29.045369,-82.201504],[29.045603,-82.201835],[29.045877,-82.201797],[29.046087,-82.201589],[29.046272,-82.201075],[29.046427,-82.201051],[29.046589,-82.201218],[29.046714,-82.201059],[29.047185,-82.201097],[29.047228,-82.201296],[29.047761,-82.201088],[29.048318,-82.201216],[29.048318,-82.201452],[29.048607,-82.201264],[29.048177,-82.200342],[29.048291,-82.200095],[29.0478,-82.199895],[29.04765,-82.200268],[29.047326,-82.20045],[29.046975,-82.200476],[29.04669,-82.200303],[29.04657,-82.200003],[29.046429,-82.199933],[29.046401,-82.199674],[29.046108,-82.199418],[29.045999,-82.199625],[29.046138,-82.199746],[29.046375,-82.200529],[29.046124,-82.200715],[29.045958,-82.201131],[29.045834,-82.201069],[29.045816,-82.20059],[29.045987,-82.200391],[29.045447,-82.200287],[29.045527,-82.199753],[29.045767,-82.19964],[29.045822,-82.199293],[29.046287,-82.19916],[29.046684,-82.198149],[29.046692,-82.197695],[29.047104,-82.197115],[29.047372,-82.197123],[29.047706,-82.196787],[29.047842,-82.196026],[29.047583,-82.19417],[29.047745,-82.193125],[29.04771,-82.19164],[29.048517,-82.191102],[29.04881,-82.191256],[29.049439,-82.191235],[29.049791,-82.190969],[29.050439,-82.190965],[29.050761,-82.190783],[29.051409,-82.189741],[29.052447,-82.189409],[29.05292,-82.188922],[29.052986,-82.188594],[29.052837,-82.188066],[29.053118,-82.187716],[29.052901,-82.187195],[29.052882,-82.186569],[29.05304,-82.186301],[29.052798,-82.185243],[29.052902,-82.184761],[29.052806,-82.184371],[29.053022,-82.183821],[29.05359,-82.183074],[29.05382,-82.182316],[29.053776,-82.181539],[29.053998,-82.181109],[29.054287,-82.178827],[29.054092,-82.178619],[29.053934,-82.178133],[29.054067,-82.177667],[29.054269,-82.177466],[29.054669,-82.176374],[29.054781,-82.175521],[29.054723,-82.174922],[29.053147,-82.173875],[29.053035,-82.173578],[29.053033,-82.172725],[29.052842,-82.172006],[29.052593,-82.171537],[29.052209,-82.171514],[29.051648,-82.170585],[29.0516,-82.169574],[29.052208,-82.168375],[29.05333,-82.167913] ] }); // track 2 segment 1a
+					GV_Draw_Track(2);
+					
+					// Track #3 ("official one way route for DD100 3")
+					trk_info[3] = [];
+					trk_info[3]['name'] = 'official one way route for DD100 3'; trk_info[3]['desc'] = ''; trk_info[3]['clickable'] = true;
+					trk_info[3]['color'] = '#E600E6'; trk_info[3]['width'] = 3; trk_info[3]['opacity'] = 0.8;
+					trk_info[3]['outline_color'] = '#000000'; trk_info[3]['outline_width'] = 0; trk_info[3]['fill_color'] = '#E600E6'; trk_info[3]['fill_opacity'] = 0;
+					trk_segments[3] = [];
+					trk_segments[3].push({ points:[ [29.053428,-82.167199] ] }); // track 3 segment 1
+					GV_Draw_Track(3);
+					
+					// Track #4 ("official one way route for DD100 4")
+					trk_info[4] = [];
+					trk_info[4]['name'] = 'official one way route for DD100 4'; trk_info[4]['desc'] = ''; trk_info[4]['clickable'] = true;
+					trk_info[4]['color'] = '#E600E6'; trk_info[4]['width'] = 3; trk_info[4]['opacity'] = 0.8;
+					trk_info[4]['outline_color'] = '#000000'; trk_info[4]['outline_width'] = 0; trk_info[4]['fill_color'] = '#E600E6'; trk_info[4]['fill_opacity'] = 0;
+					trk_segments[4] = [];
+					trk_segments[4].push({ points:[ [29.05349,-82.167594] ] }); // track 4 segment 1
+					GV_Draw_Track(4);
+					
+					// Track #5 ("official one way route for DD100 5")
+					trk_info[5] = [];
+					trk_info[5]['name'] = 'official one way route for DD100 5'; trk_info[5]['desc'] = ''; trk_info[5]['clickable'] = true;
+					trk_info[5]['color'] = '#E600E6'; trk_info[5]['width'] = 3; trk_info[5]['opacity'] = 0.8;
+					trk_info[5]['outline_color'] = '#000000'; trk_info[5]['outline_width'] = 0; trk_info[5]['fill_color'] = '#E600E6'; trk_info[5]['fill_opacity'] = 0;
+					trk_segments[5] = [];
+					trk_segments[5].push({ points:[ [29.053453,-82.167525] ] }); // track 5 segment 1
+					GV_Draw_Track(5);
+					
+					// Track #6 ("official one way route for DD100 6")
+					trk_info[6] = [];
+					trk_info[6]['name'] = 'official one way route for DD100 6'; trk_info[6]['desc'] = ''; trk_info[6]['clickable'] = true;
+					trk_info[6]['color'] = '#E600E6'; trk_info[6]['width'] = 3; trk_info[6]['opacity'] = 0.8;
+					trk_info[6]['outline_color'] = '#000000'; trk_info[6]['outline_width'] = 0; trk_info[6]['fill_color'] = '#E600E6'; trk_info[6]['fill_opacity'] = 0;
+					trk_segments[6] = [];
+					trk_segments[6].push({ points:[ [29.053426,-82.167188] ] }); // track 6 segment 1
+					GV_Draw_Track(6);
+					
+					// Track #7 ("official one way route for DD100 7")
+					trk_info[7] = [];
+					trk_info[7]['name'] = 'official one way route for DD100 7'; trk_info[7]['desc'] = ''; trk_info[7]['clickable'] = true;
+					trk_info[7]['color'] = '#E600E6'; trk_info[7]['width'] = 3; trk_info[7]['opacity'] = 0.8;
+					trk_info[7]['outline_color'] = '#000000'; trk_info[7]['outline_width'] = 0; trk_info[7]['fill_color'] = '#E600E6'; trk_info[7]['fill_opacity'] = 0;
+					trk_segments[7] = [];
+					trk_segments[7].push({ points:[ [29.053484,-82.166916] ] }); // track 7 segment 1
+					GV_Draw_Track(7);
+					
+					// Track #8 ("official one way route for DD100 8")
+					trk_info[8] = [];
+					trk_info[8]['name'] = 'official one way route for DD100 8'; trk_info[8]['desc'] = ''; trk_info[8]['clickable'] = true;
+					trk_info[8]['color'] = '#E600E6'; trk_info[8]['width'] = 3; trk_info[8]['opacity'] = 0.8;
+					trk_info[8]['outline_color'] = '#000000'; trk_info[8]['outline_width'] = 0; trk_info[8]['fill_color'] = '#E600E6'; trk_info[8]['fill_opacity'] = 0;
+					trk_segments[8] = [];
+					trk_segments[8].push({ points:[ [29.053427,-82.167069] ] }); // track 8 segment 1
+					GV_Draw_Track(8);
+					
+					// Track #9 ("official one way route for DD100 9")
+					trk_info[9] = [];
+					trk_info[9]['name'] = 'official one way route for DD100 9'; trk_info[9]['desc'] = ''; trk_info[9]['clickable'] = true;
+					trk_info[9]['color'] = '#E600E6'; trk_info[9]['width'] = 3; trk_info[9]['opacity'] = 0.8;
+					trk_info[9]['outline_color'] = '#000000'; trk_info[9]['outline_width'] = 0; trk_info[9]['fill_color'] = '#E600E6'; trk_info[9]['fill_opacity'] = 0;
+					trk_segments[9] = [];
+					trk_segments[9].push({ points:[ [29.053477,-82.166932] ] }); // track 9 segment 1
+					GV_Draw_Track(9);
+					
+					// Track #10 ("official one way route for DD100 10")
+					trk_info[10] = [];
+					trk_info[10]['name'] = 'official one way route for DD100 10'; trk_info[10]['desc'] = ''; trk_info[10]['clickable'] = true;
+					trk_info[10]['color'] = '#E600E6'; trk_info[10]['width'] = 3; trk_info[10]['opacity'] = 0.8;
+					trk_info[10]['outline_color'] = '#000000'; trk_info[10]['outline_width'] = 0; trk_info[10]['fill_color'] = '#E600E6'; trk_info[10]['fill_opacity'] = 0;
+					trk_segments[10] = [];
+					trk_segments[10].push({ points:[ [29.053299,-82.167926],[29.053276,-82.167969],[29.053303,-82.168006],[29.053308,-82.167944],[29.053287,-82.167904],[29.053225,-82.167752],[29.05309,-82.16758] ] }); // track 10 segment 1
+					GV_Draw_Track(10);
+					
+					// Track #11 ("official one way route for DD100 11")
+					trk_info[11] = [];
+					trk_info[11]['name'] = 'official one way route for DD100 11'; trk_info[11]['desc'] = ''; trk_info[11]['clickable'] = true;
+					trk_info[11]['color'] = '#E600E6'; trk_info[11]['width'] = 3; trk_info[11]['opacity'] = 0.8;
+					trk_info[11]['outline_color'] = '#000000'; trk_info[11]['outline_width'] = 0; trk_info[11]['fill_color'] = '#E600E6'; trk_info[11]['fill_opacity'] = 0;
+					trk_segments[11] = [];
+					trk_segments[11].push({ points:[ [29.053429,-82.167719] ] }); // track 11 segment 1
+					GV_Draw_Track(11);
+					
+					// Track #12 ("official one way route for DD100 12")
+					trk_info[12] = [];
+					trk_info[12]['name'] = 'official one way route for DD100 12'; trk_info[12]['desc'] = ''; trk_info[12]['clickable'] = true;
+					trk_info[12]['color'] = '#E600E6'; trk_info[12]['width'] = 3; trk_info[12]['opacity'] = 0.8;
+					trk_info[12]['outline_color'] = '#000000'; trk_info[12]['outline_width'] = 0; trk_info[12]['fill_color'] = '#E600E6'; trk_info[12]['fill_opacity'] = 0;
+					trk_segments[12] = [];
+					trk_segments[12].push({ points:[ [29.051496,-82.165993] ] }); // track 12 segment 1
+					GV_Draw_Track(12);
+					
+					// Track #13 ("official one way route for DD100 13")
+					trk_info[13] = [];
+					trk_info[13]['name'] = 'official one way route for DD100 13'; trk_info[13]['desc'] = ''; trk_info[13]['clickable'] = true;
+					trk_info[13]['color'] = '#E600E6'; trk_info[13]['width'] = 3; trk_info[13]['opacity'] = 0.8;
+					trk_info[13]['outline_color'] = '#000000'; trk_info[13]['outline_width'] = 0; trk_info[13]['fill_color'] = '#E600E6'; trk_info[13]['fill_opacity'] = 0;
+					trk_segments[13] = [];
+					trk_segments[13].push({ points:[ [29.051487,-82.166017] ] }); // track 13 segment 1
+					GV_Draw_Track(13);
+					
+					// Track #14 ("official one way route for DD100 14")
+					trk_info[14] = [];
+					trk_info[14]['name'] = 'official one way route for DD100 14'; trk_info[14]['desc'] = ''; trk_info[14]['clickable'] = true;
+					trk_info[14]['color'] = '#E600E6'; trk_info[14]['width'] = 3; trk_info[14]['opacity'] = 0.8;
+					trk_info[14]['outline_color'] = '#000000'; trk_info[14]['outline_width'] = 0; trk_info[14]['fill_color'] = '#E600E6'; trk_info[14]['fill_opacity'] = 0;
+					trk_segments[14] = [];
+					trk_segments[14].push({ points:[ [29.051647,-82.166069] ] }); // track 14 segment 1
+					GV_Draw_Track(14);
+					
+					// Track #15 ("official one way route for DD100 15")
+					trk_info[15] = [];
+					trk_info[15]['name'] = 'official one way route for DD100 15'; trk_info[15]['desc'] = ''; trk_info[15]['clickable'] = true;
+					trk_info[15]['color'] = '#E600E6'; trk_info[15]['width'] = 3; trk_info[15]['opacity'] = 0.8;
+					trk_info[15]['outline_color'] = '#000000'; trk_info[15]['outline_width'] = 0; trk_info[15]['fill_color'] = '#E600E6'; trk_info[15]['fill_opacity'] = 0;
+					trk_segments[15] = [];
+					trk_segments[15].push({ points:[ [29.051606,-82.166059] ] }); // track 15 segment 1
+					GV_Draw_Track(15);
+					
+					// Track #16 ("official one way route for DD100 16")
+					trk_info[16] = [];
+					trk_info[16]['name'] = 'official one way route for DD100 16'; trk_info[16]['desc'] = ''; trk_info[16]['clickable'] = true;
+					trk_info[16]['color'] = '#E600E6'; trk_info[16]['width'] = 3; trk_info[16]['opacity'] = 0.8;
+					trk_info[16]['outline_color'] = '#000000'; trk_info[16]['outline_width'] = 0; trk_info[16]['fill_color'] = '#E600E6'; trk_info[16]['fill_opacity'] = 0;
+					trk_segments[16] = [];
+					trk_segments[16].push({ points:[ [29.051922,-82.166178] ] }); // track 16 segment 1
+					GV_Draw_Track(16);
+					
+					// Track #17 ("official one way route for DD100 17")
+					trk_info[17] = [];
+					trk_info[17]['name'] = 'official one way route for DD100 17'; trk_info[17]['desc'] = ''; trk_info[17]['clickable'] = true;
+					trk_info[17]['color'] = '#E600E6'; trk_info[17]['width'] = 3; trk_info[17]['opacity'] = 0.8;
+					trk_info[17]['outline_color'] = '#000000'; trk_info[17]['outline_width'] = 0; trk_info[17]['fill_color'] = '#E600E6'; trk_info[17]['fill_opacity'] = 0;
+					trk_segments[17] = [];
+					trk_segments[17].push({ points:[ [29.052014,-82.166283] ] }); // track 17 segment 1
+					GV_Draw_Track(17);
+					
+					// Track #18 ("official one way route for DD100 18")
+					trk_info[18] = [];
+					trk_info[18]['name'] = 'official one way route for DD100 18'; trk_info[18]['desc'] = ''; trk_info[18]['clickable'] = true;
+					trk_info[18]['color'] = '#E600E6'; trk_info[18]['width'] = 3; trk_info[18]['opacity'] = 0.8;
+					trk_info[18]['outline_color'] = '#000000'; trk_info[18]['outline_width'] = 0; trk_info[18]['fill_color'] = '#E600E6'; trk_info[18]['fill_opacity'] = 0;
+					trk_segments[18] = [];
+					trk_segments[18].push({ points:[ [29.051979,-82.166266] ] }); // track 18 segment 1
+					GV_Draw_Track(18);
+					
+					// Track #19 ("official one way route for DD100 19")
+					trk_info[19] = [];
+					trk_info[19]['name'] = 'official one way route for DD100 19'; trk_info[19]['desc'] = ''; trk_info[19]['clickable'] = true;
+					trk_info[19]['color'] = '#E600E6'; trk_info[19]['width'] = 3; trk_info[19]['opacity'] = 0.8;
+					trk_info[19]['outline_color'] = '#000000'; trk_info[19]['outline_width'] = 0; trk_info[19]['fill_color'] = '#E600E6'; trk_info[19]['fill_opacity'] = 0;
+					trk_segments[19] = [];
+					trk_segments[19].push({ points:[ [29.052189,-82.166375] ] }); // track 19 segment 1
+					GV_Draw_Track(19);
+					
+					// Track #20 ("official one way route for DD100 20")
+					trk_info[20] = [];
+					trk_info[20]['name'] = 'official one way route for DD100 20'; trk_info[20]['desc'] = ''; trk_info[20]['clickable'] = true;
+					trk_info[20]['color'] = '#E600E6'; trk_info[20]['width'] = 3; trk_info[20]['opacity'] = 0.8;
+					trk_info[20]['outline_color'] = '#000000'; trk_info[20]['outline_width'] = 0; trk_info[20]['fill_color'] = '#E600E6'; trk_info[20]['fill_opacity'] = 0;
+					trk_segments[20] = [];
+					trk_segments[20].push({ points:[ [29.052088,-82.166389] ] }); // track 20 segment 1
+					GV_Draw_Track(20);
+					
+					// Track #21 ("official one way route for DD100 21")
+					trk_info[21] = [];
+					trk_info[21]['name'] = 'official one way route for DD100 21'; trk_info[21]['desc'] = ''; trk_info[21]['clickable'] = true;
+					trk_info[21]['color'] = '#E600E6'; trk_info[21]['width'] = 3; trk_info[21]['opacity'] = 0.8;
+					trk_info[21]['outline_color'] = '#000000'; trk_info[21]['outline_width'] = 0; trk_info[21]['fill_color'] = '#E600E6'; trk_info[21]['fill_opacity'] = 0;
+					trk_segments[21] = [];
+					trk_segments[21].push({ points:[ [29.052498,-82.166449] ] }); // track 21 segment 1
+					GV_Draw_Track(21);
+					
+					// Track #22 ("official one way route for DD100 22")
+					trk_info[22] = [];
+					trk_info[22]['name'] = 'official one way route for DD100 22'; trk_info[22]['desc'] = ''; trk_info[22]['clickable'] = true;
+					trk_info[22]['color'] = '#E600E6'; trk_info[22]['width'] = 3; trk_info[22]['opacity'] = 0.8;
+					trk_info[22]['outline_color'] = '#000000'; trk_info[22]['outline_width'] = 0; trk_info[22]['fill_color'] = '#E600E6'; trk_info[22]['fill_opacity'] = 0;
+					trk_segments[22] = [];
+					trk_segments[22].push({ points:[ [29.052403,-82.166467] ] }); // track 22 segment 1
+					GV_Draw_Track(22);
+					
+					// Track #23 ("official one way route for DD100 23")
+					trk_info[23] = [];
+					trk_info[23]['name'] = 'official one way route for DD100 23'; trk_info[23]['desc'] = ''; trk_info[23]['clickable'] = true;
+					trk_info[23]['color'] = '#E600E6'; trk_info[23]['width'] = 3; trk_info[23]['opacity'] = 0.8;
+					trk_info[23]['outline_color'] = '#000000'; trk_info[23]['outline_width'] = 0; trk_info[23]['fill_color'] = '#E600E6'; trk_info[23]['fill_opacity'] = 0;
+					trk_segments[23] = [];
+					trk_segments[23].push({ points:[ [29.052552,-82.166506] ] }); // track 23 segment 1
+					GV_Draw_Track(23);
+					
+					// Track #24 ("official one way route for DD100 24")
+					trk_info[24] = [];
+					trk_info[24]['name'] = 'official one way route for DD100 24'; trk_info[24]['desc'] = ''; trk_info[24]['clickable'] = true;
+					trk_info[24]['color'] = '#E600E6'; trk_info[24]['width'] = 3; trk_info[24]['opacity'] = 0.8;
+					trk_info[24]['outline_color'] = '#000000'; trk_info[24]['outline_width'] = 0; trk_info[24]['fill_color'] = '#E600E6'; trk_info[24]['fill_opacity'] = 0;
+					trk_segments[24] = [];
+					trk_segments[24].push({ points:[ [29.052577,-82.166463] ] }); // track 24 segment 1
+					GV_Draw_Track(24);
+					
+					// Track #25 ("official one way route for DD100 25")
+					trk_info[25] = [];
+					trk_info[25]['name'] = 'official one way route for DD100 25'; trk_info[25]['desc'] = ''; trk_info[25]['clickable'] = true;
+					trk_info[25]['color'] = '#E600E6'; trk_info[25]['width'] = 3; trk_info[25]['opacity'] = 0.8;
+					trk_info[25]['outline_color'] = '#000000'; trk_info[25]['outline_width'] = 0; trk_info[25]['fill_color'] = '#E600E6'; trk_info[25]['fill_opacity'] = 0;
+					trk_segments[25] = [];
+					trk_segments[25].push({ points:[ [29.052785,-82.166614] ] }); // track 25 segment 1
+					GV_Draw_Track(25);
+					
+					// Track #26 ("official one way route for DD100 26")
+					trk_info[26] = [];
+					trk_info[26]['name'] = 'official one way route for DD100 26'; trk_info[26]['desc'] = ''; trk_info[26]['clickable'] = true;
+					trk_info[26]['color'] = '#E600E6'; trk_info[26]['width'] = 3; trk_info[26]['opacity'] = 0.8;
+					trk_info[26]['outline_color'] = '#000000'; trk_info[26]['outline_width'] = 0; trk_info[26]['fill_color'] = '#E600E6'; trk_info[26]['fill_opacity'] = 0;
+					trk_segments[26] = [];
+					trk_segments[26].push({ points:[ [29.052687,-82.166525] ] }); // track 26 segment 1
+					GV_Draw_Track(26);
+					
+					// Track #27 ("official one way route for DD100 27")
+					trk_info[27] = [];
+					trk_info[27]['name'] = 'official one way route for DD100 27'; trk_info[27]['desc'] = ''; trk_info[27]['clickable'] = true;
+					trk_info[27]['color'] = '#E600E6'; trk_info[27]['width'] = 3; trk_info[27]['opacity'] = 0.8;
+					trk_info[27]['outline_color'] = '#000000'; trk_info[27]['outline_width'] = 0; trk_info[27]['fill_color'] = '#E600E6'; trk_info[27]['fill_opacity'] = 0;
+					trk_segments[27] = [];
+					trk_segments[27].push({ points:[ [29.052842,-82.166998] ] }); // track 27 segment 1
+					GV_Draw_Track(27);
+					
+					// Track #28 ("official one way route for DD100 28")
+					trk_info[28] = [];
+					trk_info[28]['name'] = 'official one way route for DD100 28'; trk_info[28]['desc'] = ''; trk_info[28]['clickable'] = true;
+					trk_info[28]['color'] = '#E600E6'; trk_info[28]['width'] = 3; trk_info[28]['opacity'] = 0.8;
+					trk_info[28]['outline_color'] = '#000000'; trk_info[28]['outline_width'] = 0; trk_info[28]['fill_color'] = '#E600E6'; trk_info[28]['fill_opacity'] = 0;
+					trk_segments[28] = [];
+					trk_segments[28].push({ points:[ [29.052813,-82.166625] ] }); // track 28 segment 1
+					GV_Draw_Track(28);
+					
+					// Track #29 ("official one way route for DD100 29")
+					trk_info[29] = [];
+					trk_info[29]['name'] = 'official one way route for DD100 29'; trk_info[29]['desc'] = ''; trk_info[29]['clickable'] = true;
+					trk_info[29]['color'] = '#E600E6'; trk_info[29]['width'] = 3; trk_info[29]['opacity'] = 0.8;
+					trk_info[29]['outline_color'] = '#000000'; trk_info[29]['outline_width'] = 0; trk_info[29]['fill_color'] = '#E600E6'; trk_info[29]['fill_opacity'] = 0;
+					trk_segments[29] = [];
+					trk_segments[29].push({ points:[ [29.052848,-82.167032] ] }); // track 29 segment 1
+					GV_Draw_Track(29);
+					
+					// Track #30 ("official one way route for DD100 30")
+					trk_info[30] = [];
+					trk_info[30]['name'] = 'official one way route for DD100 30'; trk_info[30]['desc'] = ''; trk_info[30]['clickable'] = true;
+					trk_info[30]['color'] = '#E600E6'; trk_info[30]['width'] = 3; trk_info[30]['opacity'] = 0.8;
+					trk_info[30]['outline_color'] = '#000000'; trk_info[30]['outline_width'] = 0; trk_info[30]['fill_color'] = '#E600E6'; trk_info[30]['fill_opacity'] = 0;
+					trk_segments[30] = [];
+					trk_segments[30].push({ points:[ [29.05288,-82.167089] ] }); // track 30 segment 1
+					GV_Draw_Track(30);
+					
+					// Track #31 ("official one way route for DD100 31")
+					trk_info[31] = [];
+					trk_info[31]['name'] = 'official one way route for DD100 31'; trk_info[31]['desc'] = ''; trk_info[31]['clickable'] = true;
+					trk_info[31]['color'] = '#E600E6'; trk_info[31]['width'] = 3; trk_info[31]['opacity'] = 0.8;
+					trk_info[31]['outline_color'] = '#000000'; trk_info[31]['outline_width'] = 0; trk_info[31]['fill_color'] = '#E600E6'; trk_info[31]['fill_opacity'] = 0;
+					trk_segments[31] = [];
+					trk_segments[31].push({ points:[ [29.052912,-82.167161] ] }); // track 31 segment 1
+					GV_Draw_Track(31);
+					
+					// Track #32 ("official one way route for DD100 32")
+					trk_info[32] = [];
+					trk_info[32]['name'] = 'official one way route for DD100 32'; trk_info[32]['desc'] = ''; trk_info[32]['clickable'] = true;
+					trk_info[32]['color'] = '#E600E6'; trk_info[32]['width'] = 3; trk_info[32]['opacity'] = 0.8;
+					trk_info[32]['outline_color'] = '#000000'; trk_info[32]['outline_width'] = 0; trk_info[32]['fill_color'] = '#E600E6'; trk_info[32]['fill_opacity'] = 0;
+					trk_segments[32] = [];
+					trk_segments[32].push({ points:[ [29.052896,-82.167103] ] }); // track 32 segment 1
+					GV_Draw_Track(32);
+					
+					// Track #33 ("official one way route for DD100 33")
+					trk_info[33] = [];
+					trk_info[33]['name'] = 'official one way route for DD100 33'; trk_info[33]['desc'] = ''; trk_info[33]['clickable'] = true;
+					trk_info[33]['color'] = '#E600E6'; trk_info[33]['width'] = 3; trk_info[33]['opacity'] = 0.8;
+					trk_info[33]['outline_color'] = '#000000'; trk_info[33]['outline_width'] = 0; trk_info[33]['fill_color'] = '#E600E6'; trk_info[33]['fill_opacity'] = 0;
+					trk_segments[33] = [];
+					trk_segments[33].push({ points:[ [29.052925,-82.167315] ] }); // track 33 segment 1
+					GV_Draw_Track(33);
+					
+					// Track #34 ("official one way route for DD100 34")
+					trk_info[34] = [];
+					trk_info[34]['name'] = 'official one way route for DD100 34'; trk_info[34]['desc'] = ''; trk_info[34]['clickable'] = true;
+					trk_info[34]['color'] = '#E600E6'; trk_info[34]['width'] = 3; trk_info[34]['opacity'] = 0.8;
+					trk_info[34]['outline_color'] = '#000000'; trk_info[34]['outline_width'] = 0; trk_info[34]['fill_color'] = '#E600E6'; trk_info[34]['fill_opacity'] = 0;
+					trk_segments[34] = [];
+					trk_segments[34].push({ points:[ [29.05294,-82.167198] ] }); // track 34 segment 1
+					GV_Draw_Track(34);
+					
+					// Track #35 ("official one way route for DD100 35")
+					trk_info[35] = [];
+					trk_info[35]['name'] = 'official one way route for DD100 35'; trk_info[35]['desc'] = ''; trk_info[35]['clickable'] = true;
+					trk_info[35]['color'] = '#E600E6'; trk_info[35]['width'] = 3; trk_info[35]['opacity'] = 0.8;
+					trk_info[35]['outline_color'] = '#000000'; trk_info[35]['outline_width'] = 0; trk_info[35]['fill_color'] = '#E600E6'; trk_info[35]['fill_opacity'] = 0;
+					trk_segments[35] = [];
+					trk_segments[35].push({ points:[ [29.053081,-82.167549],[29.053125,-82.166671],[29.052839,-82.165851],[29.05213,-82.165553],[29.052047,-82.163955],[29.052287,-82.163583],[29.052722,-82.163966],[29.052473,-82.164797],[29.053643,-82.164773],[29.054273,-82.165096],[29.054608,-82.164512],[29.054468,-82.163744],[29.05399,-82.163312],[29.05405,-82.163067],[29.056263,-82.163295],[29.056897,-82.162984],[29.057485,-82.163286],[29.058784,-82.162037],[29.058701,-82.161167],[29.059476,-82.160702],[29.060416,-82.159032],[29.060641,-82.157633],[29.060536,-82.155328],[29.05974,-82.154455],[29.060159,-82.154773],[29.060076,-82.153157],[29.058984,-82.153061],[29.059268,-82.15022],[29.059918,-82.148607],[29.061578,-82.148518],[29.062493,-82.148116],[29.063387,-82.148361],[29.063843,-82.148104],[29.063476,-82.147282],[29.063083,-82.147431],[29.062563,-82.146952],[29.062159,-82.145304],[29.063092,-82.14497],[29.064147,-82.145653],[29.06495,-82.145761],[29.065762,-82.145313],[29.066024,-82.144399],[29.066763,-82.144353],[29.066808,-82.142517],[29.0676,-82.14161],[29.067957,-82.140074],[29.068571,-82.139476],[29.069234,-82.137309],[29.069833,-82.136265],[29.069798,-82.135767],[29.069987,-82.135727],[29.070117,-82.133182],[29.070383,-82.13251],[29.07139,-82.132119],[29.071477,-82.132731],[29.071771,-82.132322],[29.072451,-82.132168],[29.072696,-82.132377],[29.074058,-82.131257],[29.074205,-82.130467],[29.074023,-82.130025],[29.074449,-82.129372],[29.074248,-82.128759],[29.074677,-82.12789],[29.075378,-82.127348],[29.075482,-82.12676],[29.074038,-82.125868],[29.073716,-82.124757],[29.073685,-82.119458],[29.079656,-82.119367],[29.079758,-82.11866],[29.080424,-82.117657],[29.081277,-82.117287],[29.082061,-82.117589],[29.0824,-82.117274],[29.083087,-82.117426],[29.083314,-82.117996],[29.083749,-82.117296],[29.084126,-82.117788],[29.084734,-82.117327],[29.08474,-82.1154],[29.085088,-82.115163],[29.087218,-82.114991],[29.087891,-82.114014],[29.088315,-82.112321],[29.088588,-82.112245],[29.088723,-82.112687],[29.089972,-82.110833],[29.090897,-82.110907],[29.092211,-82.110041],[29.09252,-82.110136],[29.092668,-82.109294],[29.092492,-82.10894],[29.092766,-82.108527],[29.092587,-82.107932],[29.092406,-82.108168],[29.092546,-82.108293],[29.092124,-82.108532],[29.092066,-82.108951],[29.091872,-82.108647],[29.091578,-82.108852],[29.091839,-82.108762],[29.091855,-82.109063],[29.091428,-82.109142],[29.091321,-82.108769],[29.091097,-82.109412],[29.091312,-82.109588],[29.09083,-82.110489],[29.090656,-82.110073],[29.090414,-82.110385],[29.090344,-82.109718],[29.091026,-82.109885],[29.090934,-82.109516],[29.090125,-82.109474],[29.08989,-82.108858],[29.090786,-82.108969],[29.090737,-82.108745],[29.089781,-82.108566],[29.088876,-82.108919],[29.089661,-82.109323],[29.08887,-82.108977],[29.088695,-82.108233],[29.088625,-82.108649],[29.088933,-82.109256],[29.088716,-82.10914],[29.088514,-82.108068],[29.088821,-82.107611],[29.089331,-82.107527],[29.089747,-82.108176],[29.090323,-82.108321],[29.089897,-82.107922],[29.090057,-82.107308],[29.090653,-82.107932],[29.090997,-82.107745],[29.090485,-82.107763],[29.090412,-82.107531],[29.090739,-82.107528],[29.090271,-82.107199],[29.090689,-82.107074],[29.090733,-82.106753],[29.091753,-82.106499],[29.091611,-82.106628],[29.091895,-82.1065],[29.091795,-82.106708],[29.092285,-82.106548],[29.092423,-82.106964],[29.091196,-82.106861],[29.091165,-82.107102],[29.09215,-82.107001],[29.092312,-82.107754],[29.092415,-82.107627],[29.092768,-82.108374],[29.092496,-82.108749],[29.092638,-82.109175],[29.09305,-82.108215],[29.094855,-82.108217],[29.094713,-82.107263],[29.093,-82.107711],[29.092855,-82.107507],[29.093759,-82.107349],[29.094722,-82.106644],[29.094854,-82.106126],[29.094436,-82.105759],[29.094966,-82.105434],[29.095211,-82.105882],[29.096021,-82.105807],[29.096487,-82.105261],[29.096708,-82.104156],[29.096479,-82.10379],[29.095729,-82.1043],[29.09524,-82.105035],[29.094411,-82.104761],[29.094579,-82.104316],[29.094212,-82.104655],[29.094256,-82.105156],[29.093587,-82.10595],[29.093351,-82.106779],[29.092707,-82.106968],[29.092128,-82.10631],[29.092298,-82.106149],[29.09253,-82.106455],[29.093268,-82.106367],[29.092683,-82.105757],[29.093531,-82.105348],[29.093451,-82.105577],[29.093716,-82.105491],[29.093622,-82.104608],[29.093383,-82.104469],[29.093361,-82.105127],[29.093164,-82.104999],[29.09322,-82.104425],[29.092156,-82.104236],[29.091839,-82.104757],[29.092072,-82.105742],[29.091602,-82.105726],[29.091943,-82.106245],[29.090797,-82.106043],[29.091206,-82.105604],[29.091064,-82.105313],[29.090374,-82.105398],[29.090274,-82.105618] ] }); // track 35 segment 1
+					trk_segments[35].push({ points:[ [29.090274,-82.105618],[29.089967,-82.105514],[29.090504,-82.104413],[29.090425,-82.103948],[29.090079,-82.10369],[29.090059,-82.103196],[29.089547,-82.103167],[29.089576,-82.104397],[29.088399,-82.106782],[29.088629,-82.107157],[29.088155,-82.107686],[29.088043,-82.108799],[29.08873,-82.110138],[29.089153,-82.110067],[29.090162,-82.110908],[29.091002,-82.110898],[29.092175,-82.110159],[29.092481,-82.11027],[29.092898,-82.109093],[29.094015,-82.108552],[29.09495,-82.108749],[29.095724,-82.106215],[29.096733,-82.105393],[29.09719,-82.104384],[29.098056,-82.103937],[29.097179,-82.103306],[29.089615,-82.102875],[29.090249,-82.102442],[29.091375,-82.102301],[29.091541,-82.102486],[29.091578,-82.100151],[29.091157,-82.099854],[29.091514,-82.098987],[29.092952,-82.098794],[29.093448,-82.098422],[29.093811,-82.096563],[29.094537,-82.096351],[29.095413,-82.095214],[29.095541,-82.096026],[29.096062,-82.095763],[29.095973,-82.095166],[29.096824,-82.094801],[29.097322,-82.095208],[29.09743,-82.094716],[29.097789,-82.094452],[29.097816,-82.094684],[29.098291,-82.094389],[29.098926,-82.094592],[29.099249,-82.095416],[29.101246,-82.095342],[29.102227,-82.095619],[29.103327,-82.094673],[29.104547,-82.095063],[29.104069,-82.096135],[29.10319,-82.096724],[29.103343,-82.097273],[29.103068,-82.098074],[29.103389,-82.098236],[29.103075,-82.098749],[29.102094,-82.098632],[29.101413,-82.098174],[29.099397,-82.098405],[29.098708,-82.098925],[29.098838,-82.099501],[29.098571,-82.099977],[29.099018,-82.101551],[29.098458,-82.10226],[29.096852,-82.102569],[29.094443,-82.102143],[29.091838,-82.102426],[29.091734,-82.102193],[29.092283,-82.10145],[29.092908,-82.101807],[29.093513,-82.101803],[29.094147,-82.100245],[29.093809,-82.100041],[29.094267,-82.099775],[29.094421,-82.098881],[29.094124,-82.098041],[29.093988,-82.098519],[29.094238,-82.098981],[29.092794,-82.100557],[29.092768,-82.101063],[29.092448,-82.101072],[29.091746,-82.10036],[29.091731,-82.099931],[29.09286,-82.099033],[29.093152,-82.099288],[29.092742,-82.099672],[29.093221,-82.099596],[29.093746,-82.098666],[29.093732,-82.097661],[29.094596,-82.097621],[29.094429,-82.097136],[29.094004,-82.097371],[29.094064,-82.097014],[29.094314,-82.097105],[29.094388,-82.096653],[29.094549,-82.096938],[29.095268,-82.096676],[29.094547,-82.096737],[29.095005,-82.096609],[29.095572,-82.096863],[29.095959,-82.096547],[29.096716,-82.097493],[29.09647,-82.097902],[29.096761,-82.097893],[29.096389,-82.098482],[29.095985,-82.098404],[29.096338,-82.098553],[29.095827,-82.098984],[29.095869,-82.099735],[29.095128,-82.099417],[29.095409,-82.099196],[29.095128,-82.098469],[29.09525,-82.098135],[29.095559,-82.098338],[29.095319,-82.098334],[29.095385,-82.098569],[29.09575,-82.098552],[29.095594,-82.098511],[29.09699,-82.09776],[29.096457,-82.095312],[29.096779,-82.095087],[29.096767,-82.095812],[29.097787,-82.095567],[29.098093,-82.095076],[29.099095,-82.094647],[29.099356,-82.095003],[29.099932,-82.095141],[29.099854,-82.094822],[29.100376,-82.09483],[29.100616,-82.095328],[29.100702,-82.094868],[29.101006,-82.09516],[29.101365,-82.09491],[29.102097,-82.095697],[29.101767,-82.095971],[29.101515,-82.095661],[29.101085,-82.096244],[29.100664,-82.095997],[29.100796,-82.095792],[29.100551,-82.095697],[29.100427,-82.095953],[29.100909,-82.096972],[29.100087,-82.096973],[29.099045,-82.095992],[29.097765,-82.09584],[29.097181,-82.096218],[29.097277,-82.097793],[29.096524,-82.097871],[29.096127,-82.096509],[29.094344,-82.096471],[29.093718,-82.09721],[29.093715,-82.09754],[29.094657,-82.097684],[29.094915,-82.101486],[29.095409,-82.102297],[29.095703,-82.102011],[29.095622,-82.101581],[29.096874,-82.101585],[29.0974,-82.100888],[29.097709,-82.101],[29.097934,-82.100062],[29.097716,-82.0993],[29.098014,-82.098788],[29.097487,-82.098004],[29.097642,-82.097975],[29.097496,-82.096893],[29.097869,-82.096202],[29.098052,-82.096836],[29.098792,-82.097337],[29.098943,-82.098709],[29.1003,-82.098781],[29.100208,-82.098966],[29.100238,-82.098486],[29.100595,-82.098771],[29.101524,-82.097988],[29.101581,-82.097519],[29.102227,-82.097784],[29.10265,-82.09736],[29.101671,-82.096543],[29.101433,-82.096747],[29.102431,-82.097324],[29.101636,-82.09706],[29.100688,-82.097445],[29.101143,-82.096998],[29.101166,-82.096457],[29.101636,-82.096381],[29.101872,-82.096614],[29.102009,-82.09645],[29.10229,-82.096701],[29.102515,-82.096188],[29.101981,-82.09619],[29.102214,-82.096141],[29.101979,-82.095711],[29.103255,-82.094691],[29.105275,-82.095161],[29.105545,-82.095626],[29.105366,-82.095787] ] }); // track 35 segment 1a
+					GV_Draw_Track(35);
+					
+					// Track #36 ("official one way route for DD100 36")
+					trk_info[36] = [];
+					trk_info[36]['name'] = 'official one way route for DD100 36'; trk_info[36]['desc'] = ''; trk_info[36]['clickable'] = true;
+					trk_info[36]['color'] = '#E600E6'; trk_info[36]['width'] = 3; trk_info[36]['opacity'] = 0.8;
+					trk_info[36]['outline_color'] = '#000000'; trk_info[36]['outline_width'] = 0; trk_info[36]['fill_color'] = '#E600E6'; trk_info[36]['fill_opacity'] = 0;
+					trk_segments[36] = [];
+					trk_segments[36].push({ points:[ [29.052988,-82.167442] ] }); // track 36 segment 1
+					GV_Draw_Track(36);
+					
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[1]['name'],desc:trk_info[1]['desc'],color:trk_info[1]['color'],id:"trk[1]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[2]['name'],desc:trk_info[2]['desc'],color:trk_info[2]['color'],id:"trk[2]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[3]['name'],desc:trk_info[3]['desc'],color:trk_info[3]['color'],id:"trk[3]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[4]['name'],desc:trk_info[4]['desc'],color:trk_info[4]['color'],id:"trk[4]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[5]['name'],desc:trk_info[5]['desc'],color:trk_info[5]['color'],id:"trk[5]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[6]['name'],desc:trk_info[6]['desc'],color:trk_info[6]['color'],id:"trk[6]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[7]['name'],desc:trk_info[7]['desc'],color:trk_info[7]['color'],id:"trk[7]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[8]['name'],desc:trk_info[8]['desc'],color:trk_info[8]['color'],id:"trk[8]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[9]['name'],desc:trk_info[9]['desc'],color:trk_info[9]['color'],id:"trk[9]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[10]['name'],desc:trk_info[10]['desc'],color:trk_info[10]['color'],id:"trk[10]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[11]['name'],desc:trk_info[11]['desc'],color:trk_info[11]['color'],id:"trk[11]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[12]['name'],desc:trk_info[12]['desc'],color:trk_info[12]['color'],id:"trk[12]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[13]['name'],desc:trk_info[13]['desc'],color:trk_info[13]['color'],id:"trk[13]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[14]['name'],desc:trk_info[14]['desc'],color:trk_info[14]['color'],id:"trk[14]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[15]['name'],desc:trk_info[15]['desc'],color:trk_info[15]['color'],id:"trk[15]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[16]['name'],desc:trk_info[16]['desc'],color:trk_info[16]['color'],id:"trk[16]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[17]['name'],desc:trk_info[17]['desc'],color:trk_info[17]['color'],id:"trk[17]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[18]['name'],desc:trk_info[18]['desc'],color:trk_info[18]['color'],id:"trk[18]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[19]['name'],desc:trk_info[19]['desc'],color:trk_info[19]['color'],id:"trk[19]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[20]['name'],desc:trk_info[20]['desc'],color:trk_info[20]['color'],id:"trk[20]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[21]['name'],desc:trk_info[21]['desc'],color:trk_info[21]['color'],id:"trk[21]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[22]['name'],desc:trk_info[22]['desc'],color:trk_info[22]['color'],id:"trk[22]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[23]['name'],desc:trk_info[23]['desc'],color:trk_info[23]['color'],id:"trk[23]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[24]['name'],desc:trk_info[24]['desc'],color:trk_info[24]['color'],id:"trk[24]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[25]['name'],desc:trk_info[25]['desc'],color:trk_info[25]['color'],id:"trk[25]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[26]['name'],desc:trk_info[26]['desc'],color:trk_info[26]['color'],id:"trk[26]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[27]['name'],desc:trk_info[27]['desc'],color:trk_info[27]['color'],id:"trk[27]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[28]['name'],desc:trk_info[28]['desc'],color:trk_info[28]['color'],id:"trk[28]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[29]['name'],desc:trk_info[29]['desc'],color:trk_info[29]['color'],id:"trk[29]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[30]['name'],desc:trk_info[30]['desc'],color:trk_info[30]['color'],id:"trk[30]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[31]['name'],desc:trk_info[31]['desc'],color:trk_info[31]['color'],id:"trk[31]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[32]['name'],desc:trk_info[32]['desc'],color:trk_info[32]['color'],id:"trk[32]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[33]['name'],desc:trk_info[33]['desc'],color:trk_info[33]['color'],id:"trk[33]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[34]['name'],desc:trk_info[34]['desc'],color:trk_info[34]['color'],id:"trk[34]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[35]['name'],desc:trk_info[35]['desc'],color:trk_info[35]['color'],id:"trk[35]"});
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[36]['name'],desc:trk_info[36]['desc'],color:trk_info[36]['color'],id:"trk[36]"});
+					
+					
+					
+				
+					GV_Finish_Map(gv_options);
+					
+				} else {
+					document.getElementById('gmap_div').style.backgroundColor = '#DDDDDD';
+					document.getElementById('gmap_div').innerHTML = 'Sorry, your Google Map cannot be displayed.';
+				}
+			}
+			GV_Map(); // execute the above code
+		</script>
+		
+		
+	</body>
+
+</html>
+

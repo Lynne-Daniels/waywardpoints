@@ -1,0 +1,148 @@
+body{
+	background-color:#161818;
+	/*padding: 0px 25px 0px 3px; kluge to keep inside right edge of screen */
+	margin: 0px;
+	-webkit-appearance: none;
+}
+
+div{
+	
+}
+.clock {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-content: center;
+	background-color:#161818;
+	font-size: 46px;
+	line-height: 1.2em;
+	text-align: center;
+	color: white;
+	max-width: 100%;
+}
+.container{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-content: center;
+	max-width: 800px;
+	margin: auto;
+}
+
+.overview{
+	
+	padding: 3px 3px 10px 3px;
+	
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-content: center;
+	background-color:#161818;
+	font-size: 30px;
+	line-height: 1.2em;
+	text-align: center;
+	color: white;
+	max-width: 100%;
+	
+}
+.intervals{
+	margin: auto;
+}
+.runner{
+	
+	max-width: 800px;
+	font-size: 30px;
+	line-height: 1.2em;
+	text-align: center;
+	color: white;
+	
+}
+#runner1{
+	border: none;
+	float: left;
+	
+}
+#go{
+	/*border: 2px solid gold;*/
+}
+.navigation{
+
+	
+}
+.nav-section-left, .nav-section-right{
+	border-radius: 26%;
+	padding: 7px 0px 7px 0px;
+	border: 5px solid black;
+	
+
+}
+.nav-section-left{
+	background-color: green;
+	margin-left: 0px;
+}
+
+/*TODO figure out why right margin is smaller in portrait than landscape, or if I have to, make a media query to compensate*/
+
+
+.nav-section-right{
+	background-color: #CF000F;
+	margin-right: 0px;
+}
+.label{
+	text-align: center;
+}
+button{
+	min-width: 48px;
+	min-height: 48px;
+	font-size: 30px;
+	font-weight: bold;
+	border-radius: 26%;
+	margin: 7px;
+	-webkit-appearance: none;
+	/*pointer-events: none;*/
+	background-color: white;
+	
+}
+.time-display{
+	font-size: 77px;
+	line-height: 1.2em;
+	margin: auto;
+}
+.sm-label{
+	font-size: 35px;
+	line-height: 1.2em;
+}
+.reset{
+	max-height: 1.2em;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	-webkit-appearance: none;
+}
+/*TODO work out media query to make order right on all devices */
+ @media screen and (max-width: 475px) {
+	.nav-section-left{
+		order: 1;
+		width: 45%
+	}
+	.nav-section-right{
+		order: 2;
+		width: 45%;
+	}
+	.time-display{
+		order: 3;
+	}
+}
+ @media screen and (min-width: 476px){
+	.nav-section-left{
+	order: 1;
+	}
+	.nav-section-right{
+	order: 3;
+	}
+	.time-display{
+	order: 2;
+	}
+
+}

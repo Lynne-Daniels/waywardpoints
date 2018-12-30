@@ -1,0 +1,1 @@
+This picture is a place holder used when a strava user does not have an image on file with strava.  The strava aPI passes a local path in this case.  having an image here takes the place of a broken link. Need to get a round tuit, then will change script to make an html/css placeholder div.

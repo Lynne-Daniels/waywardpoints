@@ -1,0 +1,97 @@
+header {
+    border : 1px solid gray;
+    padding: 2em;
+    max-width: 320px;
+    background: whitesmoke;
+    border-radius: 10%;
+    padding: .5em;
+    margin: auto;
+    margin-top: 1em;
+    font-weight: bold;
+    font-size: 1.17em;
+
+}
+
+body{
+    background-color: #cc3524;
+    margin: 0px;
+    padding: 0px;
+}
+
+.time-zone{
+    border : 1px solid gray;
+    padding: 2em;
+    max-width: 320px;
+    background: #e1ded2;
+    border-radius: 10%;
+    padding: .2em;
+    margin: auto;
+    margin-top: 1em;
+
+}
+h1{
+    margin: .2em;
+    padding: .1em;
+}
+h3{
+    margin: .2em;
+}
+h4{
+    margin:.2em;
+}
+.toggle{
+    min-width: 40px;
+    min-height: 20px;
+    float: right;
+    margin: 1px;
+    padding: 1px;
+    border: 1px solid gray;
+    color: white;
+    background-color: black;
+    border-radius: 10%;
+    -webkit-box-shadow: 3px 0px 6px 0px #d35400;
+    -moz-box-shadow: 3px 0px 6px 0px #d35400;
+    box-shadow: 3px0px 6px 0px #d35400;
+}
+/*Thanks https://superdevresources.com/3d-css-button/ */
+
+.toggle:active{
+    -webkit-box-shadow: 0px 2px 0px #d35400;
+    -moz-box-shadow: 0px 2px 0px #d35400;
+    box-shadow: 0px 2px 0px #d35400;
+    position:relative;
+    top:4px;
+}
+.toggle:hover{
+    color:pink;
+}
+.input-wrapper{
+    text-align: center;
+}
+.time{
+    border: 1px solid gray;
+    padding: 2px 2px 2px 2px;
+    font-size: 1.0em;
+    text-align: center;
+    background-color: white;
+    border-radius: 5%;
+    width: 80%;
+    
+    margin: auto;
+}
+.shrinky-dink{
+    border : 1px solid gray;
+    padding: 2em;
+    max-width: 320px;
+    background: #e1ded2;
+    border-radius: 10%;
+    padding: .2em;
+    margin: auto;
+    margin-top: 1em;
+}
+.shrinky-dink > h1{
+    display: none;
+}
+.shrinky-dink > .input-wrapper{
+    display: none;
+}

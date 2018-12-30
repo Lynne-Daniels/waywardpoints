@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+	<head>
+		<title>Map created by GPS Visualizer</title>
+		<base target="_top"></base>
+		<meta name="geo.position" content="26.463235; -80.219715" />
+		<meta name="ICBM" content="26.463235, -80.219715" />
+	</head>
+	<body onunload="GUnload();" style="margin:0px;">
+		
+		
+		<!--
+			If you want to transplant this map into another Web page, by far the best method is to
+			simply include it in a IFRAME tag (see http://www.gpsvisualizer.com/faq.html#google_html).
+			But, if you must paste the code into another page, be sure to include all of these parts:
+			   1. The DOCTYPE declaration and the extra attributes in the "html" tag (xmlns:v=...)
+			     that allow Internet Explorer for Windows to render polylines (tracks)
+			   2. The "div" tags that contain the map and its widgets
+			   3. Three sections of JavaScript code:
+			      a. Your Google Maps API key and the maps.google.com code
+			      b. "gv_options" and the code that calls "functions.js" on maps.gpsvisualizer.com
+			      c. The "GV_Map" function, which contains all the geographic info for the map
+		-->
+		<div style="margin-left:0px; margin-right:0px; margin-top:0px; margin-bottom:0px;">
+			<div id="gmap_div" style="width:300px; height:700px; margin:0px; margin-right:12px; background-color:#F0F0F0; float:left; overflow:hidden;">
+				<p align="center" style="font:10px Arial;">This map was created using <a target="_blank" href="http://www.gpsvisualizer.com/">GPS Visualizer</a>'s do-it-yourself geographic utilities.<br><br>Please wait while the map data loads...</p>
+			</div>
+				
+			<div id="gv_legend_container" style="display:none;"><table id="gv_legend_table" style="position:relative; filter:alpha(opacity=95); -moz-opacity:0.95; background:#ffffff;" cellpadding="0" cellspacing="0" border="0"><tr><td><div id="gv_legend_handle" align="center" style="height:6px; max-height:6px; background:#CCCCCC; border-left:1px solid #999999; border-top:1px solid #EEEEEE; border-right:1px solid #999999; padding:0px; cursor:move;"><!-- --></div>
+				<div id="gv_legend" align="left" style="font:11px Arial; line-height:13px; border:solid #000000 1px; background:#FFFFFF; padding:4px;">
+					<!-- Although GPS Visualizer didn't create a legend with your map, you can use this box for something else if you'd like; enable it by setting legend:true in the 'gv_options' -->
+				</div>
+			</td></tr></table></div>
+
+
+			<div id="gv_tracklist_container" style="display:none;"><table id="gv_tracklist_table" style="position:relative; filter:alpha(opacity=95); -moz-opacity:0.95;" cellpadding="0" cellspacing="0" border="0"><tr><td><div id="gv_tracklist_handle" align="center" style="height:6px; max-height:6px; background:#CCCCCC; border-left:1px solid #999999; border-top:1px solid #EEEEEE; border-right:1px solid #999999; padding:0px; cursor:move; min-width:40px;"><!-- --></div>
+				<div id="gv_tracklist" align="left" style="font:11px Arial; line-height:11px; border:solid #666666 1px; background:#FFFFFF; padding:4px; overflow:auto;">
+					<div id="gv_tracklist_header" style="padding-bottom:2px; color:#000000;"><b>Tracks:</b></div>
+					<div id="gv_tracklist_links" style="color:#000000;"></div>
+				</div>
+			</td></tr></table></div>
+			<div id="gv_tracklist_tooltip" class="gv_tracklist_tooltip" style="background-color:#FFFFFF; border:1px solid #CCCCCC; padding:2px; font:11px Arial; display:none;"></div>
+
+			<div id="gv_clear_margins" style="height:0px; clear:both;"><!-- clear the "float" --></div>
+		</div>
+
+		
+		<script type="text/javascript">
+			// If you put this map on another Web site, you must include your API key or nothing will work!
+			var google_api_key = 'ABQIAAAAI8FnZYYe-t_wWD1ftv1IWhSL2klI9iZdYmnkk8CatZUuNbeXWRRwgEJhK7bgfO6HOqQOyqoskEAnmQ';
+			if (document.location.toString().indexOf('http://www.gpsvisualizer.com') > -1) { eval(unescape("%67%6F%6F%67%6C%65%5F%61%70%69%5F%6B%65%79")+" = '"+unescape("%41%42%51%49%41%41%41%41%61%47%39%4A%44%62%43%65%36%52%61%31%4F%67%30%68%4B%43%6E%32%4C%52%52%6F%6B%57%5F%49%74%45%49%6D%42%6F%37%65%77%62%56%45%4A%41%7A%73%74%53%73%52%57%68%52%4A%33%52%4D%44%41%57%70%4C%35%35%51%61%63%47%5A%32%7A%51%46%32%6B%4C%43%5F%65%41")+"'"); }
+			document.writeln('<script src="http://maps.google.com/maps?file=api&v=2&sensor=false&key='+google_api_key+'" type="text/javascript"><'+'/'+'script>');
+		</script>
+		<!-- end Google Maps script; begin GPS Visualizer setup script (they must be separate) -->
+		<script type="text/javascript">
+			/* Global variables used by the GPS Visualizer functions (1260672525): */
+			gv_options = new Array(); gv_options = {
+				// important variable names:
+				map:'gmap', map_div:'gmap_div', marker_array:'wpts', track_array:'trk', track_info_array:'trk_info', // probably 'gmap','gmap_div','wpts','trk','trk_info'
+				
+				// basic map parameters:
+				full_screen:false,              // should the map fill the entire page (or frame)?
+				center:[26.463235,-80.219715], // latitude,longitude - be sure to keep the square brackets
+				zoom:18,                        // higher number means closer view; at 600px wide, 7 = width of New Mexico, 12 = width of San Francisco
+				map_opacity:1, map_type:'G_HYBRID_MAP', // opacity is from 0 to 1; popular map_type choices are 'G_NORMAL_MAP', 'G_SATELLITE_MAP', 'G_HYBRID_MAP', 'G_PHYSICAL_MAP', 'USGS_TOPO_TILES'
+				doubleclick_zoom:true, mousewheel_zoom:false, // true or false; or, value of 'reverse' for mousewheel_zoom makes down=in and up=out
+				
+				// widgets on the map:
+				map_type_control:{ // style: 'menu', 'list', 'none', or 'google'; filter: when map loads, are irrelevant maps ignored?; excluded: list of map types that will never show in the list; included:show ONLY these map types in the list
+					style:'menu', filter:true, excluded:['G_SATELLITE_3D_MAP']
+				},
+				zoom_control:'large', scale_control:true, map_opacity_control:true, // zoom is 'large' or 'small', scale and opacity are true or false
+				center_coordinates:true, crosshair_hidden:true, // true or false: Show a "center coordinates" box and crosshair? Hide the crosshair initially?
+				legend_options:{ // position: [Google anchor, x, y]; id: id of a DIV tag that holds the legend (other associated DIVs -- e.g., _handle, _table, -container -- must be similarly named)
+					legend:false, id:'gv_legend', position:['G_ANCHOR_BOTTOM_LEFT',4,60], draggable:true, collapsible:true
+				},
+				
+				
+				// marker-related options:
+				default_marker:{ color:'red',icon:'googlemini' }, // icon can be a URL, but be sure to also include size:[w,h] and optionally anchor:[x,y]
+				icon_directory:'http://maps.gpsvisualizer.com/google_maps/icons/', // don't change this unless you really know what you're doing
+				marker_link_target:'_blank',    // the name of the window or frame into which markers' URLs will load
+				info_window_width:0, thumbnail_width:0, photo_size:[0,0], // in pixels, the width of the markers' info windows or thumbnails, or width and height of photos; 0 for default (can be overridden in an individual marker's options)
+				hide_labels:false, label_offset:[0,0], label_centered:false, // hide_labels causes the "permanent" labels to be hidden at first; global label_offset setting is [x,y] (positive numbers are right and down)
+				driving_directions:false,       // put a small "driving directions" form in each marker's pop-up window? (override with dd:true or dd:false in the marker's options)
+				
+				// track-related options:
+				tracklist_options:{ // position: [Google anchor, x, y]; id: id of a DIV tag that holds the track list (other associated DIVs -- e.g., _handle, _table, -container -- must be similarly named)
+					tracklist:true, position:['G_ANCHOR_TOP_RIGHT',6,32], max_width:180, max_height:610, desc:true, zoom_links:true, tooltips:true, draggable:true, collapsible:true, id:'gv_tracklist'
+				},
+
+				centering_options:{ // URL-based centering (e.g., ?center=name_of_marker&zoom=14)
+					center_key:'center', partial_match:true, default_zoom:null, open_info_window:true
+				},
+
+				zzz:false // this is just here to prevent possible "hanging comma" JS errors
+			};
+			// Load GPS Visualizer's Google Maps functions (this must be loaded AFTER gv_options are set):
+			document.writeln('<script src="http://maps.gpsvisualizer.com/google_maps/functions.js?1260672525" type="text/javascript"><'+'/'+'script>');
+		</script>
+		
+		<style type="text/css">
+			/* Put any custom style definitions here (e.g., .gv_marker_info_window, .gv_marker_list_item, .gv_tooltip, .gv_label, etc.) */
+			.gv_label {
+				filter:alpha(opacity=90); -moz-opacity:0.9;
+				background:#333333; border:1px solid black; padding:1px;
+				font:9px Verdana,sans-serif; color:white; font-weight:normal;
+			}
+			
+		</style>
+		
+		<!-- end GPSV setup script and styles; begin map-drawing script (they must be separate) -->
+		<script type="text/javascript">
+			function GV_Map() {
+				if (GBrowserIsCompatible()) { 
+					if (gv_options['full_screen']) { GV_Fill_Window_With_Map(gv_options['map_div']); }
+					gmap = new GMap2(document.getElementById(gv_options['map_div'])); // create map
+					GV_Setup_Map(gv_options);
+					
+					// Track #1 ("Magellan")
+					trk[1] = []; trk_info[1] = {
+						name:'09121202WestAtlantic', desc:'',
+						color:'#E600E6', width:3, opacity:0.8, outline_color:'#000000', outline_width:5,
+						clickable:true, bounds:{w:-80.22018,e:-80.21925,s:26.46207,n:26.4644}, center:{lat:26.4633,lon:-80.21967}
+					};
+					var pts = [ new GLatLng(26.46207,-80.22003), new GLatLng(26.46233,-80.2201), new GLatLng(26.46247,-80.22018), new GLatLng(26.4626,-80.22013), new GLatLng(26.46292,-80.21995), new GLatLng(26.46302,-80.2199), new GLatLng(26.46318,-80.21995), new GLatLng(26.46308,-80.22003), new GLatLng(26.46293,-80.22005), new GLatLng(26.4631,-80.22007), new GLatLng(26.46325,-80.22005), new GLatLng(26.46338,-80.22007), new GLatLng(26.46352,-80.22005), new GLatLng(26.46368,-80.22007), new GLatLng(26.46367,-80.21987), new GLatLng(26.46378,-80.21967), new GLatLng(26.46392,-80.21963), new GLatLng(26.4641,-80.21972), new GLatLng(26.46427,-80.21963), new GLatLng(26.4644,-80.2198), new GLatLng(26.46437,-80.22002), new GLatLng(26.46433,-80.22017), new GLatLng(26.46438,-80.2198), new GLatLng(26.46437,-80.2196), new GLatLng(26.46417,-80.21965), new GLatLng(26.46435,-80.21957), new GLatLng(26.4644,-80.21935), new GLatLng(26.46423,-80.21935), new GLatLng(26.46397,-80.21932), new GLatLng(26.46382,-80.2193), new GLatLng(26.46362,-80.21927), new GLatLng(26.46347,-80.21925), new GLatLng(26.46333,-80.21927), new GLatLng(26.46312,-80.21935), new GLatLng(26.46293,-80.21933), new GLatLng(26.46287,-80.21952), new GLatLng(26.46288,-80.21937), new GLatLng(26.46302,-80.21933), new GLatLng(26.46285,-80.21935), new GLatLng(26.46268,-80.21935), new GLatLng(26.46262,-80.2195), new GLatLng(26.46242,-80.21948), new GLatLng(26.46227,-80.21945), new GLatLng(26.46215,-80.21963), new GLatLng(26.46228,-80.21957), new GLatLng(26.46242,-80.21955), new GLatLng(26.4626,-80.21955), new GLatLng(26.46282,-80.21965), new GLatLng(26.46302,-80.21958), new GLatLng(26.46313,-80.21947), new GLatLng(26.4633,-80.21937), new GLatLng(26.4635,-80.21935), new GLatLng(26.46363,-80.21942), new GLatLng(26.46388,-80.21937), new GLatLng(26.46407,-80.2194), new GLatLng(26.46423,-80.21938), new GLatLng(26.46398,-80.21928), new GLatLng(26.46423,-80.2194), new GLatLng(26.46403,-80.21947), new GLatLng(26.46378,-80.2195), new GLatLng(26.4636,-80.21942), new GLatLng(26.46335,-80.21958), new GLatLng(26.46307,-80.21977), new GLatLng(26.46295,-80.21997), new GLatLng(26.46273,-80.22003), new GLatLng(26.46257,-80.22005), new GLatLng(26.46238,-80.22007), new GLatLng(26.46233,-80.21993), new GLatLng(26.46247,-80.21998), new GLatLng(26.46265,-80.22007), new GLatLng(26.46282,-80.22003) ]; // track 1 segment 1
+					  trk[1].push (new GPolyline(pts,GV_Color_Name2Hex(trk_info[1]['color']),trk_info[1]['width'],trk_info[1]['opacity'],{mouseOutTolerance:2})); gmap.addOverlay(trk[1][trk[1].length-1]);
+					
+					GV_Finish_Track(1);
+					
+					
+					GV_Add_Track_to_Tracklist({bullet:'- ',name:trk_info[1]['name'],desc:trk_info[1]['desc'],color:trk_info[1]['color'],id:"trk[1]"});
+					
+					
+					
+				
+					GV_Finish_Map(gv_options);
+					
+				} else {
+					document.getElementById('gmap_div').style.backgroundColor = '#DDDDDD';
+					document.getElementById('gmap_div').innerHTML = 'Sorry, your Google Map cannot be displayed.';
+				}
+			}
+			GV_Map(); // execute the above code
+		</script>
+		
+		
+	</body>
+
+</html>

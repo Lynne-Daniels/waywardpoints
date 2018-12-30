@@ -1,0 +1,96 @@
+html,
+body {
+    height: 100%;
+    margin: 2px;
+    padding: 2px
+}
+
+article {
+    padding: 1.5em;
+}
+
+/*These classes make the map responsive to device size -- from http://stackoverflow.com/questions/15668762/using-google-map-with-bootstrap-but-responsive-doesnt-work*/
+.map-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    /*Can change dimensions of map by changing padding: ie. Ratio 16:9 ( 100%/16*9 = 56.25% ) */
+}
+
+.map-container .map-canvas {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#map-canvas {
+    width: 100%;
+    margin: 2px;
+    padding: 2px
+}
+/*fixed table layout prevents any long string from an API call blowing out the side of the page 
+ https://css-tricks.com/fixing-tables-long-strings/*/
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    margin-top: 16.5%;
+    margin-bottom: 16.5%;
+    white-space: nowrap;
+}
+
+td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.left-column {
+    width: 25%;
+}
+
+.right-column {
+    width: 75%;
+}
+li {
+    list-style-type: none;
+}
+
+#strava-container img {
+    width: 100%;
+    margin-top: 16.5%;
+    margin-bottom: 16.5%;
+}
+
+.my-profile-pic{
+	max-width: 250px;
+	width: 100%;
+}
+.container-fluid {
+    background-color: #ffff64;
+}
+
+.row {
+    background-color: white;
+}
+
+.stravaRider {
+    border: solid #ffff64 10px;
+}
+
+aside{
+	padding: 30px 30px 30px 30px;
+	font-weight:700;
+	font-size: 1.2em;
+}
+
+/*formats items inside the googlemap infoWindo */
+.trip-advisor-in-infomarker {
+	width: 33%;
+	margin: 2px 2px 2px 2px;
+	max-width: 100%;
+}

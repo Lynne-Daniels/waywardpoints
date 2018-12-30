@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+	<head>
+		<base target="_top">
+	</head>
+	<body background="images/Clouds.jpg" onload="GV_Map()" onunload="GUnload()" >
+	
+	<table cellpadding = "40"><tr>
+<tr>	
+		<!--
+			If you want to transplant this map into another Web page, there are a number of pieces
+			you need to copy, and it is important that some things are placed in a particular order:
+			   1. The DOCTYPE declaration and the extra attributes in the "html" tag (xmlns:v=...)
+			     that allow Internet Explorer for Windows to render polylines
+			   2. The "onload" attribute in the "body" tag
+			   3. The "div" tags that contain the map and its widgets
+			   4. JavaScript stuff:
+			      a. The GPS Visualizer global variables
+			      b. The "script" tag that points to maps.google.com (you must insert your own API key!)
+			      c. The "script" tag that points to gpsvisualizer.com
+			      d. The JavaScript commands that actually build the map
+		-->
+		
+		<!-- If you want to place the map in a page, you can set its margins here: -->
+		<td><div style="margin-left:0px; margin-right:0px; margin-top:0px; margin-bottom:0px;">
+			<div align="center" style="height:515px; overflow:hidden;">
+				<div id="gmap_div" style="width:400px; height:500px"></div>
+				<div id="gv_credit" style="height:15px; font:10px Verdana,sans-serif;">Map created by <a target="_top" href="http://www.gpsvisualizer.com/">GPSVisualizer.com</a></div>
+				<div id="gv_crosshair_container" align="left" style="height:15px; width:400px;">
+					<div id="gv_crosshair" style="z-index:99999; width:15px; height:15px; position:relative; top:-272px; left:192px; display:block;"><img src="http://www.gpsvisualizer.com/misc/google_maps/crosshair.gif" alt="" width="15" height="15" class="gmnoprint"></div>
+				</div>
+				<div id="gv_center_container" align="right" style="height:15px; width:400px;">
+					<table id="gv_center" cellspacing="0" cellpadding="0" border="0" style="z-index:9999; position:relative; left:-3px; top:-63px; cursor:crosshair; filter:alpha(opacity=80); -moz-opacity:0.8;"><tr><td>
+						<div id="gv_center_coordinates" style="font-family:Arial; font-size:10px; line-height:11px; padding:1px; border:solid #666666 1px; background:white; position:relative;" onClick="GV_Toggle('gv_crosshair');" title="Click here to turn center crosshair on or off"></div>
+					</td></tr></table>
+				</div>
+
+				<div id="gv_legend_container" align="right" style="width:400px;">
+					<table id="gv_legend" cellspacing="0" cellpadding="0" border="0" style="z-index:9999; position:relative; left:-7px; top:-513px; cursor:move; filter:alpha(opacity=90); -moz-opacity:0.9;"><tr><td>
+						<div id="gv_legend_contents" align="left" style="font-family:Arial; font-size:11px; font-weight:bold; border:solid #000000 1px; background:white; padding:4px; position:relative;">
+							<span style="color:#000000;">Tracks:</span>
+							<br><span id="trk1_label" style="color:#C800CC; cursor:pointer;" onclick="GV_Toggle_Track_And_Label(gmap,'trk1','#C800CC');" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'" title="">- McArthurMapData</span>
+						</div>
+					</td>
+				</div>
+
+			</div>
+		</div>
+
+		
+		<script type="text/javascript">
+			// Global variables used by the GPS Visualizer functions (1155528661):
+			var gv_api_version = 2;
+			var gv_maptypecontrol_style = 'menu';
+			var gv_filter_map_types = 1;
+			var gv_marker_link_target = '_blank';
+			var gv_marker_icon = 'diamond';  var gv_marker_color = 'red';
+			var gv_hide_crosshair = true;
+
+		</script>
+		<script src="http://maps.google.com/maps?v=2&file=api&key=ABQIAAAAI8FnZYYe-t_wWD1ftv1IWhSL2klI9iZdYmnkk8CatZUuNbeXWRRwgEJhK7bgfO6HOqQOyqoskEAnmQ" type="text/javascript"></script>
+		<script src="http://www.gpsvisualizer.com/misc/google_maps/functions.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		function GV_Map() {
+			if (GBrowserIsCompatible()) { 
+				gmap = new GMap2(document.getElementById("gmap_div")); // create map
+				var initial_zoom_level = 15; // higher number means closer view; at 600px wide, 7 = width of New Mexico, 12 = San Francisco
+				gmap.setCenter(new GLatLng(26.823708335,-80.0411), initial_zoom_level, G_SATELLITE_MAP);
+				gmap.addControl(new GV_MapTypeControl()); // add custom map type switcher
+				gmap.addControl(new GLargeMapControl());
+				gmap.addControl(new GScaleControl());
+				_mSvgEnabled = true; _mSvgForced = true;
+				Drag.init(document.getElementById("gv_legend"));
+				GV_Show_Center_Coordinates(gmap,'gv_center_coordinates');
+				GEvent.addListener(gmap, "moveend", function() { GV_Show_Hidden_Crosshair(gmap,'gv_crosshair'); GV_Show_Center_Coordinates(gmap,'gv_center_coordinates'); });
+				
+				// Draw track #1
+				trk1 = new Array();
+				// track 1 segment 1:
+				var pts1_1 = [
+					new GLatLng(26.82521667,-80.043),
+					new GLatLng(26.82525,-80.0428),
+					new GLatLng(26.82496667,-80.04245),
+					new GLatLng(26.82451667,-80.04166667),
+					new GLatLng(26.82451667,-80.04168333),
+					new GLatLng(26.82398333,-80.04095),
+					new GLatLng(26.82358333,-80.0402),
+					new GLatLng(26.82355,-80.04031667),
+					new GLatLng(26.82258333,-80.03893333),
+					new GLatLng(26.82251667,-80.03883333),
+					new GLatLng(26.82205,-80.03878333),
+					new GLatLng(26.82191667,-80.03866667),
+					new GLatLng(26.82141667,-80.03856667),
+					new GLatLng(26.82148333,-80.03861667),
+					new GLatLng(26.82093333,-80.03848333),
+					new GLatLng(26.82075,-80.03835),
+					new GLatLng(26.82021667,-80.03818333),
+					new GLatLng(26.81996667,-80.038),
+					new GLatLng(26.81988333,-80.03785),
+					new GLatLng(26.81985,-80.03755),
+					new GLatLng(26.82058333,-80.0377),
+					new GLatLng(26.82063333,-80.03768333),
+					new GLatLng(26.82198333,-80.0381),
+					new GLatLng(26.82298333,-80.03821667),
+					new GLatLng(26.82461667,-80.0382),
+					new GLatLng(26.82256667,-80.03818333),
+					new GLatLng(26.8221,-80.0383),
+					new GLatLng(26.82256667,-80.03851667),
+					new GLatLng(26.82273333,-80.03918333),
+					new GLatLng(26.82328333,-80.0401),
+					new GLatLng(26.82333333,-80.04015),
+					new GLatLng(26.82426667,-80.0414),
+					new GLatLng(26.82426667,-80.04148333),
+					new GLatLng(26.82503333,-80.04241667),
+					new GLatLng(26.82518333,-80.04276667),
+					new GLatLng(26.82575,-80.0431),
+					new GLatLng(26.82598333,-80.04338333),
+					new GLatLng(26.82625,-80.04341667),
+					new GLatLng(26.82635,-80.04356667),
+					new GLatLng(26.82756667,-80.04465),
+					new GLatLng(26.82551667,-80.04433333),
+					new GLatLng(26.82451667,-80.0444)
+				];
+				trk1.push (new GPolyline(pts1_1,"#C800CC",3,0.8));
+				gmap.addOverlay(trk1[trk1.length-1]);
+				
+				wpt1 = GV_Marker(gmap,{lat:26.82518333,lon:-80.043,name:'40',desc:'',color:''});
+				wpt2 = GV_Marker(gmap,{lat:26.82451667,lon:-80.04161667,name:'41',desc:'',color:''});
+				wpt3 = GV_Marker(gmap,{lat:26.82386667,lon:-80.04098333,name:'42',desc:'',color:''});
+				wpt4 = GV_Marker(gmap,{lat:26.82386667,lon:-80.04098333,name:'43',desc:'',color:''});
+				
+			} else {
+				document.getElementById('gmap_div').style.backgroundColor = '#DDDDDD';
+				document.getElementById('gmap_div').innerHTML = 'Sorry, your Google Map cannot be displayed.';
+			}
+		}
+		</script></td></tr></table><td width = "200">
+<table><tr><td><img src="images/beach_mcarthur.jpg" alt=""></td></tr>		
+	<tr><td><b>McArthur Park is a little oasis of wilderness right here in town.  If I leave work when it is still light outside, I can be here, walking on the beach, within 10 minutes.  Aaaahhhhhhh.<b/></td></tr>
+<tr><td><img src="images/mcarthurboardwalk.jpg" alt="">	
+	</table>	
+	</body>
+
+</html>

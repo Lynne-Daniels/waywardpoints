@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=0" name="viewport">
+   
+    <title>Tic Tac Toe</title>
+  
+    
+    <link href="main.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+</head>
+
+<body>
+
+<div class = "flexcontainer"> 
+	<div class = "left-side-spacer"></div>
+		<div class = "game-info-container">
+			<div><span id = "player-one">Choose X or O to Begin</span></div>
+			<div><button onclick = "clickedX()"> X </button> or <button onclick = "clickedO()"> O </button></div>
+			<div><span id = "player-two"> words</span></div>
+			<div class = "horizontal lines"></div>
+			<div class = "vertical lines"></div>
+			<div class = "top row">
+				<div id = "0" class = "square">n</div>
+				<div id = "1" class = "square">n</div>
+				<div id = "2" class = "square">n</div>
+			</div>
+			<div class = "middle row">
+				<div id = "3" class = "square">n</div>
+				<div id = "4" class = "square">n</div>
+				<div id = "5" class = "square">n</div>
+			</div>
+			<div class = "bottom row">
+				<div id = "6" class = "square">n</div>
+				<div id = "7" class = "square">n</div>
+				<div id = "8" class = "square">n</div>
+			</div>
+		</div>
+	<div class = "right-side-spacer"></div>
+</div>
+<script src="app.js"></script>	
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+
+		<title>300k RUSA Permanent Bocachobee</title>
+		<meta name="description" content="300k RUSA Permanent Bocachobee" />
+		<meta name="author" content="Lynne Daniels" />
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+	<link rel="stylesheet" href="../styles/permanents.css">
+	<link rel="stylesheet" href="http://www.waywardpoints.com/rusa/permanents.css">
+
+	</head>
+
+	<body>
+		<header>
+			
+<!-- Add navigation menu to the top of every page -->			
+<!--#include virtual="../includes/header.html" -->
+
+		</header>
+				<!-- banner photos are 1000 px wide -->
+				<img src="1327-blueheronbridge.jpg" />
+				<h1>300k RUSA Permanent Bocachobee - Route #1327</h1>
+				
+				<h3>Route Owner: Daniel Campos, RUSA #7230</h3>
+				<h3>E-mail:<a href="mailto:dan4810@live.com">dan4810@live.com</a></h3>
+			
+			
+			<nav id="perm_files">
+				
+				<!-- IMAGE IS ABOUT 307*371PX -->
+				<img src="1327-bocachobeemap.jpg" />
+				<ul>
+					<li><a href="1327-bocachobee-gps-track.gpx">GPX File (right click and chose "save as")</a></li>
+					<li><a href="ADD RIDEWITHGPS LINK">ridewithgps.com map and file downloads</a></li>
+					<li>Cue Sheet - coming soon</li>
+					<li>Permanent Brevet Card - coming soon</li>
+				</ul>
+
+			</nav>
+			<article>
+
+			<h4>Ride Description</h4>
+			<p>
+			This ride offers a sample of all types of South Florida road riding.  Starting northward on Hwy 441 out of suburban Boca Raton, the route then turns west on country highways through sugarcane fields.  Not far after the control at Canal Point, the route uses the L.O.S.T. or Lake Okeechobee Scenic Trail from Port Myakka to Okeechobee.  The trail up on the dyke is paved and closed to motorized vehicles.  Views include cattle ranches and Lake Okechobee.  Wind speed and direction become important on this exposed, elevated trail around the lake.
+			<p>After turning around in Okechoobee, the ride heads east all the way to the coast, then south along the beach roads to Boca Raton.  The inland portions of the ride were rural with few services.  The coast is almost all developed residential areas including Jupiter Island.  A few bridges are the only hills on the ride.</p>
+			</p>	
+			<img src="1327-losttrail.jpg" />
+<!-- AddS text describing general info common to all permanents -->			
+<!--#include virtual="../includes/permanents-footer.html" -->	
+			</article>
+
+		</body>
+</html>

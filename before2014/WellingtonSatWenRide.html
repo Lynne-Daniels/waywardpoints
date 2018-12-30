@@ -1,0 +1,216 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+
+<head>
+<title>Wellington Monday and Wednesday Ride - Waywardpoints</title>
+<base target="_top">
+<meta name="keywords" content="wellington, florida, fl, gps, waypoints, track, bicycle">
+</head>
+
+<body bgcolor = e0eeee onload="GV_Map()" onunload="GUnload()" >
+
+<!-- Header table here: -->
+<table width=100% height = 50 border=0 cellpadding=0 cellspacing=0>
+ <tr><td bgcolor=e0eeee>
+ <center><H2><font size="+5">.......</font size>Wellington Road Bike Ride<font size="+9">.......</font size></H2></center>
+ </td></tr>
+</table>
+
+<!-- table that contains photo, title bar, spacer, and text here: -->
+<table border=0 cellpadding=0 cellspacing=0>
+ <tr>
+ <td>	<!-- Map or photo placed in this squareish td -->
+ 
+<!--
+			If you want to transplant this map into another Web page, there are a number of pieces
+			you need to copy, and it is important that some things are placed in a particular order:
+			   1. The DOCTYPE declaration and the extra attributes in the "html" tag (xmlns:v=...)
+			     that allow Internet Explorer for Windows to render polylines
+			   2. The "onload" attribute in the "body" tag
+			   3. The "div" tags that contain the map and its widgets
+			   4. JavaScript stuff:
+			      a. The GPS Visualizer global variables
+			      b. The "script" tag that points to maps.google.com (you must insert your own API key!)
+			      c. The "script" tag that points to gpsvisualizer.com
+			      d. The JavaScript commands that actually build the map
+		-->
+		
+		<!-- If you want to place the map in a page, you can set its margins here: -->
+		<div style="margin-left:0px; margin-right:0px; margin-top:0px; margin-bottom:0px;">
+			<div align="center" style="height:436px; overflow:hidden;">
+				<div id="gmap_div" style="width:600px; height:421px"></div>
+				<div id="gv_credit" style="height:15px; font:10px Verdana,sans-serif;">Map created by <a target="_top" href="http://www.gpsvisualizer.com/">GPSVisualizer.com</a></div>
+				<div id="gv_crosshair_container" align="left" style="height:15px; width:600px;">
+					<div id="gv_crosshair" style="z-index:99999; width:15px; height:15px; position:relative; top:-233px; left:292px; display:block;"><img src="http://www.gpsvisualizer.com/misc/google_maps/crosshair.gif" alt="" width="15" height="15" class="gmnoprint"></div>
+				</div>
+				<div id="gv_center_container" align="right" style="height:15px; width:600px;">
+					<table id="gv_center" cellspacing="0" cellpadding="0" border="0" style="z-index:9999; position:relative; left:-3px; top:-63px; cursor:crosshair; filter:alpha(opacity=80); -moz-opacity:0.8;"><tr><td>
+						<div id="gv_center_coordinates" style="font-family:Arial; font-size:10px; line-height:11px; padding:1px; border:solid #666666 1px; background:white; position:relative;" onClick="GV_Toggle('gv_crosshair');" title="Click here to turn center crosshair on or off"></div>
+					</td></tr></table>
+				</div>
+
+				<div id="gv_legend_container" align="right" style="width:600px;">
+					<table id="gv_legend" cellspacing="0" cellpadding="0" border="0" style="z-index:9999; position:relative; left:-7px; top:-434px; cursor:move; filter:alpha(opacity=90); -moz-opacity:0.9;"><tr><td>
+						<div id="gv_legend_contents" align="left" style="font-family:Arial; font-size:11px; font-weight:bold; border:solid #000000 1px; background:white; padding:4px; position:relative;">
+							<span style="color:#000000;">Tracks:</span>
+							<br><span id="trk1_label" style="color:#C800CC; cursor:pointer;" onclick="GV_Toggle_Track_And_Label(gmap,'trk1','#C800CC');" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'" title="">- Bike Ride</span>
+						</div>
+					</td></tr></table>
+				</div>
+
+			</div>
+		</div>
+
+		
+		<script type="text/javascript">
+			// Global variables used by the GPS Visualizer functions (1153591791):
+			var gv_api_version = 2;
+			var gv_maptypecontrol_style = 'menu';
+			var gv_filter_map_types = 1;
+			var gv_marker_link_target = '_blank';
+			var gv_marker_icon = 'pin';  var gv_marker_color = 'red';
+		</script>
+		<script src="http://maps.google.com/maps?v=2&file=api&key=ABQIAAAAI8FnZYYe-t_wWD1ftv1IWhSL2klI9iZdYmnkk8CatZUuNbeXWRRwgEJhK7bgfO6HOqQOyqoskEAnmQ" type="text/javascript"></script>
+		<script src="http://www.gpsvisualizer.com/misc/google_maps/functions.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		function GV_Map() {
+			if (GBrowserIsCompatible()) { 
+				gmap = new GMap2(document.getElementById("gmap_div")); // create map
+				var initial_zoom_level = 13; // higher number means closer view; at 600px wide, 7 = width of New Mexico, 12 = San Francisco
+				gmap.setCenter(new GLatLng(26.630475,-80.2601416665), initial_zoom_level, G_NORMAL_MAP);
+				gmap.addControl(new GV_MapTypeControl()); // add custom map type switcher
+				gmap.addControl(new GLargeMapControl());
+				gmap.addControl(new GScaleControl());
+				_mSvgEnabled = true; _mSvgForced = true;
+				Drag.init(document.getElementById("gv_legend"));
+				GV_Show_Center_Coordinates(gmap,'gv_center_coordinates');
+				GEvent.addListener(gmap, "moveend", function() { GV_Show_Center_Coordinates(gmap,'gv_center_coordinates'); });
+				
+				// Draw track #1
+				trk1 = new Array();
+				// track 1 segment 1:
+				var pts1_1 = [
+					new GLatLng(26.65255,-80.23445),
+					new GLatLng(26.651066667,-80.234316667),
+					new GLatLng(26.649933333,-80.237216667),
+					new GLatLng(26.6492,-80.23965),
+					new GLatLng(26.649366667,-80.24255),
+					new GLatLng(26.6481,-80.245033333),
+					new GLatLng(26.6455,-80.249066667),
+					new GLatLng(26.64415,-80.253033333),
+					new GLatLng(26.6437,-80.2576),
+					new GLatLng(26.643516667,-80.2599),
+					new GLatLng(26.6423,-80.261983333),
+					new GLatLng(26.64035,-80.263),
+					new GLatLng(26.637533333,-80.263283333),
+					new GLatLng(26.638116667,-80.285533333),
+					new GLatLng(26.641833333,-80.28555),
+					new GLatLng(26.640733333,-80.28775),
+					new GLatLng(26.640416667,-80.291616667),
+					new GLatLng(26.640366667,-80.29325),
+					new GLatLng(26.639483333,-80.295266667),
+					new GLatLng(26.640183333,-80.296816667),
+					new GLatLng(26.643366667,-80.298583333),
+					new GLatLng(26.645816667,-80.298983333),
+					new GLatLng(26.65215,-80.298766667),
+					new GLatLng(26.653033333,-80.2974),
+					new GLatLng(26.652916667,-80.29375),
+					new GLatLng(26.64835,-80.290516667),
+					new GLatLng(26.647833333,-80.2925),
+					new GLatLng(26.647166667,-80.294),
+					new GLatLng(26.6478,-80.292616667),
+					new GLatLng(26.647783333,-80.290633333),
+					new GLatLng(26.652616667,-80.293033333),
+					new GLatLng(26.653083333,-80.2978),
+					new GLatLng(26.651466667,-80.29885),
+					new GLatLng(26.644583333,-80.29895),
+					new GLatLng(26.642266667,-80.298133333),
+					new GLatLng(26.640083333,-80.296766667),
+					new GLatLng(26.63945,-80.295283333),
+					new GLatLng(26.640383333,-80.293066667),
+					new GLatLng(26.640383333,-80.291366667),
+					new GLatLng(26.635733333,-80.291516667),
+					new GLatLng(26.634166667,-80.292433333),
+					new GLatLng(26.632933333,-80.295233333),
+					new GLatLng(26.6312,-80.29635),
+					new GLatLng(26.62865,-80.2966),
+					new GLatLng(26.62655,-80.2961),
+					new GLatLng(26.624666667,-80.295183333),
+					new GLatLng(26.617933333,-80.2953),
+					new GLatLng(26.616383333,-80.294466667),
+					new GLatLng(26.614533333,-80.291133333),
+					new GLatLng(26.614116667,-80.28705),
+					new GLatLng(26.6139,-80.284),
+					new GLatLng(26.613933333,-80.280883333),
+					new GLatLng(26.609916667,-80.280866667),
+					new GLatLng(26.60875,-80.279933333),
+					new GLatLng(26.607866667,-80.262433333),
+					new GLatLng(26.626216667,-80.261383333),
+					new GLatLng(26.62665,-80.2613),
+					new GLatLng(26.6263,-80.260083333),
+					new GLatLng(26.628533333,-80.259216667),
+					new GLatLng(26.629033333,-80.253883333),
+					new GLatLng(26.636983333,-80.252883333),
+					new GLatLng(26.636716667,-80.236866667),
+					new GLatLng(26.636616667,-80.230983333),
+					new GLatLng(26.635583333,-80.230883333),
+					new GLatLng(26.635266667,-80.232),
+					new GLatLng(26.63195,-80.232316667),
+					new GLatLng(26.631633333,-80.228633333),
+					new GLatLng(26.63335,-80.22835),
+					new GLatLng(26.633383333,-80.22575),
+					new GLatLng(26.633333333,-80.224416667),
+					new GLatLng(26.630983333,-80.2245),
+					new GLatLng(26.6295,-80.224633333),
+					new GLatLng(26.62955,-80.228466667),
+					new GLatLng(26.631583333,-80.228616667),
+					new GLatLng(26.631966667,-80.23005),
+					new GLatLng(26.634883333,-80.230133333),
+					new GLatLng(26.63655,-80.230783333),
+					new GLatLng(26.63645,-80.223566667),
+					new GLatLng(26.6302,-80.223716667),
+					new GLatLng(26.629916667,-80.222433333),
+					new GLatLng(26.63445,-80.221833333),
+					new GLatLng(26.63605,-80.2213),
+					new GLatLng(26.636783333,-80.236016667),
+					new GLatLng(26.63755,-80.262983333),
+					new GLatLng(26.64045,-80.262833333),
+					new GLatLng(26.6422,-80.261816667),
+					new GLatLng(26.643266667,-80.260066667),
+					new GLatLng(26.644033333,-80.25255),
+					new GLatLng(26.645666667,-80.248233333),
+					new GLatLng(26.648966667,-80.243433333),
+					new GLatLng(26.649033333,-80.240066667),
+					new GLatLng(26.650333333,-80.23525),
+					new GLatLng(26.650816667,-80.2342),
+					new GLatLng(26.6519,-80.234133333),
+					new GLatLng(26.652183333,-80.2341)
+				];
+				trk1.push (new GPolyline(pts1_1,"#C800CC",3,0.5));
+				gmap.addOverlay(trk1[trk1.length-1]);
+				
+				
+			} else {
+				document.getElementById('gmap_div').style.backgroundColor = '#DDDDDD';
+				document.getElementById('gmap_div').innerHTML = 'Sorry, your Google Map cannot be displayed.';
+			}
+		}
+		</script>
+		
+</td><td>
+	<!-- Nested table containing 4 tds here.  1st column is a width=15 spacer for formatting, 2nd column contains 
+	caption or title bar in the first row, and text in the 2nd row.-->
+  <table border=0 cellpadding=0 cellspacing=0>
+	<tr>
+  <td width = 15 bgcolor="ffff99"></td><td align= "center" bgcolor="ffff99"><bold>Wellington Monday and Wednesday Bike Ride</bold></td></tr>
+  <tr><td width = 15></td><td><br><br>A small group of riders meets in front of Bageland in the Publix shopping Plaza on Forest Hill in Wellington, FL at 8AM on Saturdays and Wednesdays.  Speed is moderate, riders are a mix of road, touring and recumbent riders.  This is a welcoming group of interesting well-travelled people, and there is usually breakfast afterwards.  Some variations are usually added to the route by smaller groups of riders.
+  </td></tr>
+  </table>
+
+</td></tr>
+</table>
+<!-- Spacer bar here -->
+<table width=100% height=10 border=0 cellpadding=0 cellspacing=0><tr><td bgcolor=e0eeee></td></tr></table>
+
+</body>
+</html>

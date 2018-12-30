@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <!-- Bootstrap says:  The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Random Quote Generator</title><!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href='https://fonts.googleapis.com/css?family=Cardo:400,400italic' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div class="container-fluid">
+    	<!-- responsive amount of space above the quote panel-->
+    	<div class="row visible-vs-block vs-spacer-row"></div>
+        <div class="row visible-sm-block sm-spacer-row"></div>
+        <div class="row visible-md-block md-spacer-row"></div>
+        <div class="row visible-lg active lg-spacer-row"></div>
+        
+        <!-- The row contains 3 divs.  On either side a blank columnn increases with screen size, center column holds the quote panel and buttons -->
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+            
+            <div class=
+            "col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 center-block">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Waywardpoints Quote-o-Matic</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row main-message" id="quote-content">
+                            quotesondesign.com did not respond.  Try again.  Good design must be defined by appropriateness to audience and goals, and by its effectiveness, not by its adherence to Swiss design or the number of awards it wins. test formatting, then delete extra ;-)
+                        </div>
+                        <div class="row attribution" id="doineedquotetitlehere">
+                            
+                            <p id="quote-title">Quote source not reachable.</p>
+                        </div>                   
+   <!--                          <button class="btn btn-default" id="tweeter"
+                                name="tweet" type="button"><a class=
+                                "twitter-share-button" data-size="large" href=
+                                "https://twitter.com/intent/tweet?text=Hello%20world"
+                                text = "testing tweet test">
+                                
+                              </a></button>  
+                              
+<!--https://dev.twitter.com/web/tweet-button/parameters --> 
+<div class = "row">
+<div class = "col-xs-6" id = tweeter>                             
+                             
+</div>                            
+                           <div div class = "col-xs-6">   
+                            <button class="btn btn-default right-side" id=
+                                "get-another-quote-button" name="new-quote"
+                                type="button">New Quote</button>
+                             </div>
+</div><!-- row of buttons ends here-->
+                    </div>
+                </div>
+            </div><!-- center-block ends here-->
+            <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+        </div>
+    </div><!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src=
+    "https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script> 
+ 
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+     
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+    </script> 
+    
+    <script src="js/quote-generator.js">
+    </script>
+</body>
+</html>

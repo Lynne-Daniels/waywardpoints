@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Time Zone Coverter</title>
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        
+        <script src="moment.js"></script>
+        <script src="moment-timezone-with-data-2012-2022.js"></script>
+        <script src="app.js"></script>
+        
+       
+    </head>
+    <body>    
+        <link href="main.css" rel="stylesheet">
+        <header>Change the time inside any box, then click any other area to see time conversions.  Refresh the page if an invalid time
+            is entered.
+        </header>
+        <div class = "time-zone" id = "newyork" >
+            <div id="et-button" onclick="showHide(this.id);" class="toggle">hide</div>
+            <h1 class="zone-name" id ="america-new-york-abbr" >placeholder</h1>
+            <h3>
+                <span id="america-new-york-zone">placeholder</span>
+                <span id="america-new-york-offset">placeholder</span></h3>
+            
+            <div class="input-wrapper">      
+                    <input  class="time" id="ET" type="text" name="time" value="00:00" onchange="myHandler(this.id);">
+            </div>          
+        </div>
+
+        <div class = "time-zone" id = "chicago">
+            <div id="ct-button" onclick="showHide(this.id);" class="toggle">hide</div>
+            <h1 class="zone-name" id ="america-chicago-abbr" >placeholder</h1>
+            <h3>
+                <span id="america-chicago-zone">placeholder</span>
+                <span id="america-chicago-offset">placeholder</span></h3>
+            
+            <div class="input-wrapper">      
+                    <input  class="time" id="CT" type="text" name="time" value="00:00" onchange="myHandler(this.id);">
+            </div>          
+        </div>
+
+        <div class = "time-zone" id = "denver">
+            <div id="mt-button" onclick="showHide(this.id);" class="toggle">hide</div>
+            <h1 class="zone-name" id ="america-denver-abbr" >placeholder</h1>
+            <h3>
+                <span id="america-denver-zone">placeholder</span>
+                <span id="america-denver-offset">placeholder</span></h3>
+            
+            <div class="input-wrapper">      
+                    <input  class="time" id="MT" type="text" name="time" value="00:00" onchange="myHandler(this.id);">
+            </div>          
+        </div>
+
+        <div class = "time-zone" id = "los-angeles">
+            <div id="pt-button" onclick="showHide(this.id);" class="toggle">hide</div>
+            <h1 class="zone-name" id ="america-los-angeles-abbr" >placeholder</h1>
+            <h3>
+                <span id="america-los-angeles-zone">placeholder</span>
+                <span id="america-los-angeles-offset">placeholder</span></h3>
+            
+            <div class="input-wrapper">      
+                    <input  class="time" id="PT" type="text" name="time" value="00:00" onchange="myHandler(this.id);">
+            </div>          
+        </div>
+
+         <script src="app.js"></script>
+         <script src="moment.js"></script>
+        <script src="moment-timezone-with-data-2012-2022.js"></script>
+        
+    </body>
+</html>

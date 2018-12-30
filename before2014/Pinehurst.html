@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+	<head>
+		<base target="_top">
+<title>Pinehurst Mountain Bike Trails</title>
+<meta name="keywords" content="Pinehurst bicycle trail mtb Palm Beach County">
+</head>
+<body bgcolor="E0EEEE">
+<H1 align = center>Pinehurst Park</H1>
+
+
+<table border=0 cellpadding=20 cellspacing=0>
+<TR><TD width = "300">
+<h4>Here is a nice little neighborhood park.  The Trailhead is marked on the map at the left.  If you need a car to get there, official parking is at the Okeeheelee Park.  I like to park near the tennis courts.  There is water there, and it is a nice warm-up to pedal over to the trails.  Some people park next door to the trails at Freedom Park.<H4>
+<br><br>
+<!-- Pinehurst Google Map -->
+
+	<body onload="GV_Map();" onunload="GUnload();" >
+		
+		<!--
+			If you want to transplant this map into another Web page, there are a number of pieces
+			you need to copy, and it is important that some things are placed in a particular order:
+			   1. The DOCTYPE declaration and the extra attributes in the "html" tag (xmlns:v=...)
+			     that allow Internet Explorer for Windows to render polylines
+			   2. The "onload" attribute in the "body" tag
+			   3. The "div" tags that contain the map and its widgets
+			   4. JavaScript stuff:
+			      a. The GPS Visualizer global variables
+			      b. The "script" tag that points to maps.google.com (you must insert your own API key!)
+			      c. The "script" tag that points to gpsvisualizer.com
+			      d. The JavaScript commands that actually build the map
+		-->
+		
+
+		<!-- If you want to place the map in a page, you can set its margins here: -->
+		<div style="width:300px; height:315px; margin-left:0px; margin-right:0px; margin-top:0px; margin-bottom:0px;">
+			<div style="width:300px; ">
+				<div align="center" style="height:315px; overflow:hidden;">
+					<div id="gmap_div" style="width:300px; height:300px"></div>
+					<div id="gv_credit" style="height:15px; font:10px Verdana,sans-serif;">Map created by <a target="_top" href="http://www.gpsvisualizer.com/">GPSVisualizer.com</a></div>
+					<div id="gv_crosshair_container" align="left" style="height:15px; width:300px;">
+						<div id="gv_crosshair" style="z-index:99999; width:15px; height:15px; position:relative; top:-172px; left:142px; display:none;"><img src="http://www.gpsvisualizer.com/google_maps/crosshair.gif" alt="" width="15" height="15" class="gmnoprint"></div>
+					</div>
+					<div id="gv_center_container" align="right" style="height:15px; width:300px;">
+						<table id="gv_center" cellspacing="0" cellpadding="0" border="0" style="z-index:9999; position:relative; left:-3px; top:-63px; cursor:crosshair; filter:alpha(opacity=80); -moz-opacity:0.8;"><tr><td>
+							<div id="gv_center_coordinates" style="font-family:Arial; font-size:10px; line-height:11px; padding:1px; border:solid #666666 1px; background:white; position:relative;" onClick="GV_Toggle('gv_crosshair');" title="Click here to turn center crosshair on or off"></div>
+						</td></tr></table>
+					</div>
+
+
+				</div>
+			</div>
+		<!--
+				<div id="gv_marker_list" class="gv_marker_list" style="width:150 150px; height:300px; margin-left:12px; overflow:auto; "></div>
+		-->
+		</div>
+
+		
+		<script type="text/javascript">
+			// Global variables used by the GPS Visualizer functions (1161056239):
+			var gv_maptypecontrol_style = 'menu';
+			var gv_filter_map_types = true;
+			var gv_marker_icon = 'googlemini';  var gv_marker_color = 'red';
+			var gv_icon_directory = 'http://www.gpsvisualizer.com/google_maps/icons/';
+			var gv_marker_link_target = '_blank';
+			var gv_marker_list_options = {map:'gmap',array:'wpts',colors:false,default_color:'#000000',icons:true,desc:false,toggle:false,center:false,zoom:false,info_window:true};
+			
+		</script>
+		<script src="http://maps.google.com/maps?v=2&file=api&key=ABQIAAAAI8FnZYYe-t_wWD1ftv1IWhSL2klI9iZdYmnkk8CatZUuNbeXWRRwgEJhK7bgfO6HOqQOyqoskEAnmQ" type="text/javascript"></script>
+		<script src="http://www.gpsvisualizer.com/google_maps/functions.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		function GV_Map() {
+			if (GBrowserIsCompatible()) { 
+				gmap = new GMap2(document.getElementById("gmap_div")); // create map
+				_mSvgEnabled = true; _mSvgForced = true;
+				var initial_zoom_level = 12; // higher number means closer view; at 600px wide, 7 = width of New Mexico, 12 = San Francisco
+				gmap.setCenter(new GLatLng(26.6404166666667,-80.1575833333333), initial_zoom_level, G_NORMAL_MAP);
+				gmap.addControl(new GLargeMapControl());
+				gmap.addControl(new GScaleControl());
+				gmap.addControl(gv_maptypecontrol = new GV_MapTypeControl()); // add custom map type switcher
+				GV_Show_Center_Coordinates(gmap,'gv_center_coordinates');
+				GEvent.addListener(gmap, "moveend", function() { GV_Show_Hidden_Crosshair(gmap,'gv_crosshair'); GV_Show_Center_Coordinates(gmap,'gv_center_coordinates'); });
+				// GEvent.addListener(gmap, "moveend", function() { GV_Filter_Waypoints(gmap,wpts); });
+				
+				wpts = new Array();
+				wpts.push( GV_Marker(gmap,{lat:26.6404166666667,lon:-80.1575833333333,name:'Pinehurst',desc:'Trailhead',color:'',icon:''}) );
+				
+				//GV_Marker_List();
+			} else {
+				document.getElementById('gmap_div').style.backgroundColor = '#DDDDDD';
+				document.getElementById('gmap_div').innerHTML = 'Sorry, your Google Map cannot be displayed.';
+			}
+		}
+		</script>
+		
+		
+	</body>
+</TD><TD cellpadding = "20"><BR><BR><H4>Think of the map as a Rorschach test.  I see alligator teeth, a wrench, and Sanskrit characters.  What do you see?<BR><BR><br>
+<H4>The trails are in great shape, thanks to the hard work of this group.</h4><a href="http://www.forcemtb.org"><img src="images/ForceMTB_logo.jpg" alt="F.O.R.C.E Logo"></a></TD>
+<TD><img src="images/Pinehurst/PinehurstMap20061104.jpg" alt="gps map of an apparently unsteady ride"></TR></TABLE>
+
+<table><TR><TD><img src="images/Pinehurst/RS_DSCN1643.jpg"></TD><TD><img src="images/Pinehurst/RS_DSCN1644.jpg"></TD></TD>
+<<TD><img src="images/Pinehurst/RS_DSCN1648.jpg"></TD><TD><img src="images/Pinehurst/RS_DSCN1649.jpg"></TD><TD><img src="images/Pinehurst/RS_DSCN1650.jpg"></TD></TR>
+</table>
+</html>
+
+</body>
+</html>

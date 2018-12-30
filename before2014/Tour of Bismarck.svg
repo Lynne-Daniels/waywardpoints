@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg height="597" onload="init(evt)" width="600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<script type="text/ecmascript"><![CDATA[
+		var SVGDoc; var SVGRoot;
+		function init(evt) {
+			SVGDoc = evt.getTarget().getOwnerDocument();
+			SVGRoot = SVGDoc.getDocumentElement();
+		}]]>
+	</script>
+	<script type="text/ecmascript"><![CDATA[
+	var svgns = "http://www.w3.org/2000/svg";
+	var tracking;
+	var x_offset = 0; var y_offset = 0; // how far off the mouse was from a group's coordinates
+	var global_mouse_x; var global_mouse_y; // for seeing if the mouse moved
+	
+	function toggle_item_opacity(id,op1,op2) {
+		if (SVGDoc.getElementById(id) != null) {
+			var item = SVGDoc.getElementById(id);
+			var new_op = (parseFloat(item.getAttributeNS(null, 'opacity')) == op1) ? op2 : op1;
+			item.setAttributeNS(null, 'opacity',new_op.toString());
+		}
+	}
+	function showSaver(op) {
+		if (SVGDoc.getElementById('Saver') != null) {
+			var theSaver = SVGDoc.getElementById('Saver');
+			theSaver.setAttributeNS(null, 'opacity',op);
+		}
+	}
+	function trackGroup(evt,id,onoff){
+		tracking = onoff;
+		if (onoff) {
+			findGroupClickOffset(evt,id);
+			showSaver(1);
+		}
+	}
+	function findGroupClickOffset(evt,name_of_group) {
+		var theClickedThing = SVGDoc.getElementById(name_of_group);
+		var scale = SVGRoot.getCurrentScale();
+		var pan = SVGRoot.getCurrentTranslate();
+		var mouse_x = (evt.getClientX())/scale + (( 0.0 - pan.x ) / scale);
+		var mouse_y = (evt.getClientY())/scale + (( 0.0 - pan.y ) / scale);
+		var group_coords = findGroupCoordinates(name_of_group);
+		x_offset = mouse_x - group_coords.x; // global variable
+		y_offset = mouse_y - group_coords.y; // global variable
+	}
+	function findGroupCoordinates(name_of_group) {
+		var theGroup = SVGDoc.getElementById(name_of_group);
+		var old_transform = theGroup.getAttributeNS(null, 'transform'); 
+		var regex = /([0-9e.-]+),([0-9e.-]+)/;
+		var numbers = regex.exec(old_transform);
+		var group_x = eval(numbers[1]) + parseFloat(theGroup.getAttributeNS(null, 'x'));
+		var group_y = eval(numbers[2]) + parseFloat(theGroup.getAttributeNS(null, 'y'));
+		return { x: group_x, y: group_y };
+	}
+	function moveGroup(evt,name_of_group) {
+		if (tracking) {
+			var theGroup = SVGDoc.getElementById(name_of_group);
+			// Find out where the mouse is, and use x and y offset values
+			var scale = SVGRoot.getCurrentScale();
+			var pan = SVGRoot.getCurrentTranslate();
+			var new_x = evt.getClientX()/scale + (( 0.0 - pan.x ) / scale) - x_offset;
+			var new_y = evt.getClientY()/scale + (( 0.0 - pan.y ) / scale) - y_offset;
+			// Calculate new translation based on difference between mouse position and origin
+			var new_x_transform = new_x - parseFloat(theGroup.getAttributeNS(null, 'x'));
+			var new_y_transform = new_y - parseFloat(theGroup.getAttributeNS(null, 'y'));
+			// Plug new translation values into old transform attribute
+			var old_transform = theGroup.getAttributeNS(null, 'transform');
+			var regex = /([0-9e.-]+),([0-9e.-]+)/;
+			var new_transform = old_transform.replace(regex,new_x_transform+','+new_y_transform);
+			theGroup.setAttributeNS(null, 'transform',new_transform);
+		}
+	}
+	var original_stroke_color = new Object;
+	var original_stroke_width = new Object;
+	function highlight(name_of_thing,onoff) {
+		var highlight_color = '#0000FF';
+		var highlight_width = '1';
+		var theThing = SVGDoc.getElementById(name_of_thing);
+		if (onoff) {
+			original_stroke_color[name_of_thing] = theThing.getAttributeNS(null, 'stroke');
+			original_stroke_width[name_of_thing] = theThing.getAttributeNS(null, 'stroke-width');
+			theThing.setAttributeNS(null, 'stroke',highlight_color);
+			theThing.setAttributeNS(null, 'stroke-width',highlight_width);
+		} else {
+			theThing.setAttributeNS(null, 'stroke',original_stroke_color[name_of_thing]);
+			theThing.setAttributeNS(null, 'stroke-width',original_stroke_width[name_of_thing]);
+		}
+	}
+	]]>
+	</script>
+	<script type="text/ecmascript"><![CDATA[
+	function toggle_track_opacity(id,track_op,label_op) {
+		toggle_item_opacity(id+' track',track_op,1);
+		toggle_item_opacity(id+' label',label_op,1);
+	}
+	function toggle_track_opacity_from_legend(id,legend_id,track_op,label_op) {
+		toggle_item_opacity(id+' track',track_op,1);
+		toggle_item_opacity(id+' label',label_op,1);
+		toggle_item_opacity(legend_id,label_op,1);
+	}
+	function trackLabelMouseDown(evt,id) {
+		tracking = 1;
+		showSaver(1);
+		findGroupClickOffset(evt,id+' label');
+		var scale = SVGRoot.getCurrentScale();
+		var pan = SVGRoot.getCurrentTranslate();
+		global_mouse_x = (evt.getClientX())/scale + (( 0.0 - pan.x ) / scale);
+		global_mouse_y = (evt.getClientY())/scale + (( 0.0 - pan.y ) / scale);
+	}
+	function trackLabelMouseUp(evt,id) {
+		tracking = 0;
+		var scale = SVGRoot.getCurrentScale();
+		var pan = SVGRoot.getCurrentTranslate();
+		var current_mouse_x = (evt.getClientX())/scale + (( 0.0 - pan.x ) / scale);
+		var current_mouse_y = (evt.getClientY())/scale + (( 0.0 - pan.y ) / scale);
+		if (current_mouse_x == global_mouse_x && current_mouse_y == global_mouse_y) {
+			toggle_track_opacity(id,0,0.25);
+		}
+	}
+	]]>
+	</script>
+	<script type="text/ecmascript"><![CDATA[
+	function trackGroupWithLine(evt,id,onoff,color) {
+		tracking = onoff;
+		if (onoff) {
+			createTrackingLine(evt,id+' label', id+' tracking line',color);
+			findGroupClickOffset(evt,id+' label');
+			showSaver(1);
+		} else {
+			adjustGroupTrackingLine(evt,id+' label', id+' tracking line', id+' marker', id+' name', id+' desc');
+		}
+	}
+	function createTrackingLine(evt,name_of_moving_thing,name_of_line,line_color) {
+		var theMovingThing = SVGDoc.getElementById(name_of_moving_thing);
+		var x = theMovingThing.getAttributeNS(null, 'x');
+		var y = theMovingThing.getAttributeNS(null, 'y');
+		if (SVGDoc.getElementById(name_of_line) == null) {
+			var newLine = SVGDoc.createElementNS(svgns,'line');
+			newLine.setAttributeNS(null, 'id', name_of_line);
+			newLine.setAttributeNS(null, 'x1', x);
+			newLine.setAttributeNS(null, 'y1', y);
+			newLine.setAttributeNS(null, 'x2', x);
+			newLine.setAttributeNS(null, 'y2', y);
+			newLine.setAttributeNS(null, 'stroke', line_color);
+			newLine.setAttributeNS(null, 'stroke-width', 1);
+			newLine.setAttributeNS(null, 'opacity', 0.5);
+			SVGDoc.documentElement.appendChild(newLine);
+		}
+	}
+	function adjustGroupTrackingLine(evt,name_of_group,name_of_line,name_of_point,name_of_name,name_of_desc) {
+		var theWaypoint = SVGDoc.getElementById(name_of_point);
+		var wpt_x = parseFloat(theWaypoint.getAttributeNS(null, 'cx'));
+		var wpt_y = parseFloat(theWaypoint.getAttributeNS(null, 'cy'));
+		var wpt_r = parseFloat(theWaypoint.getAttributeNS(null, 'r'));
+		var coords = findGroupCoordinates(name_of_group);
+		var theLine = SVGDoc.getElementById(name_of_line);
+		var pi = 3.14159265; var angle; var horizontalness;
+		var gap = 1; // around the point
+		var text_offset_y = -3; // relative to the corner of the text group
+		if (theLine != null) {
+			theLine.setAttributeNS(null, 'x2', coords.x);
+			theLine.setAttributeNS(null, 'y2', (coords.y+text_offset_y));
+			
+			var doc_width = SVGDoc.getElementById('image_boundary').getAttributeNS(null, 'width');
+			if (coords.x < 2 || coords.x > eval(doc_width)-2) {
+				theLine.setAttributeNS(null, 'opacity','0');
+			} else {
+				theLine.setAttributeNS(null, 'opacity','0.5');
+			}
+
+			var x_from_wpt = coords.x - wpt_x;
+			var y_from_wpt = (coords.y+text_offset_y) - wpt_y;
+			if (x_from_wpt == 0) {
+				if (y_from_wpt < 0) { angle = -1*(pi/2); }
+				else { angle = (pi/2); }
+			} else {
+				angle = Math.atan2(y_from_wpt,x_from_wpt);
+			}
+			theLine.setAttributeNS(null, 'x1', wpt_x + (wpt_r+gap)*Math.cos(angle));
+			theLine.setAttributeNS(null, 'y1', wpt_y + (wpt_r+gap)*Math.sin(angle));
+			horizontalness = Math.cos(angle);
+		}
+		var theName = SVGDoc.getElementById(name_of_name);
+		var theDesc = SVGDoc.getElementById(name_of_desc);
+		if (theName != null && Math.abs(horizontalness) > 0.075) {
+			if (coords.x < wpt_x) { theName.setAttributeNS(null, 'text-anchor','end'); }
+			else { theName.setAttributeNS(null, 'text-anchor','start'); }
+		}
+		if (theDesc != null && Math.abs(horizontalness) > 0.075) {
+			if (coords.x < wpt_x) { theDesc.setAttributeNS(null, 'text-anchor','end'); }
+			else { theDesc.setAttributeNS(null, 'text-anchor','start'); }
+		}
+	}
+	]]>
+	</script>
+	<g id="landsat background" opacity="0.5" transform="translate(0,0)">
+		<image height="597" id="background map 1" opacity="1" width="600" x="0" xlink:href="http://onearth.jpl.nasa.gov/wms.cgi?request=GetMap&amp;layers=global_mosaic&amp;styles=&amp;srs=EPSG:4326&amp;bbox=-100.8892218,46.7507667,-100.7618949,46.8376167&amp;WIDTH=600&amp;HEIGHT=597&amp;format=image/jpeg" y="0" />
+	</g>
+	<g id="T01P01 (t1) track" opacity="1">
+		<line fill="none" id="t1 p1" stroke="#7D00CC" stroke-width="2" x1="549.9471" x2="541.3080" y1="57.6504" y2="95.5873" />
+		<line fill="none" id="t1 p2" stroke="#5700CC" stroke-width="2" x1="541.3080" x2="515.0763" y1="95.5873" y2="121.1460" />
+		<line fill="none" id="t1 p3" stroke="#00CC88" stroke-width="2" x1="515.0763" x2="515.7046" y1="121.1460" y2="138.7963" />
+		<line fill="none" id="t1 p4" stroke="#6200CC" stroke-width="2" x1="515.7046" x2="427.0352" y1="138.7963" y2="143.0370" />
+		<line fill="none" id="t1 p5" stroke="#0036CC" stroke-width="2" x1="427.0352" x2="411.0134" y1="143.0370" y2="160.2290" />
+		<line fill="none" id="t1 p6" stroke="#0078CC" stroke-width="2" x1="411.0134" x2="387.6091" y1="160.2290" y2="121.2606" />
+		<line fill="none" id="t1 p7" stroke="#00CCC4" stroke-width="2" x1="387.6091" x2="298.3114" y1="121.2606" y2="113.9253" />
+		<line fill="none" id="t1 p8" stroke="#00CC1B" stroke-width="2" x1="298.3114" x2="260.9274" y1="113.9253" y2="59.0257" />
+		<line fill="none" id="t1 p9" stroke="#C9CC00" stroke-width="2" x1="260.9274" x2="264.9328" y1="59.0257" y2="46.1891" />
+		<line fill="none" id="t1 p10" stroke="#CCB400" stroke-width="2" x1="264.9328" x2="333.8891" y1="46.1891" y2="181.0885" />
+		<line fill="none" id="t1 p11" stroke="#CC0000" stroke-width="2" x1="333.8891" x2="359.5711" y1="181.0885" y2="228.7675" />
+		<line fill="none" id="t1 p12" stroke="#CCB400" stroke-width="2" x1="359.5711" x2="346.9264" y1="228.7675" y2="246.5325" />
+		<line fill="none" id="t1 p13" stroke="#A3CC00" stroke-width="2" x1="346.9264" x2="351.3246" y1="246.5325" y2="294.5553" />
+		<line fill="none" id="t1 p14" stroke="#CC8D00" stroke-width="2" x1="351.3246" x2="306.7935" y1="294.5553" y2="275.6442" />
+		<line fill="none" id="t1 p15" stroke="#CCB400" stroke-width="2" x1="306.7935" x2="280.0121" y1="275.6442" y2="217.8793" />
+		<line fill="none" id="t1 p16" stroke="#CCBE00" stroke-width="2" x1="280.0121" x2="240.1148" y1="217.8793" y2="209.7418" />
+		<line fill="none" id="t1 p17" stroke="#CCBE00" stroke-width="2" x1="240.1148" x2="187.1016" y1="209.7418" y2="163.8966" />
+		<line fill="none" id="t1 p18" stroke="#98CC00" stroke-width="2" x1="187.1016" x2="152.2308" y1="163.8966" y2="153.6960" />
+		<line fill="none" id="t1 p19" stroke="#98CC00" stroke-width="2" x1="152.2308" x2="115.7106" y1="153.6960" y2="116.3322" />
+		<line fill="none" id="t1 p20" stroke="#B4CC00" stroke-width="2" x1="115.7106" x2="40.5498" y1="116.3322" y2="110.9454" />
+		<line fill="none" id="t1 p21" stroke="#B4CC00" stroke-width="2" x1="40.5498" x2="47.8538" y1="110.9454" y2="142.4640" />
+		<line fill="none" id="t1 p22" stroke="#52CC00" stroke-width="2" x1="47.8538" x2="147.2829" y1="142.4640" y2="314.6126" />
+		<line fill="none" id="t1 p23" stroke="#78CC00" stroke-width="2" x1="147.2829" x2="191.0285" y1="314.6126" y2="477.7068" />
+		<line fill="none" id="t1 p24" stroke="#009ECC" stroke-width="2" x1="191.0285" x2="217.0246" y1="477.7068" y2="532.9502" />
+		<line fill="none" id="t1 p25" stroke="#78CC00" stroke-width="2" x1="217.0246" x2="214.5899" y1="532.9502" y2="519.0821" />
+		<line fill="none" id="t1 p26" stroke="#31CC00" stroke-width="2" x1="214.5899" x2="217.1032" y1="519.0821" y2="539.9416" />
+		<line fill="none" id="t1 p27" stroke="#83CC00" stroke-width="2" x1="217.1032" x2="204.9298" y1="539.9416" y2="557.2482" />
+		<line fill="none" id="t1 p28" stroke="#47CC00" stroke-width="2" x1="204.9298" x2="213.6475" y1="557.2482" y2="522.5205" />
+		<line fill="none" id="t1 p29" stroke="#3CCC00" stroke-width="2" x1="213.6475" x2="191.2642" y1="522.5205" y2="486.9904" />
+		<line fill="none" id="t1 p30" stroke="#00CCC4" stroke-width="2" x1="191.2642" x2="194.7984" y1="486.9904" y2="468.5378" />
+		<line fill="none" id="t1 p31" stroke="#00CCA9" stroke-width="2" x1="194.7984" x2="150.1103" y1="468.5378" y2="325.7300" />
+		<line fill="none" id="t1 p32" stroke="#78CC00" stroke-width="2" x1="150.1103" x2="40.0000" y1="325.7300" y2="118.8537" />
+		<line fill="none" id="t1 p33" stroke="#CCB400" stroke-width="2" x1="40.0000" x2="93.9556" y1="118.8537" y2="110.8308" />
+		<line fill="none" id="t1 p34" stroke="#6DCC00" stroke-width="2" x1="93.9556" x2="238.7796" y1="110.8308" y2="209.5125" />
+		<line fill="none" id="t1 p35" stroke="#6DCC00" stroke-width="2" x1="238.7796" x2="346.3767" y1="209.5125" y2="201.4896" />
+		<line fill="none" id="t1 p36" stroke="#00CCA9" stroke-width="2" x1="346.3767" x2="284.8029" y1="201.4896" y2="92.8366" />
+		<line fill="none" id="t1 p37" stroke="#83CC00" stroke-width="2" x1="284.8029" x2="286.4522" y1="92.8366" y2="97.6503" />
+		<line fill="none" id="t1 p38" stroke="#C9CC00" stroke-width="2" x1="286.4522" x2="280.2477" y1="97.6503" y2="40.0000" />
+		<line fill="none" id="t1 p39" stroke="#3CCC00" stroke-width="2" x1="280.2477" x2="369.0742" y1="40.0000" y2="58.1088" />
+		<line fill="none" id="t1 p40" stroke="#006DCC" stroke-width="2" x1="369.0742" x2="532.4332" y1="58.1088" y2="44.4699" />
+		<line fill="none" id="t1 p41" stroke="#2600CC" stroke-width="2" x1="532.4332" x2="553.0101" y1="44.4699" y2="56.5043" />
+		<line fill="none" id="t1 p42" stroke="#A900CC" stroke-width="2" x1="553.0101" x2="543.8997" y1="56.5043" y2="56.1604" />
+		<line fill="none" id="t1 p43" stroke="#CC008D" stroke-width="2" x1="543.8997" x2="560.0000" y1="56.1604" y2="55.3581" />
+	</g>
+	<g id="T01P01 (t1) label" onmousedown="trackLabelMouseDown(evt,'T01P01 (t1)')" onmousemove="moveGroup(evt,'T01P01 (t1) label')" onmouseout="highlight('T01P01 (t1) label',0)" onmouseover="highlight('T01P01 (t1) label',1)" onmouseup="trackLabelMouseUp(evt,'T01P01 (t1)')" opacity="1" transform="translate(0,0)" x="547.9471" y="57.6504">
+		<text fill="#000000" font-family="Verdana" font-size="10" id="T01P01 (t1) name" opacity="1" text-anchor="middle" x="547.9471" y="57.6504">T01P01
+		</text>
+	</g>
+	<g id="Waypoints">
+		<circle cx="560.8639" cy="51.9197" fill="#000000" fill-opacity="0" id="HOTEL (w1) marker" r="3" stroke="#000000" stroke-opacity="1" stroke-width="1.0" />
+		<circle cx="508.1649" cy="81.9483" fill="#000000" fill-opacity="0" id="CAPITOL (w2) marker" r="3" stroke="#000000" stroke-opacity="1" stroke-width="1.0" />
+		<circle cx="298.9397" cy="108.9970" fill="#000000" fill-opacity="0" id="BSMKTRLL (w3) marker" r="3" stroke="#000000" stroke-opacity="1" stroke-width="1.0" />
+	</g>
+	<g id="Legend" onmousedown="trackGroup(evt,'Legend',1)" onmousemove="moveGroup(evt,'Legend')" onmouseup="trackGroup(evt,'Legend',0)" transform="translate(0,0)" x="6" y="583.248174808941">
+		<text fill="#CC0000" font-family="Verdana" font-size="10" id="legend label 1" text-anchor="start" x="6" y="583.248174808941">5210
+		</text>
+		<text fill="#88CC00" font-family="Verdana" font-size="10" id="legend label 2" text-anchor="start" x="6" y="573.248174808941">5452
+		</text>
+		<text fill="#00CC88" font-family="Verdana" font-size="10" id="legend label 3" text-anchor="start" x="6" y="563.248174808941">5694
+		</text>
+		<text fill="#0005CC" font-family="Verdana" font-size="10" id="legend label 4" text-anchor="start" x="6" y="553.248174808941">5936
+		</text>
+		<text fill="#CC008D" font-family="Verdana" font-size="10" id="legend label 5" text-anchor="start" x="6" y="543.248174808941">6178
+		</text>
+		<text fill="#000000" font-family="Verdana" font-size="10" id="legend header" onmouseout="highlight('Legend',0)" onmouseover="highlight('Legend',1)" text-anchor="start" x="6" y="531.248174808941">Elevation (ft)
+		</text>
+	</g>
+	<g id="Scale" onmousedown="trackGroup(evt,'Scale',1)" onmousemove="moveGroup(evt,'Scale')" onmouseout="highlight('Scale',0)" onmouseover="highlight('Scale',1)" onmouseup="trackGroup(evt,'Scale',0)" transform="translate(0,0)" x="300" y="298.624087404471">
+		<line fill="none" id="scale_line" stroke="#000000" stroke-width="1" x1="242.603787499397" x2="357.396212500603" y1="579.248174808941" y2="579.248174808941" />
+		<line fill="none" id="scale_end1" stroke="#000000" stroke-width="1" x1="242.603787499397" x2="242.603787499397" y1="577.248174808941" y2="581.248174808941" />
+		<line fill="none" id="scale_end2" stroke="#000000" stroke-width="1" x1="357.396212500603" x2="357.396212500603" y1="577.248174808941" y2="581.248174808941" />
+		<text fill="#000000" font-family="Verdana" font-size="10" id="scale_text" text-anchor="middle" x="300" y="577.248174808941">1 nmi
+		</text>
+	</g>
+	<g id="Logo" onmousedown="trackGroup(evt,'Logo',1)" onmousemove="moveGroup(evt,'Logo')" onmouseout="highlight('Logo',0)" onmouseover="highlight('Logo',1)" onmouseup="trackGroup(evt,'Logo',0)" transform="translate(0,0)" x="300" y="594.248174808941">
+		<rect fill="#FFFFFF" height="11" id="logo box" opacity="0.6" width="160" x="220" y="585.248174808941" />
+		<a target="_blank" xlink:href="http://www.gpsvisualizer.com/">
+			<text fill="#000000" font-family="Verdana" font-size="9" id="logo_text" text-anchor="middle" transform="translate(300,594.248174808941) rotate(0) translate(-300,-594.248174808941)" x="300" y="594.248174808941">created by GPSVisualizer.com
+			</text>
+		</a>
+	</g>
+	<g id="Title" onmousedown="trackGroup(evt,'Title',1)" onmousemove="moveGroup(evt,'Title')" onmouseout="highlight('Title',0)" onmouseover="highlight('Title',1)" onmouseup="trackGroup(evt,'Title',0)" transform="translate(0,0)" x="300" y="18.75">
+		<text fill="#000000" font-family="Verdana" font-size="15" id="Title text 1" text-anchor="middle" x="300" y="18.75">Tour of Bismarck
+		</text>
+	</g>
+	<rect fill="none" height="596" id="image_boundary" opacity="0" stroke="#000000" stroke-width="1" width="599" x="0.5" y="0.5" />
+	<script type="text/ecmascript"><![CDATA[
+	function fade(target_id,op,cx,box_size) {
+		var theThing = SVGDoc.getElementById(target_id); // requires "SVGDoc" to have been set
+		theThing.setAttributeNS(null, 'opacity',op);		
+		theSelectionBox = SVGDoc.getElementById('fader selection');
+		theSelectionBox.setAttributeNS(null, 'x',cx-(5.5*box_size)+(box_size*op*10));
+		showSaver(1);
+	}
+	]]>
+	</script>
+	<g id="Fader" opacity="1" transform="translate(0,0), scale(1)" x="563" y="587.248174808941">
+		<rect fill="#000000" fill-opacity="0.0" height="6" id="fader box 0.0" onmousedown="fade('landsat background',0.0,563,6)" stroke="#000000" stroke-width="0.5" width="6" x="530" y="584.248174808941" />
+		<rect fill="#000000" fill-opacity="0.1" height="6" id="fader box 0.1" onmousedown="fade('landsat background',0.1,563,6)" stroke="#000000" stroke-width="0.5" width="6" x="536" y="584.248174808941" />
+		<rect fill="#000000" fill-opacity="0.2" height="6" id="fader box 0.2" onmousedown="fade('landsat background',0.2,563,6)" stroke="#000000" stroke-width="0.5" width="6" x="542" y="584.248174808941" />
+		<rect fill="#000000" fill-opacity="0.3" height="6" id="fader box 0.3" onmousedown="fade('landsat background',0.3,563,6)" stroke="#000000" stroke-width="0.5" width="6" x="548" y="584.248174808941" />
+		<rect fill="#000000" fill-opacity="0.4" height="6" id="fader box 0.4" onmousedown="fade('landsat background',0.4,563,6)" stroke="#000000" stroke-width="0.5" width="6" x="554" y="584.248174808941" />
+		<rect fill="#000000" fill-opacity="0.5" height="6" id="fader box 0.5" onmousedown="fade('landsat background',0.5,563,6)" stroke="#000000" stroke-width="0.5" width="6" x="560" y="584.248174808941" />
+		<rect fill="#000000" fill-opacity="0.6" height="6" id="fader box 0.6" onmousedown="fade('landsat background',0.6,563,6)" stroke="#000000" stroke-width="0.5" width="6" x="566" y="584.248174808941" />
+		<rect fill="#000000" fill-opacity="0.7" height="6" id="fader box 0.7" onmousedown="fade('landsat background',0.7,563,6)" stroke="#000000" stroke-width="0.5" width="6" x="572" y="584.248174808941" />
+		<rect fill="#000000" fill-opacity="0.8" height="6" id="fader box 0.8" onmousedown="fade('landsat background',0.8,563,6)" stroke="#000000" stroke-width="0.5" width="6" x="578" y="584.248174808941" />
+		<rect fill="#000000" fill-opacity="0.9" height="6" id="fader box 0.9" onmousedown="fade('landsat background',0.9,563,6)" stroke="#000000" stroke-width="0.5" width="6" x="584" y="584.248174808941" />
+		<rect fill="#000000" fill-opacity="1.0" height="6" id="fader box 1.0" onmousedown="fade('landsat background',1.0,563,6)" stroke="#000000" stroke-width="0.5" width="6" x="590" y="584.248174808941" />
+		<rect fill="none" height="6" id="fader selection" opacity="1" stroke="#0000FF" stroke-width="1" width="6" x="560" y="584.248174808941" />
+		<text fill="#000000" font-family="Verdana" font-size="7" id="fader text" onmousedown="trackGroup(evt,'Fader',1)" onmousemove="moveGroup(evt,'Fader')" onmouseout="highlight('Fader',0)" onmouseover="highlight('Fader',1)" onmouseup="trackGroup(evt,'Fader',0)" opacity="1" text-anchor="middle" x="563" y="582.248174808941">background opacity
+		</text>
+	</g>
+	<a id="modified_source_link" target="_blank" xlink:href="http://www.gpsvisualizer.com/display/1153244060-21913-user-1120g4u.dsl.mindspring.com-modified.svg" />
+	<a id="localized_jpeg_link" target="_blank" xlink:href="http://www.gpsvisualizer.com/localize?localize_mode=rasterize&amp;local_input=/1153244060-21913-user-1120g4u.dsl.mindspring.com-modified.svg" />
+	<a id="localized_svg_link" target="_blank" xlink:href="http://www.gpsvisualizer.com/localize?localize_mode=embed&amp;local_input=/1153244060-21913-user-1120g4u.dsl.mindspring.com-modified.svg" />
+	<script type="text/ecmascript"><![CDATA[
+	function saveModifiedSource() {
+		var okay_to_continue;
+		if (document.URL.substr(0,4) == 'http') {
+			okay_to_continue = confirm('After you click "OK" or "Yes" in this box, please wait a few moments while your updated SVG file is sent to the server.')
+		} else {
+			alert('Sorry.  For security reasons, you can only save modifications to a file that resides on gpsvisualizer.com.');
+			return;
+		}
+		if (SVGDoc.getElementById('modified_source_link text') != null) {
+			var theThingToDelete = SVGDoc.getElementById('modified_source_link text');
+			theThingToDelete.getParentNode().removeChild(theThingToDelete);
+		}
+		if (SVGDoc.getElementById('localized_jpeg_link text') != null) {
+			var theThingToDelete2 = SVGDoc.getElementById('localized_jpeg_link text');
+			theThingToDelete.getParentNode().removeChild(theThingToDelete2);
+		}
+		if (okay_to_continue) {
+			showSaver(0);
+			var theSource = printNode(document.rootElement);
+			showSaver(1);
+			postURL('http://www.gpsvisualizer.com/save_modified.cgi?/1153244060-21913-user-1120g4u.dsl.mindspring.com.svg',theSource,postIsDone,"image/svg-xml");
+		}
+	}
+	function postIsDone() {
+		if (SVGDoc.getElementById('modified_source_link') != null) {
+			
+			var theExistingModifiedLink = SVGDoc.getElementById('modified_source_link');
+			var newModLinkLabel = SVGDoc.createElementNS(svgns,'text');
+			newModLinkLabel.setAttributeNS(null, 'id', 'modified_source_link text');
+			newModLinkLabel.setAttributeNS(null, 'x', 3); newModLinkLabel.setAttributeNS(null, 'y', 14);
+			newModLinkLabel.setAttributeNS(null, 'fill', '#CC0000'); newModLinkLabel.setAttributeNS(null, 'font-family', 'Verdana');  newModLinkLabel.setAttributeNS(null, 'font-size', '12');
+			var newModLinkText = document.createTextNode('Retrieve modified SVG');
+			newModLinkLabel.appendChild(newModLinkText);
+			theExistingModifiedLink.appendChild(newModLinkLabel);
+
+			var theExistingJPEGLink = SVGDoc.getElementById('localized_jpeg_link');
+			var newJPEGLinkLabel = SVGDoc.createElementNS(svgns,'text');
+			newJPEGLinkLabel.setAttributeNS(null, 'id', 'localized_jpeg_link text');
+			newJPEGLinkLabel.setAttributeNS(null, 'x', 3); newJPEGLinkLabel.setAttributeNS(null, 'y', 28);
+			newJPEGLinkLabel.setAttributeNS(null, 'fill', '#CC0000'); newJPEGLinkLabel.setAttributeNS(null, 'font-family', 'Verdana');  newJPEGLinkLabel.setAttributeNS(null, 'font-size', '12');
+			var newJPEGLinkText = document.createTextNode('Convert modified SVG to JPEG');
+			newJPEGLinkLabel.appendChild(newJPEGLinkText);
+			theExistingJPEGLink.appendChild(newJPEGLinkLabel);
+
+			var theExistingSVGLink = SVGDoc.getElementById('localized_svg_link');
+			var newSVGLinkLabel = SVGDoc.createElementNS(svgns,'text');
+			newSVGLinkLabel.setAttributeNS(null, 'id', 'localized_svg_link text');
+			newSVGLinkLabel.setAttributeNS(null, 'x', 3); newSVGLinkLabel.setAttributeNS(null, 'y', 42);
+			newSVGLinkLabel.setAttributeNS(null, 'fill', '#CC0000'); newSVGLinkLabel.setAttributeNS(null, 'font-family', 'Verdana');  newSVGLinkLabel.setAttributeNS(null, 'font-size', '12');
+			var newSVGLinkText = document.createTextNode('Localize modified SVG (embed background)');
+			newSVGLinkLabel.appendChild(newSVGLinkText);
+			theExistingSVGLink.appendChild(newSVGLinkLabel);
+
+			alert('The modified data has been recorded.  Click "Retrieve modified SVG" to open your new file, or click "Convert modified SVG to JPEG" or "Localize modified SVG" to create a flat JPEG or simplified SVG of your drawing.')
+		}
+	}
+	function saverMouseDown(evt,id) {
+		var theSaver = SVGDoc.getElementById('Saver');
+		if (theSaver.getAttributeNS(null, 'opacity') == 0) { return; }
+		tracking = 1;
+		findGroupClickOffset(evt,id);
+		var scale = SVGRoot.getCurrentScale();
+		var pan = SVGRoot.getCurrentTranslate();
+		global_mouse_x = (evt.getClientX())/scale + (( 0.0 - pan.x ) / scale);
+		global_mouse_y = (evt.getClientY())/scale + (( 0.0 - pan.y ) / scale);
+	}
+	function saverMouseUp(evt,id) {
+		var theSaver = SVGDoc.getElementById('Saver');
+		if (theSaver.getAttributeNS(null, 'opacity') == 0) { return; }
+		// Any time the mouse is lifted off the saver, clear the blue highlights
+		var theGroupTags = SVGDoc.getElementsByTagName('g');
+		for(g=0; g < theGroupTags.length; g++){
+			theGroupTags.item(g).setAttributeNS(null, 'stroke','none');
+			theGroupTags.item(g).setAttributeNS(null, 'stroke-width',0);
+		}
+		tracking = 0;
+		var scale = SVGRoot.getCurrentScale();
+		var pan = SVGRoot.getCurrentTranslate();
+		var current_mouse_x = (evt.getClientX())/scale + (( 0.0 - pan.x ) / scale);
+		var current_mouse_y = (evt.getClientY())/scale + (( 0.0 - pan.y ) / scale);
+		if (current_mouse_x == global_mouse_x && current_mouse_y == global_mouse_y) {
+			saveModifiedSource();
+		}
+	}
+	]]>
+	</script>
+	<g id="Saver" onmousedown="saverMouseDown(evt,'Saver')" onmousemove="moveGroup(evt,'Saver')" onmouseup="saverMouseUp(evt,'Saver')" opacity="0" transform="translate(582,2)" x="582" y="2">
+		<rect fill="#CC0000" height="16" id="saver 1" rx="1.5" ry="1.5" width="16" x="0" y="0" />
+		<rect fill="#FFFFFF" height="8.5" id="saver 2" width="12" x="2" y="0.5" />
+		<rect fill="#999999" height="1" id="saver 3a" width="11" x="2.5" y="2" />
+		<rect fill="#999999" height="1" id="saver 3b" width="11" x="2.5" y="4" />
+		<rect fill="#999999" height="1" id="saver 3c" width="11" x="2.5" y="6" />
+		<rect fill="#CCCCCC" height="5.5" id="saver 4" width="8" x="4" y="10.5" />
+		<rect fill="#CC0000" height="4.5" id="saver 5" width="2" x="5.5" y="11" />
+	</g><!-- debugging stuff:
+ --><!-- min. alt = 1588
+ --><!-- max. alt = 1883
+ --><!-- colorize min = 1588
+ --><!-- colorize max = 1883
+ --><!-- colorize range = 295
+ --><!-- upper left (data) = 46.8318,-100.880733333333
+ --><!-- lower right (data) = 46.7565833333333,-100.770383333333
+ --><!-- upper left (drawing) = 46.8376166791362,-100.889221794871
+ --><!-- lower right (drawing) = 46.7507666541971,-100.761894871795
+ --><!-- center = 46.7941916666666,-100.825558333333
+ --><!-- width,height (pixels) = 600,597.248174808941
+ --><!-- width,height (degrees) = 0.127326923076922,0.0868500249391744
+ --><!-- scale = 45887, resolution = 16.2 m/pixel
+ --><!-- map = http://onearth.jpl.nasa.gov/wms.cgi?request=GetMap&layers=global_mosaic&styles=&srs=EPSG:4326&bbox=-100.8892218,46.7507667,-100.7618949,46.8376167&WIDTH=600&HEIGHT=597&format=image/jpeg
+ --><!-- Google map = http://maps.google.com/maps?q=46.7941916666666+-100.825558333333&ll=46.7941916666666,-100.825558333333&spn=0.0868500249391744,0.127326923076922&t=h
+ --><!-- backgrounds = http://www.gpsvisualizer.com/backgrounds?max_dimension=600&margin=0&mw=-100.889221794871&me=-100.761894871795&ms=46.7507666541971&mn=46.8376166791362&submitted=1
+ --><!-- query = http://www.gpsvisualizer.com/map?drawing_title=Tour%20of%20Bismarck&units=nautical&waypoint_desc=0&waypoint_names=0
+ --><!-- e-mail = 
+ --><!-- 
+	Generated using the Perl SVG Module V2.33
+	by Ronan Oger
+	Info: http://www.roasp.com/
+ -->
+</svg>

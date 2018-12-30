@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+
+		<title>210k RUSA Permanent Boca-Sugarcane</title>
+		<meta name="description" content="Boca Sugarcane:  210 km RUSA Permanent" />
+		<meta name="author" content="Lynne Daniels" />
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+	<link rel="stylesheet" href="../styles/permanents.css">
+	<link rel="stylesheet" href="http://www.waywardpoints.com/rusa/permanents.css">
+
+	</head>
+
+	<body>
+		<header>
+			
+<!-- Add navigation menu to the top of every page -->			
+<!--#include virtual="../includes/header.html" -->
+
+		</header>
+			<div>
+				<img src="1326-oldconnersroad.jpg" />
+			</div>
+				<h1>Boca Sugarcane 210k RUSA Permanent - Route #1326</h1>
+				
+				<h3>Route Owner: Daniel Campos, RUSA #7230</h3>
+				<h3>E-mail:<a href="mailto:dan4810@live.com">dan4810@live.com</a></h3>
+			
+			
+			<nav id="perm_files">
+				
+				<img src="1326-bocasugarcanemap.jpg" />
+				<ul>
+					<li><a href="1326-boca-cane permanent.gpx">GPX File (right click and chose "save as")</a></li>
+					<li><a href="http://ridewithgps.com/routes/1314273">ridewithgps.com map and file downloads</a></li>
+					<li>Cue Sheet - coming soon</li>
+					<li>Permanent Brevet Card - coming soon</li>
+				</ul>
+
+			</nav>
+			<article>
+
+			<h4>Ride Description</h4>
+			<p>
+			This ride begins in suburban Boca Raton and passes through Wellington before making a big loop through sugarcane, agricultural, and ranching areas.  Roads vary from busy thoroughfares to county highways, all with decent shoulders/bike lanes.  The western sections of the ride have few services.  In hot weather, be sure to carry sufficient water out there.
+			</p>	
+<!-- Add text describing general info common to all permanents -->			
+<!--#include virtual="../includes/permanents-footer.html" -->	
+			</article>
+
+		</body>
+</html>

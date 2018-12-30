@@ -1,0 +1,55 @@
+body {
+    font-family: 'Cardo',serif;
+}
+
+.center-item {
+    padding: 50px 10% 25%;
+}
+
+.btn {
+    height: 28px;
+    width: 95px;
+    padding: 0;
+}
+
+.right-side {
+    float: right;
+}
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.vs-spacer-row {
+    min-height: 15px;
+}
+
+.sm-spacer-row {
+    height: 100px;
+}
+
+.md-spacer-row {
+    height: 200px;
+}
+
+.lg-spacer-row {
+    min-height: 250px;
+}
+
+.main-message {
+    font-size: 1.5em;
+    padding: 5% 10%;
+}
+
+.attribution {
+    font-weight: 300;
+    font-size: smaller;
+    padding: 10px 2px;
+    text-align: right;
+}
+
+.panel-heading {
+    text-align: center;
+}
