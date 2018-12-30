@@ -3,7 +3,11 @@ body {
 		font-size : 100%;
 		background-color: #ECEFF1;
 	}
-	
+
+.block {
+	display: block;
+	clear: both;
+}
 .flex-container{
 	display: flex;
 	display: -webkit-flex;
@@ -28,6 +32,9 @@ body {
 	background-color: #CFD8DC;
 	display: inline-block; /* needed for IE */
 	min-width: 250px;
+	align-items: center;
+	justify-content: center;
+
 }	
 .description{
 	max-width: 245px;
@@ -63,7 +70,8 @@ h4{
 header{
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0 0 20px;
-	background-color: #CFD8DC; 	border-radius: 7px;
+	background-color: #CFD8DC; 
+	border-radius: 7px;
 }	
 
 
