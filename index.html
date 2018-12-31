@@ -18,12 +18,12 @@
 			<div class="left">
 				<h1>Lynne Daniels</h1>
 			</div>
-			<button id="hamburger" class="right">
+			<div id="hamburger" class="right button hamburger">
 				<img onclick="" src="images/down-arrow-menu-icon.svg" alt="small screen menu slide into viewport" class="mobile-only-icon" id="down">
-				<img src="images/up-arrow-menu-icon.svg" alt="small screen menu slide out of viewport" class="mobile-only-icon" id="up">
-			</button>
+				<img src="images/up-arrow-menu-icon.svg" alt="small screen menu slide out of viewport" class="mobile-only-icon gone" id="up">
+			</div>
 		</div>
-		<div class="menu">
+		<div class="menu gone" id="menu">
 
 			<div class="header contrast flex-row" id="action-item">
 				<a href="https://github.com/Lynne-Daniels"><img src="images/GitHub-Mark-32px.png"> Git Hub</a> <a href="https://www.linkedin.com/in/lkdaniels"><img src="images/Logo-2C-28px-R.png"></a>
@@ -52,10 +52,9 @@
 			</div>
 		</div><!--end menu-->
 		<div class="flex-row">
-				<h2 class="block">Web Applications</h2>
+				<h2 class="h2">Web Applications</h2>
 		</div>
 		<main class="flex-row">
-			<!-- <div class="flex-container"> -->
 				<div class="flex-item">
 					<a href="random-quote-generator/index.html" target="_blank">
 						<div>
@@ -145,7 +144,6 @@
 						</div>
 					</a>
 				</div>
-			<!-- </div>flex-container -->
 	  </main>
 	</div>
 	<script>
@@ -161,14 +159,26 @@
 		console.log(currentIcon);
 		const remove = (element) => {
 			element.classList.add("gone");
-			element.id
+			// menu.classList.add("gone");
 		}
 		const display = (element) => {
 			element.classList.remove("gone");
+			// menu.classList.remove("gone");
 		}
-		remove(upArrow);
-		setTimeout(()=>display(upArrow), 2000);
-		// display(upArrow);
+		const handleClick = (e) => {
+			e.stopPropagation();
+      let isGone = menu.classList.contains('gone');
+			if (isGone) {
+				display(upArrow);
+				remove(downArrow);
+				menu.classList.remove('gone');
+			} else {
+				display(downArrow);
+				remove(upArrow);
+				menu.classList.add('gone');
+			}
+		}
+    hamburger.addEventListener('click', handleClick);
 	</script>
 </body>
 </html>

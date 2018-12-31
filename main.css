@@ -18,6 +18,10 @@ html{
 	height: 100%;
 }
 
+.button{
+	height: 48px;
+	width: 48px;
+}
 body {
 		font-family: 'Source Sans Pro', Arial, helvetica, sans-serif;
 		font-size : 100%;
@@ -28,12 +32,7 @@ body {
 		background-attachment: fixed;
 		margin: 0;
 	}
-/* make all the elements the same height */
-.flex-container {
-	align-items: center;
-	border: 1px solid blue;
-	display: flex;
-}
+
 /* center in very large screens	 */
 .container {
 	max-width: 1600px;
@@ -47,13 +46,6 @@ body {
 	clear: both;
 }
 
-.gone {
-  display: none;
-}
-.menu {
-	border: 5px solid gold;
-}
-
 .flex-row{
 	display: flex;
 	display: -webkit-flex;
@@ -62,28 +54,17 @@ body {
 	flex-flow: row wrap;
 	-webkit-flex-flow: row wrap;
 	padding: 0%;
-	border: 1px solid greenyellow;
 	width: 100%;
 	align-items: center;
+	min-height: 3rem;
 }
-/* .flex-row {
- -webkit-flex:1 1 auto;
-  flex: 1 1 auto;
-}	 */
 
 .flex-item{
-	/* shorthand for below */
-	/* flex: 0 1 auto; */
-	/* flex-grow: 0;
-	flex-shrink: 0;
-	flex-basis: auto; */
 	align-self: stretch;
 	box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	padding: 1em;
 	border-radius: 7px;
 	margin: 7px 7px 7px 7px;
-	/* background-color: #CFD8DC; */
-	/* background-color: #E5DACE; */
 	background-color: var(--card-bg-color);
 	display: inline-block; /* needed for IE */
 	min-width: 250px;
@@ -116,8 +97,12 @@ h1{
 }
 h2, h3{
 	padding: 5px;
-	margin: 0px;
+	margin: 0;
 }
+/* .h2 {
+	height: 4rem;
+	line-height: 4rem;
+} */
 h4{
 	margin: .7em 0em .7em 0em;
 }
@@ -178,8 +163,6 @@ nav {
 	margin: .7em .7em .7em .7em;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border: none;
-	/* background-color: #CFD8DC; */
-	/* background-color: #E5DACE; */
 	background-color: var(--card-bg-color);
 	float: left;
 	border-radius: 7px;
@@ -233,7 +216,7 @@ width: 80px;
 }
 
 .mobile-only-icon {
-	border: 1px solid gold;
+	/* border: 1px solid gold; */
 }
 
 @media (max-width: 700px) {
@@ -255,13 +238,13 @@ width: 80px;
     -ms-flex-order: 1;
     -webkit-order: 1;
     order: 1;
-  
-  }
 
+  }
 }
 @media (max-width: 400px) {
-
-	
+	.gone {
+		display: none;
+	}
   .flex-item, .nav_list {
 	  margin: .2em auto;
     width: 90%
@@ -272,5 +255,9 @@ width: 80px;
 	.nav_list ul {
 		width: 100%;
 	}
-
+}
+@media(min-width: 401px) {
+	.hamburger {
+		display: none;
+	}
 }
