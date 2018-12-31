@@ -1,25 +1,25 @@
 body {
-		font-family:Arial, helvetica, sans-serif;
-		font-size : 100%;
-		background-color: #ECEFF1;
-	}
-	
+	font-family:Arial, helvetica, sans-serif;
+	font-size : 100%;
+	background-color: #ECEFF1;
+}
+
 .flex-container{
 	display: flex;
 	display: -webkit-flex;
 	flex-direction: row;
-	 -webkit-flex-direction: row;
+	-webkit-flex-direction: row;
 	flex-flow: row wrap;
 	-webkit-flex-flow: row wrap;
 	padding: 0%;
-	
+
 }
 .flex-container:first-child {
- -webkit-flex:1 0 auto;
+	-webkit-flex:1 0 auto;
 }	
 
 .flex-item{
-	
+
 	border: 6px solid #607D8B;
 	border-radius: 7px;
 	padding: 1em;
@@ -28,7 +28,7 @@ body {
 	display: inline-block; /* needed for IE */
 	min-width: 250px;
 }	
-	
+
 h1{
 	font-size: 200%;
 	margin: 10px 0px 0px 10px;
@@ -42,7 +42,7 @@ h2, h3{
 header{
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0 0 20px;
-	background-color: #CFD8DC; 	border-radius: 7px;
+	background-color: #CFD8DC; 	border-radius: 7px;
 }	
 
 #action-item{
@@ -51,7 +51,7 @@ header{
 	padding: 2px 0px 0px 0px;
 	display: block;
 	clear: both;
-	
+
 }	
 /* Formats clickable Buttons in column on right side of screen*/
 
@@ -59,15 +59,15 @@ nav {
 	display: block;
 	clear: both;
 	float: left;
-	
-	
+
+
 }
 
 #nav_list ul{
-		list-style: none;
+	list-style: none;
 	margin: 0px 0px 0px 0px;
 	padding: 0;
-	
+
 }
 #nav_list li{
 	width: 130px;
@@ -114,20 +114,20 @@ nav {
 }	
 
 footer{font-size: 60%;
-		color: gray;
-	}
-	
+	color: gray;
+}
+
 a{
 	color: black;
 }
 .project-image{
-width: 80px;
+	width: 80px;
 	height: 80px;
 	background-color: #607D8B;
 	border-radius: 50%;
 	border:black solid 1px;
 	margin: 10px auto 10px;
-}
-#action-item a{
+	}
+	#action-item a{
 	margin: 0px 10px 0px 10px; 
 }

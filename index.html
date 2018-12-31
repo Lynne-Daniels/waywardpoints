@@ -13,134 +13,162 @@
 	<link href="main.css" rel="stylesheet">
 </head>
 <body>
-	<header>
-		<h1>Lynne Daniels</h1>
-	</header> 
-	
-	
-	<div id="action-item">
-		<a href="https://github.com/Lynne-Daniels"><img src="images/GitHub-Mark-32px.png"> Git Hub</a> <a href="https://www.linkedin.com/in/lkdaniels"><img src="images/Logo-2C-28px-R.png"></a>
-		<a href="https://codepen.io/lynne33477"><img src="images/codepen-28-px.png"></a> <a href="https://www.freecodecamp.com/lynne-daniels"><img src=
-		"images/free-code-camp-logo-28.png"></a>
-	</div>
+	<div class="container">
+		<div class="header">
+			<div class="left">
+				<h1>Lynne Daniels</h1>
+			</div>
+			<button id="hamburger" class="right">
+				<img onclick="" src="images/down-arrow-menu-icon.svg" alt="small screen menu slide into viewport" class="mobile-only-icon" id="down">
+				<img src="images/up-arrow-menu-icon.svg" alt="small screen menu slide out of viewport" class="mobile-only-icon" id="up">
+			</button>
+		</div>
+		<div class="menu">
 
-	
-	<div class="block">
-		<nav class="nav_list">
-			<ul>
-				<li>
-					<a href="blog">Blog</a>
-				</li>
-				<li>
-					<a href="before2014">Pre 2014</a>
-				</li>
-				<li>
-					<a href="http://www.facebook.com/lynne.daniels">Facebook</a>
-				</li>
-				<li>
-					<a href="spot-gps-tracker.html">GPS Tracker</a>
-				</li>
-			</ul>
-		</nav>
+			<div class="header contrast flex-row" id="action-item">
+				<a href="https://github.com/Lynne-Daniels"><img src="images/GitHub-Mark-32px.png"> Git Hub</a> <a href="https://www.linkedin.com/in/lkdaniels"><img src="images/Logo-2C-28px-R.png"></a>
+				<a href="https://codepen.io/lynne33477"><img src="images/codepen-28-px.png"></a> <a href="https://www.freecodecamp.com/lynne-daniels"><img src=
+				"images/free-code-camp-logo-28.png"></a>
+			</div>
+
+			
+			<div class="flex-row">
+				<nav class="nav_list">
+					<ul>
+						<li>
+							<a href="blog">Blog</a>
+						</li>
+						<li>
+							<a href="before2014">Pre 2014</a>
+						</li>
+						<li>
+							<a href="http://www.facebook.com/lynne.daniels">Facebook</a>
+						</li>
+						<li>
+							<a href="spot-gps-tracker.html">GPS Tracker</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div><!--end menu-->
+		<div class="flex-row">
+				<h2 class="block">Web Applications</h2>
+		</div>
+		<main class="flex-row">
+			<!-- <div class="flex-container"> -->
+				<div class="flex-item">
+					<a href="random-quote-generator/index.html" target="_blank">
+						<div>
+							<div class="project-title">
+								<h4>Random Quote Generator</h4>
+								<h5>A Freecodecamp Project </h5><img class="tiny-logo" src="images/free-code-camp-logo-28.png">
+							</div>
+							<img class="project-image" src="images/quotegenerator.jpg">
+							<div class="description">
+								<ul>
+									<li>AJAX request to quotesondesign.com</li>
+									<li>JQuery updates DOM after JSON received</li>
+									<li>Javascript changes page color</li>
+								</ul>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="flex-item">
+					<a href="timer/index.html" target="_blank">
+						<div>
+							<div class="project-title">
+								<h4>Interval Workout Timer</h4>
+								<h5>A Freecodecamp Project </h5><img class="tiny-logo" src="images/free-code-camp-logo-28.png">
+							</div>
+							<img class="project-image" src="images/timer.jpg">
+							<div class="description">
+								<ul>
+									<li>Timer</li>
+									<li>Javascript</li>
+									<li>Flex-box, responsive</li>
+								</ul>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="flex-item">
+					<a href="wikipedia-viewer/index.html" target="_blank">
+						<div>
+							<div class="project-title">
+								<h4>Wikipedia Viewer</h4>
+								<h5>A Freecodecamp Project </h5><img class="tiny-logo" src="images/free-code-camp-logo-28.png">
+							</div>
+							<img class="project-image" src="images/wikiviewer.jpg">
+							<div class="description">
+								<ul>
+									<li>Wikipedia API, AJAX, JSONP</li>
+									<li>Search</li>
+									<li>Bootstrap, JQuery</li>
+								</ul>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="flex-item">
+					<a href="udacityproject5/index.html" target="_blank">
+						<div>
+							<div class="project-title">
+								<h4>Bike Trail Map</h4>
+								<h5>A Udacity Project </h5>
+								<img class="tiny-logo" src="images/udacity-logo.png"> <img class="project-image" src="images/neighborhoodmap.jpg">
+							</div>
+							<div class="description">
+								<ul>
+									<li>GIS data, Google Maps API</li>
+									<li>Knockout - Model View ViewModel</li>
+									<li>Strava API, AJAX</li>
+								</ul>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="flex-item">
+						<a href="road-trip-to-michigan-summer-2015.html" target="_blank">
+						<div>
+							<div class="project-title">
+								<h4>Vacation Journal</h4>
+								<h5>A Personal Project</h5>
+							</div>
+							<img class="project-image" src="images/heartrategraph.jpg">
+							<div class="description">
+								<ul>
+									<li>HTML5 Canvas</li>
+									<li>Data Visualization</li>
+								</ul>
+							</div>
+						</div>
+					</a>
+				</div>
+			<!-- </div>flex-container -->
+	  </main>
 	</div>
-	<main class="block">
-		<div class="flex-container">
-			<div class="flex-item">
-				<a href="random-quote-generator/index.html" target="_blank">
-					<div>
-						<div class="project-title">
-							<h4>Random Quote Generator</h4>
-							<h5>A Freecodecamp Project </h5><img class="tiny-logo" src="images/free-code-camp-logo-28.png">
-						</div>
-						<img class="project-image" src="images/quotegenerator.jpg">
-						<div class="description">
-							<ul>
-								<li>AJAX request to quotesondesign.com</li>
-								<li>JQuery updates DOM after JSON received</li>
-								<li>Javascript changes page color</li>
-							</ul>
-						</div>
-					</div>
-				</a>
-			</div>
-			<div class="flex-item">
-				<a href="timer/index.html" target="_blank">
-					<div>
-						<div class="project-title">
-							<h4>Interval Workout Timer</h4>
-							<h5>A Freecodecamp Project </h5><img class="tiny-logo" src="images/free-code-camp-logo-28.png">
-						</div>
-						<img class="project-image" src="images/timer.jpg">
-						<div class="description">
-							<ul>
-								<li>Timer</li>
-								<li>Javascript</li>
-								<li>Flex-box, responsive</li>
-							</ul>
-						</div>
-					</div>
-				</a>
-			</div>
-			<div class="flex-item">
-				<a href="wikipedia-viewer/index.html" target="_blank">
-					<div>
-						<div class="project-title">
-							<h4>Wikipedia Viewer</h4>
-							<h5>A Freecodecamp Project </h5><img class="tiny-logo" src="images/free-code-camp-logo-28.png">
-						</div>
-						<img class="project-image" src="images/wikiviewer.jpg">
-						<div class="description">
-							<ul>
-								<li>Wikipedia API, AJAX, JSONP</li>
-								<li>Search</li>
-								<li>Bootstrap, JQuery</li>
-							</ul>
-						</div>
-					</div>
-				</a>
-			</div>
-			<div class="flex-item">
-				<a href="udacityproject5/index.html" target="_blank">
-					<div>
-						<div class="project-title">
-							<h4>Bike Trail Map</h4>
-							<h5>A Udacity Project </h5>
-							<img class="tiny-logo" src="images/udacity-logo.png"> <img class="project-image" src="images/neighborhoodmap.jpg">
-						</div>
-						<div class="description">
-							<ul>
-								<li>GIS data, Google Maps API</li>
-								<li>Knockout - Model View ViewModel</li>
-								<li>Strava API, AJAX</li>
-							</ul>
-						</div>
-					</div>
-				</a>
-			</div>
-			<div class="flex-item">
-					<a href="road-trip-to-michigan-summer-2015.html" target="_blank">
-					<div>
-						<div class="project-title">
-							<h4>Vacation Journal</h4>
-							<h5>A Personal Project</h5>
-						</div>
-						<img class="project-image" src="images/heartrategraph.jpg">
-						<div class="description">
-							<ul>
-								<li>HTML5 Canvas</li>
-								<li>Data Visualization</li>
-							</ul>
-						</div>
-					</div>
-				</a>
-			</div>
-		</div><!--flex-container-->
-	</main>
-	
 	<script>
 		var targetDiv = document.getElementById("action-item");
 		var email = "<a href=mailto:"+((unescape("%6C%79%6E%6E%65%40%77%61%79%77%61%72%64%70%6F%69%6E%74%73%2E%63%6F%6D%0A%0A%09%09%09")))+ "><img src='images/email.png'><\/a>";
 		targetDiv.innerHTML += email;
+
+		const hamburger = document.getElementById("hamburger");
+		const downArrow = document.getElementById("down");
+		const upArrow = document.getElementById("up");
+		const menu = document.getElementById("menu");
+		let currentIcon = downArrow;
+		console.log(currentIcon);
+		const remove = (element) => {
+			element.classList.add("gone");
+			element.id
+		}
+		const display = (element) => {
+			element.classList.remove("gone");
+		}
+		remove(upArrow);
+		setTimeout(()=>display(upArrow), 2000);
+		// display(upArrow);
 	</script>
 </body>
 </html>

@@ -28,12 +28,33 @@ body {
 		background-attachment: fixed;
 		margin: 0;
 	}
-
-.block {
-	display: block;
+/* make all the elements the same height */
+.flex-container {
+	align-items: center;
+	border: 1px solid blue;
+	display: flex;
+}
+/* center in very large screens	 */
+.container {
+	max-width: 1600px;
+	margin: auto;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.stacked-full-width {
+	display: flex;
 	clear: both;
 }
-.flex-container{
+
+.gone {
+  display: none;
+}
+.menu {
+	border: 5px solid gold;
+}
+
+.flex-row{
 	display: flex;
 	display: -webkit-flex;
 	flex-direction: row;
@@ -41,16 +62,23 @@ body {
 	flex-flow: row wrap;
 	-webkit-flex-flow: row wrap;
 	padding: 0%;
-	
+	border: 1px solid greenyellow;
+	width: 100%;
+	align-items: center;
 }
-.flex-container {
- -webkit-flex:1 0 auto;
-
-}	
+/* .flex-row {
+ -webkit-flex:1 1 auto;
+  flex: 1 1 auto;
+}	 */
 
 .flex-item{
-	
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	/* shorthand for below */
+	/* flex: 0 1 auto; */
+	/* flex-grow: 0;
+	flex-shrink: 0;
+	flex-basis: auto; */
+	align-self: stretch;
+	box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	padding: 1em;
 	border-radius: 7px;
 	margin: 7px 7px 7px 7px;
@@ -93,25 +121,33 @@ h2, h3{
 h4{
 	margin: .7em 0em .7em 0em;
 }
-header{
+.header{
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0 0 20px;
-	/* background-color: #CFD8DC;  */
-	/* background-color: #E5DACE; */
 	background-color: var(--card-bg-color);
-	/* border-radius: 7px; */
+	background-size: 100%;
+	display: inline-block;
+	width: 100%;
+	box-sizing: border-box;
 }	
 
-
-#action-item{
-	/* background-color: #FFC400; */
-	/* background-color: #E7BAA0; */
+.contrast {
 	background-color: var(--action-item-color);
-	/* border-radius: 7px; */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	padding: 1rem 0;
 	display: block;
+}
+
+.right {
+	float: right;
+	/* display: block; */
+}
+
+.left{
+	float: left;
+}
+#action-item{
 	clear: both;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #action-item a {
@@ -196,6 +232,10 @@ width: 80px;
 	float: left;
 }
 
+.mobile-only-icon {
+	border: 1px solid gold;
+}
+
 @media (max-width: 700px) {
 	.nav_list li{
 	width: 98%;
@@ -222,9 +262,15 @@ width: 80px;
 @media (max-width: 400px) {
 
 	
-  .flex-item {
-	margin: .2em 2.2em .2em .2em;
-    width: 98%
-  }
+  .flex-item, .nav_list {
+	  margin: .2em auto;
+    width: 90%
+	}
+  .nav_list{
+		width: 100%;
+	}
+	.nav_list ul {
+		width: 100%;
+	}
 
 }
