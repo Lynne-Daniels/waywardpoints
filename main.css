@@ -22,6 +22,9 @@ html{
 	height: 48px;
 	width: 48px;
 }
+.padded {
+	padding: 1rem;
+}
 body {
 		font-family: 'Source Sans Pro', Arial, helvetica, sans-serif;
 		font-size : 100%;
@@ -62,7 +65,7 @@ body {
 .flex-item{
 	align-self: stretch;
 	box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	padding: 1em;
+	/* padding: 1rem; */
 	border-radius: 7px;
 	margin: 7px 7px 7px 7px;
 	background-color: var(--card-bg-color);
@@ -99,10 +102,7 @@ h2, h3{
 	padding: 5px;
 	margin: 0;
 }
-/* .h2 {
-	height: 4rem;
-	line-height: 4rem;
-} */
+
 h4{
 	margin: .7em 0em .7em 0em;
 }
@@ -201,16 +201,25 @@ nav {
 }
 #nav_bar a.current {
 	color:yellow;
-}	
-a{
+}
+
+a {
 	color: black;
 }
+
+.link {
+	color: var(--text-color);
+	display: block;
+	height: 100%;
+	text-decoration: none;
+}
+
 .project-image{
 width: 80px;
 	height: 80px;
-	background-color: #607D8B;
+	background-color: var(--body-bg--dark-color);
 	border-radius: 50%;
-	border:black solid 1px;
+	border:var(--text-color) solid 1px;
 	margin: 10px 10px 10px auto;
 	float: left;
 }
