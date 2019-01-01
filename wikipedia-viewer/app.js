@@ -35,7 +35,7 @@ function updateresults(json)
 	{
 		var wikiLink1 = '',
 			wikiLink2 = ''; // this will appear on the page as link to a search result
-		console.log('updating results' + json);
+		console.log('updating results' + JSON.stringify(json));
 		if (json[1].length < 1)
 		{ //No results, add an error message
 			$('#wiki-search-results').html('<div class = "err-div">No results found<div>');
@@ -50,11 +50,11 @@ function updateresults(json)
 			{
 				wikiLink1 = '<div class = "link-list"><a href = ' + json[3][i] + '> <b>' + json[1][i] + ': </b> No description available </a></div>';
 			}
-			if (json[2][i + 1].length > 0)
+			if (json[2][i+1] && json[2][i + 1].length > 0)
 			{
 				wikiLink2 = '<div class = "link-list"><a href = ' + json[3][i + 1] + '> <b>' + json[1][i + 1] + ': </b> ' + json[2][i + 1] + '</a></div>';
 			}
-			else
+			else if (json[1][i + 1])
 			{
 				wikiLink2 = '<div class = "link-list"><a href = ' + json[3][i + 1] + '> <b>' + json[1][i + 1] + ': </b> No description available </a></div>';
 			}
