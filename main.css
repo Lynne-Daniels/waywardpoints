@@ -1,18 +1,24 @@
-:root {
+/* :root {
 	--body-bg--light-color: #B2B2A2;
 	--body-bg--dark-color: #6D7973;
 	--card-bg-color: #E5DACE;
 	--action-item-color: #E7BAA0;
 	--text-color: #3F3931;
-}
-
-/* :root {
-	--body-bg--light-color: white;
-	--body-bg--dark-color: lightblue;
-	--card-bg-color: pink;
-	--action-item-color: yellow;
-	--text-color: brown;
+	--text-accent-color: #3F3931;
+	--top-banner-background: #E5DACE;
+	--top-banner-text: #3F3931;
 } */
+
+:root {
+	--body-bg--light-color: #EFEFEF;
+	--body-bg--dark-color: #BFBEBF;
+	--card-bg-color: #FEFEFE;
+	--action-item-color: #A3C1C6;
+	--text-color: #49494B;
+	--text-accent-color: #5294CB;
+	--top-banner-background: #EFEFEF;
+	--top-banner-text: #49494B;
+}
 
 html{
 	height: 100%;
@@ -60,6 +66,7 @@ body {
 	width: 100%;
 	align-items: center;
 	min-height: 3rem;
+	justify-content: space-around;
 }
 
 .flex-item{
@@ -77,7 +84,7 @@ body {
 }	
 
 .description{
-	max-width: 245px;
+	width: 245px;
 	font-size: .8em;
 	margin-right: 0px;
 }
@@ -88,6 +95,7 @@ body {
 }
 h5{
 	display:inline;
+	color: var(--text-accent-color);
 }
 .tiny-logo{
 	clear: left;
@@ -114,6 +122,9 @@ h4{
 	display: inline-block;
 	width: 100%;
 	box-sizing: border-box;
+	background-color: var(--top-banner-background);
+	/* background-image: linear-gradient(to bottom right, var(--body-bg--light-color), var(--body-bg--dark-color)); */
+	color: var(--top-banner-text);
 }	
 
 .contrast {
