@@ -50,6 +50,10 @@ $(document).ready(function() //delay everything until page has loaded.
                     $('#quote-source').text('');
                 }
             },
+            error: function(req, status, error) {
+                $('#quote-title').text(error);
+                $('#quote-content').html(status.toUpperCase() + ': ' + $.parseJSON(req.responseText)[0].message);
+            },
             cache: false
         });
     });
