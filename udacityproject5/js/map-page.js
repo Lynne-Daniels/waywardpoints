@@ -215,6 +215,8 @@ function loadStrava() {
 		dataType: 'jsonp',
 		success: function(response) {
 			var leaderList = response;
+			// TODO check out strava API - https://www.strava.com/api/v3/segments/1179271/leaderboard?&access_token=5a056ffacbea314928b43827ec071886b170dfeb
+			// no longer returns any type of image.  May need a second request to load profile data.
 			for (var i = 0; i < leaderList.entries.length; i++) {
 // TODO For this to work, must have avatar/athlete/large.png (This is a kludge - Strava's API returns a local path when there is no image.  Should be updated to use CSS/HTML instead.)
 
