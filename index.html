@@ -12,6 +12,15 @@
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 	<link href="main.css" rel="stylesheet">
 </head>
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-48097422-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-48097422-2');
+</script>
 <body>
 	<div class="container">
 		<div class="header">
@@ -56,7 +65,11 @@
 		</div>
 		<main class="flex-row">
 			<div class="flex-item">
-				<a href="https://github.com/Lynne-Daniels/minesweep" class="link" target="_blank">
+				<a href="https://github.com/Lynne-Daniels/minesweep"
+					 onclick="trackOutboundLink('https://github.com/Lynne-Daniels/minesweep'); return false;"
+					 class="link"
+					 target="_blank"
+				>
 					<div class="padded">
 						<div class="project-title">
 							<h4>Minesweeper</h4>
@@ -172,7 +185,8 @@
 						</div>
 					</a>
 				</div>
-				<div class="flex-item">
+				<!-- TODO set up payments and limits on googlemaps api, see what changed with strava images -->
+				<!-- <div class="flex-item">
 					<a class="link" href="udacityproject5/index.html" target="_blank">
 						<div class="padded">
 							<div class="project-title">
@@ -189,7 +203,7 @@
 							</div>
 						</div>
 					</a>
-				</div>
+				</div> -->
 				<div class="flex-item">
 						<a class="link" href="road-trip-to-michigan-summer-2015.html" target="_blank">
 						<div class="padded">
@@ -242,6 +256,22 @@
 			}
 		}
     hamburger.addEventListener('click', handleClick);
+	</script>
+	<script>
+		/**
+		* Function that tracks a click on an outbound link in Analytics.
+		* This function takes a valid URL string as an argument, and uses that URL string
+		* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+		* using 'navigator.sendBeacon' in browser that support it.
+		*/
+		var trackOutboundLink = function(url) {
+			gtag('event', 'click', {
+				'event_category': 'outbound',
+				'event_label': url,
+				'transport_type': 'beacon',
+				'event_callback': function(){document.location = url;}
+			});
+		}
 	</script>
 </body>
 </html>
